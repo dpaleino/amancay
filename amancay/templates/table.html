@@ -1,0 +1,19 @@
+
+{% if bug_list %}
+<span class="table_title">{{ table_title }}</span>
+<table class="bugs">
+	<tr>
+		<th>Package</th>
+		<th>Title</th>
+		<th>Status</th>
+	</tr>
+	{% for bug in bug_list %}
+	<tr class="{{ bug.severity }}">
+		<td>{{ bug.package }}</td>
+		<td>{{ bug.subject|slice:":45" }}
+		{% if bug.subject|slice:":45"|length_is:45 %}...{% endif %} </td>
+		<td>{{ bug.pending }}</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endif %}

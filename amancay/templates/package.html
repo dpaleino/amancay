@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Amancay BTS interface - Package View{% endblock %}
+
+{% block main_content %}
+
+{% if bug_list %}
+<div class="package_bugs">
+<span class="table_title">Package bugs</span>
+<table class="bugs">
+	<tr>
+		<th>Date reported</th>
+		<th>Title</th>
+		<th>Tags</th>
+		<th>Status</th>
+	</tr>
+	{% for bug in bug_list %}
+	<tr class="{{ bug["severity"] }}">
+		<td>{{ bug["date"] }}</td>
+		<td>{{ bug["title"] }}</td>
+		<td>{{ bug["tags"] }}</td>
+		<td>{{ bug["status"] }}</td>
+	</tr>
+	{% endfor %}
+</table>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block footer %}
+<p align="right">
+{% if current_user.is_authenticated %}
+Currently logged in as {{ current_user }} - <a href="/accounts/logout">Log out</a>.
+{% else %}
+You are browsing as an Anonymous User -  <a href="/accounts/login">Log in</a>
+{% endif %}
+</p>
+
+{% endblock %}
+
+

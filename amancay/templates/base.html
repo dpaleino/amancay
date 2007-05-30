@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+	<script type="text/javascript" src="/static/MochiKit.js"></script> 
+	<script type="text/javascript" src="/static/amancay_interface.js"></script> 
+	<link rel="stylesheet" href="/static/amancay.css" type="text/css" />
+</head>
+<body>
+    <div class="header">
+	{% block content_header %}Amancay{% endblock %}
+	</div>
+
+	<div class="body">
+	    <div class="main">
+		{% block main_content %}{% endblock %}
+		</div>
+
+		<div class="sidebar">{% block sidebar %}{% endblock %}</div>
+	</div>
+
+	<div class="footer">
+    {% block footer %}
+    <p align="right">Powered by Python</p>
+	{% endblock %}
+	</div>
+</body>
+</html>

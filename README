@@ -1,0 +1,15 @@
+
+This is an interactive web interface for Debian's BTS.
+
+It uses Django as the server-side framework, and MochiKit as the javascript
+client side helper.
+
+In order to run this, you need to have python and django installed.  The
+Django version this program was tested against is 0.95, then one included
+in Debian.
+
+Packages to install
+-------------------
+
+apt-get install python python-django
+

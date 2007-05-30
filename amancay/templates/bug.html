@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Amancay BTS interface - Bug view{% endblock %}
+
+{% block main_content %}
+
+{% endblock %}
+{% block footer %}
+<p align="right">
+{% if current_user.is_authenticated %}
+Currently logged in as {{ current_user }} - <a href="/accounts/logout">Log out</a>.
+{% else %}
+You are browsing as an Anonymous User -  <a href="/accounts/login">Log in</a>
+{% endif %}
+</p>
+
+{% endblock %}
+
+
