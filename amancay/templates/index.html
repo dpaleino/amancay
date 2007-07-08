@@ -4,94 +4,11 @@
 
 {% block main_content %}
 
-<div class="owned_bugs">
-<div id="submitted_bugs" class="submitted">
-<span class="loading">Loading submitted bugs...</span>
-</div>
-
-<div id="received_bugs" class="received">
-<span class="loading">Loading received bugs...</span>
-</div>
-</div>
-
-<div class="chosen_bugs">
-<div id="package_bugs" class="packages">
-<span class="loading">Loading package bugs...</span>
-</div>
-
-<div id="selected_bugs" class="received">
-<span class="loading">Loading selected bugs...</span>
-</div>
-</div>
-
-<div class="chosen_bugs">
-<div class="packages">
-Selected packages:
-<form name="add_package" id="add_package" action="/index/" method="POST" >
-	<input type="text" name="package_name" id="package_name"
-	value="" />
-	<input type="submit" value="Add" />
-</form>
-<form name="package_selection" id="package_selection" action="/index/"
-method="POST">
-{% if package_list %}
-<table name="package_list" id="package_list">
-    {% for package in package_list %}
-        <tr>
-			<td class="package_select">
-				<input type="checkbox" name="package_select"
-				       id="package_select" value="{{ package }}" />
-			</td>
-			<td class="package_name">{{ package }}</td>
-		</tr>
-    {% endfor %}
-</table>
-<input type="submit" value="Remove" />
-{% else %}
-    <p>There are no selected packages.</p>
-{% endif %}
-</form>
-</div>
-
-<div class="bugs">
-Selected bugs:
-<form name="add_bug" id="add_bug" action="/index/" method="POST" >
-	<input type="text" name="bug_number" id="bug_number" value="" />
-	<input type="submit" value="Add" />
-</form>
-<form name="bug_selection" id="bug_selection" action="/index/"
-method="POST">
-{% if bug_list %}
-<table name="bug_list" id="bug_list">
-    {% for bug in bug_list %}
-        <tr>
-			<td class="bug_select">
-				<input type="checkbox" name="bug_select"
-				       id="bug_select" value="{{ bug }}" />
-			</td>
-			<td class="bug_number">{{ bug }}</td>
-		</tr>
-    {% endfor %}
-</table>
-<input type="submit" value="Remove" />
-{% else %}
-    <p>There are no selected bugs.</p>
-{% endif %}
-</form>
-</div>
-
+<div id="bug_list" class="bug_list">
+{% block bug_list %}
+{% include "table.html" %}
+{% endblock %}
 </div>
 
 {% endblock %}
-{% block footer %}
-<p align="right">
-{% if current_user.is_authenticated %}
-Currently logged in as {{ current_user }} - <a href="/accounts/logout">Log out</a>.
-{% else %}
-You are browsing as an Anonymous User -  <a href="/accounts/login">Log in</a>
-{% endif %}
-</p>
-
-{% endblock %}
-
 

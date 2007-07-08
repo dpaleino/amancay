@@ -7,22 +7,55 @@
 	<link rel="stylesheet" href="/static/amancay.css" type="text/css" />
 </head>
 <body>
+	<div class="appname">Amancay</div>
     <div class="header">
-	{% block content_header %}Amancay{% endblock %}
+	{% block content_header %}
+	<div class="topnav">
+		{% if current_user.is_authenticated %}
+		<ul>
+			<li>Logged in as {{ current_user }}</li> |
+			<li><a id="home_link" href="/index">Home</a></li> |
+			<li><a id="settings_link"href="/accounts/settings">Settings</a></li> |
+			<li><a id="help_link" href="/help">Help</a></li> |
+			<li><a id="logout_link" href="/accounts/logout">Logout</a></li>
+		</ul>
+		{% else %}
+		<ul>
+			<li>Not logged in</li> |
+			<li><a id="home_link" href="/index">Home</a></li> |
+			<li><a id="login_link" href="/accounts/login">Login</a></li> |
+			<li><a id="help_link" href="/help">Help</a></li>
+		</ul>
+		{% endif %}
+	</div>
+	{% endblock %}
 	</div>
 
 	<div class="body">
+		<div class="sidebar">
+		{% block sidebar %}
+		<span class="sidebar_title">Bugs</span>
+		<ul>
+			<li><a id="selected_bugs_link" href="/selected_bugs">Selected</a></li>
+			<li><a id="tagged_bugs_link" href="/tagged_bugs">Tagged</a></li>
+			<li><a id="submitted_bugs_link" href="/submitted_bugs">Latest Submitted</a></li>
+			<li><a id="received_bugs_link" href="/received_bugs">Latest Received</a></li>
+			<li><a id="package_bugs_link" href="/package_bugs">Selected Packages</a></li>
+			<li><a id="search_link" href="/search">Search</a></li>
+		</ul>
+		{% endblock %}
+		</div>
+
+		<div class="toolbox">
+		{% block toolbox %}
+		{% endblock %}
+		</div>
+
 	    <div class="main">
+
 		{% block main_content %}{% endblock %}
 		</div>
 
-		<div class="sidebar">{% block sidebar %}{% endblock %}</div>
-	</div>
-
-	<div class="footer">
-    {% block footer %}
-    <p align="right">Powered by Python</p>
-	{% endblock %}
 	</div>
 </body>
 </html>

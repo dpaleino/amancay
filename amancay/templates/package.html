@@ -6,7 +6,7 @@
 
 {% if bug_list %}
 <div class="package_bugs">
-<span class="table_title">Package bugs</span>
+<span class="table_title">Package {{ package }} bugs</span>
 <table class="bugs">
 	<tr>
 		<th>Date reported</th>
@@ -15,11 +15,11 @@
 		<th>Status</th>
 	</tr>
 	{% for bug in bug_list %}
-	<tr class="{{ bug["severity"] }}">
-		<td>{{ bug["date"] }}</td>
-		<td>{{ bug["title"] }}</td>
-		<td>{{ bug["tags"] }}</td>
-		<td>{{ bug["status"] }}</td>
+	<tr class="{{ bug.severity }}">
+		<td>{{ bug.date }}</td>
+		<td>{{ bug.subject }}</td>
+		<td>{{ bug.tags }}</td>
+		<td>{{ bug.pending }}</td>
 	</tr>
 	{% endfor %}
 </table>

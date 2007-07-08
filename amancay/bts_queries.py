@@ -33,7 +33,7 @@ import SOAPpy
 
 class soap_queries(bts_queries):
 	def __init__(self):
-		self.url = 'http://bugs.donarmstrong.com/cgi-bin/soap.cgi'
+		self.url = 'http://bugs.debian.org/cgi-bin/soap.cgi'
 		self.ns = 'Debbugs/SOAP'
 		self.server = SOAPpy.SOAPProxy(self.url, self.ns)
 

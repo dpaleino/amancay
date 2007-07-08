@@ -47,64 +47,6 @@ def index(request):
 		                           'bug_list': bug_list, 
 		                           'current_user': user}
 		                         )
-def render_bug_table(request, queries, title, bugs, amount):
-	if (bugs != None and len(bugs) > 0):
-		bug_list = queries.get_bugs_status(bugs[:amount])
-	else:
-		bug_list = None
-	if (request.GET.has_key('xhr')):
-		return HttpResponse( simplejson.dumps(bug_list),
-		                     mimetype='application/javascript' )
-	else:
-		return render_to_response('table.html', 
-		                          {'bug_list': bug_list,
-		                           'table_title': title }
-		                         )
-
-def submitted_bugs(request):
-	user = request.user
-	queries = soap_queries()
-	if (user.is_authenticated()):
-		bugs = queries.get_submitters_bugs(user.email)
-	else:
-		submitter_emails = request.session.get('submitter_emails')
-		bugs = queries.get_submitters_bugs(submitter_emails)
-	return render_bug_table(request, queries, "Latest submitted bugs", bugs, 7)
-
-def received_bugs(request):
-	user = request.user
-	queries = soap_queries()
-	if (user.is_authenticated()):
-		bugs = queries.get_maintainers_bugs(user.email)
-	else:
-		maintainer_emails = request.session.get('maintainer_emails')
-		bugs = queries.get_maintainers_bugs(maintainer_emails)
-	bugs.sort(reverse=True)
-	return render_bug_table(request, queries, "Latest received bugs", bugs, 7)
-		
-def package_bugs(request):
-	user = request.user
-	queries = soap_queries()
-	if (user.is_authenticated()):
-		package_list = request.user.package_set.all()
-		package_list = [ p.package_name for p in package_list]
-	else:
-		package_list = request.session.get('packages')
-	bugs = queries.get_packages_bugs(package_list)
-	bugs.sort(reverse=True)
-	return render_bug_table(request, queries, "Latest bugs on selected packages", bugs, 7)
-
-def selected_bugs(request):
-	user = request.user
-	queries = soap_queries()
-	if (user.is_authenticated()):
-		bugs = [b.number for b in request.user.bug_set.all()]
-	else:
-		bugs = request.session.get('bugs')
-	if (bugs != None):
-		bugs.sort(reverse=True)
-	return render_bug_table(request, queries, "Latest selected bugs", bugs, 7)
-
 def add_package(request):
 	user = request.user
 	package_name = request.POST['package_name']
@@ -172,4 +114,26 @@ def remove_bugs(request):
 				for bug in bugs:
 					if (bug == bug_number):
 						request.session['bugs'].remove(bug_number)
+
+# Package page
+
+def package(request, package_name):
+	user = request.user
+	queries = soap_queries()
+
+	bugs = queries.get_packages_bugs(package_name)
+	bugs.sort(reverse=True)
+	bug_list = queries.get_bugs_status(bugs)
+
+	# Check if it's AJAX or HTML
+	if (request.GET.has_key('xhr')):
+		return HttpResponse( simplejson.dumps({"package":
+		package_name, "bug_list": bug_list}),
+		                     mimetype='application/javascript' )
+	else:
+		return render_to_response('package.html', 
+		                          {'package': package_name,
+		                           'bug_list': bug_list, 
+		                           'current_user': user}
+		                         )
 

@@ -128,55 +128,52 @@ function failed_bug_table(place, request) {
 	replaceChildNodes(place, new_span);
 };
 
-var got_submitted_bugs = function(request) {
-	place_bug_table(document.getElementById("submitted_bugs"), request);
+function loading_bugs() {
+		new_span = SPAN({'class': 'loading'}, "Loading... Please wait");
+		replaceChildNodes(document.getElementById("bug_list"), new_span);
 }
-var got_received_bugs = function(request) {
-	place_bug_table(document.getElementById("received_bugs"), request);
+var got_bugs = function(request) {
+	place_bug_table(document.getElementById("bug_list"), request);
 }
-var got_package_bugs = function(request) {
-	place_bug_table(document.getElementById("package_bugs"), request);
+var failed_bugs = function(request) {
+	failed_bug_table(document.getElementById("bug_list"), request);
 }
-var got_selected_bugs = function(request) {
-	place_bug_table(document.getElementById("selected_bugs"), request);
+
+function load_bugs(evt, url) {
+	loading_bugs();
+	var d = doXHR(url);
+	d.addCallbacks(got_bugs, failed_bugs);
+	evt.preventDefault();
 }
-var failed_submitted_bugs = function(request) {
-	failed_bug_table(document.getElementById("submitted_bugs"), request);
+
+function get_submitted_bugs(evt) {
+	load_bugs(evt,"/submitted_bugs_table/");
 }
-var failed_received_bugs = function(request) {
-	failed_bug_table(document.getElementById("received_bugs"), request);
+function get_received_bugs(evt) {
+	load_bugs(evt,"/received_bugs_table/");
 }
-var failed_package_bugs = function(request) {
-	failed_bug_table(document.getElementById("package_bugs"), request);
+function get_package_bugs(evt) {
+	load_bugs(evt,"/package_bugs_table/");
 }
-var failed_selected_bugs = function(request) {
-	failed_bug_table(document.getElementById("selected_bugs"), request);
+function get_selected_bugs(evt) {
+	load_bugs(evt,"/selected_bugs_table/");
 }
-function get_submitted_bugs() {
-	var d = doXHR("/submitted_bugs/");
-	d.addCallbacks(got_submitted_bugs, failed_submitted_bugs);
+function get_tagged_bugs(evt) {
+	load_bugs(evt,"/tagged_bugs_table/");
 }
-function get_received_bugs() {
-	var d = doXHR("/received_bugs/");
-	d.addCallbacks(got_received_bugs, failed_received_bugs);
+function get_search_form(evt) {
+	load_bugs(evt,"/search_form/");
 }
-function get_package_bugs() {
-	var d = doXHR("/package_bugs/");
-	d.addCallbacks(got_package_bugs, failed_package_bugs);
-}
-function get_selected_bugs() {
-	var d = doXHR("/selected_bugs/");
-	d.addCallbacks(got_selected_bugs, failed_selected_bugs);
-}
+
 function myLoadFunction()
 {
-	get_submitted_bugs();
+/*	get_submitted_bugs();
 	get_received_bugs();
 	get_package_bugs();
 	get_selected_bugs();
-
+*/
 	/* Signal connection */
-	var add_package = document.getElementById("add_package");
+/*	var add_package = document.getElementById("add_package");
     MochiKit.Signal.connect( add_package, 'onsubmit', send_add_package );
 
 	var package_selection = document.getElementById("package_selection");
@@ -186,7 +183,29 @@ function myLoadFunction()
     MochiKit.Signal.connect( add_bug, 'onsubmit', send_add_bug );
 
 	var bug_selection = document.getElementById("bug_selection");
-    MochiKit.Signal.connect( bug_selection, 'onsubmit', send_bug_selected );
+    MochiKit.Signal.connect( bug_selection, 'onsubmit', send_bug_selected
+	);*/
+
+	var link;
+
+	link = document.getElementById("submitted_bugs_link");
+    MochiKit.Signal.connect( link, 'onclick', get_submitted_bugs );
+
+	link = document.getElementById("received_bugs_link");
+    MochiKit.Signal.connect( link, 'onclick', get_received_bugs );
+
+	link = document.getElementById("package_bugs_link");
+    MochiKit.Signal.connect( link, 'onclick', get_package_bugs );
+
+	link = document.getElementById("selected_bugs_link");
+    MochiKit.Signal.connect( link, 'onclick', get_selected_bugs );
+
+	link = document.getElementById("tagged_bugs_link");
+    MochiKit.Signal.connect( link, 'onclick', get_tagged_bugs );
+
+	link = document.getElementById("search_link");
+    MochiKit.Signal.connect( link, 'onclick', get_search_form );
+
 }
 
 /*connect our event handlers right off*/
