@@ -11,5 +11,5 @@ in Debian.
 Packages to install
 -------------------
 
-apt-get install python python-django
+apt-get install python python-django python-pysqlite2 python-soappy
 
