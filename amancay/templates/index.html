@@ -2,13 +2,16 @@
 
 {% block title %}Amancay BTS interface{% endblock %}
 
-{% block main_content %}
+{% block toolbox %}
+{% include "toolbox.html" %}
+{% endblock %}
 
+
+{% block main_content %}
 <div id="bug_list" class="bug_list">
 {% block bug_list %}
 {% include "table.html" %}
 {% endblock %}
 </div>
-
 {% endblock %}
 

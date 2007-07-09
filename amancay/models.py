@@ -14,3 +14,20 @@ class Bug(models.Model):
 
 	def __str__(self):
 		return self.number
+
+class EmailItem(models.Model):
+	user = models.ForeignKey(User)
+	address = models.CharField(maxlength=255)
+
+	def __str__(self):
+		return self.address
+
+class MaintainerEmail(EmailItem):
+	pass
+
+class SubmitterEmail(EmailItem):
+	pass
+
+class UserEmail(EmailItem):
+	pass
+

@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="/static/amancay.css" type="text/css" />
 </head>
 <body>
-	<div class="appname">Amancay</div>
     <div class="header">
 	{% block content_header %}
 	<div class="topnav">
@@ -30,6 +29,7 @@
 	</div>
 	{% endblock %}
 	</div>
+	<div class="appname">Amancay</div>
 
 	<div class="body">
 		<div class="sidebar">
@@ -46,16 +46,15 @@
 		{% endblock %}
 		</div>
 
-		<div class="toolbox">
-		{% block toolbox %}
-		{% endblock %}
+		<div id="toolbox" class="toolbox">
+		{% block toolbox %}{% endblock %}
 		</div>
 
 	    <div class="main">
-
 		{% block main_content %}{% endblock %}
 		</div>
 
+		<div class="loading" id="loading" />
 	</div>
 </body>
 </html>

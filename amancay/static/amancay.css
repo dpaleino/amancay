@@ -1,19 +1,25 @@
 div.header
 {
 	font-family: sans-serif;
-	/*position: absolute;*/
-	width: 100%;
+	font-size: normal;
+	float: right;
+	position: absolute;
+	top: 0.1em;
+	left: 12em;
 	height: 1em;
-	margin: 0px 15em 0.5em 0px;
+	bottom-margin: 0.5em;
+	right-margin: 0;
 	border-bottom:dotted 1px #ccc;
 }
 
 div.appname
 {
-	position: fixed;
-	height: 1.5em;
+	position: absolute;
+	float: left;
+	display: block;
 	width: 7em;
-	margin: 0;
+	top: 0.3em;
+	left: 0.5em;
 	background-color: #ffffff;
 	text-align: center;
 	font-family: sans-serif;
@@ -65,7 +71,8 @@ div.sidebar {
 	top: 3em;
 	margin-left: 0.05em;
 	right: auto;
-	position: fixed;
+	float: left;
+	position: absolute;
 /*	padding-bottom: 0.5em;*/
 	padding-bottom: 0;
 	padding-top: 0.2em;
@@ -110,11 +117,12 @@ div.toolbox {
 	-moz-border-radius: 5px;
 	top: 16em;
 	margin-left: 0.05em;
+	float: left;
 	right: auto;
-	position: fixed;
+	position: absolute;
 	padding-bottom: 0;
 	padding-top: 0.2em;
-	padding-right: 0.2em;
+	padding-right: 0.25em;
 	padding-left: 0.2em;
 	background: #87d6ba;
 	width: 10em;
@@ -126,32 +134,91 @@ span.toolbox_title {
 	font-weight: normal;
 }
 
-div.toolbox ul {
+div.toolbox_itemlist {
+	width: 100%;
 	background: white;
-	margin-top: 0.15em;
+	vertical-align: text-bottom;
+	margin-bottom: 0.2em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+}
+
+div.toolbox_itemlist table {
+/*	float: left;*/
+/*	display: block;*/
+/*	position: relative;*/
+	display: inline-table;
+/*	margin-top: 0.15em;
 	margin-left: 0;
-	margin-right: 0;
-	margin-bottom: 0.25em;
-	padding-left: 0.4em;
-	list-style-type: none;
-	font-size: normal;
+	margin-bottom: 0.25em;*/
+	padding-left: 0em;
+	font-size: small;
 	font-weight: normal;
+	table-layout: fixed;
+	width: 100%;
+}
+td.item_select {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	width: 1.3em;
+}
+td.item_name {
+/*	width: 5em;*/
+	white-space: nowrap;
+	overflow: hidden;
+}
+div.toolbox_remove {
+/*	display: inline;*/
+	width: 100%;
+/*	float: right;
+	clear: both;*/
+/*	height: 100%;*/
+/*	position: absolute;*/
+/*	position: relative;*/
+/*	left: 1em;*/
+/*	right: -0.1em;*/
+/*	position: fixed;*/
+	text-align: right;
 }
 
-div.toolbox a {
-	font-size: 0.85em;
-	line-height: 2em;
-	padding-right: 0.5em;
-	text-decoration: none;
-	color: #000000;
-	/* padding: 0.2em 0 0.3em 0em; */
+input.toolbox_remove {
+	/* This part hides the original button. */
+	background-color: transparent; 
+	border: 0px;
+	padding: 0px;
+	padding-left: 3000px;
+	overflow: hidden;
+	
+	/* This part defines its new look. */
+	width: 24px;
+	height: 24px;
+	max-width: 24px;
+	max-height: 24px;
+	/*background-position: center center;
+	background-repeat: no-repeat;*/
+	background-image: url(../images/delete.png);
 }
 
-div.toolbox a:hover {
-	text-decoration: underline;
+span.toolbox_message {
+	background-color: white;
+	text-align: center;
+	font-size: small;
+	width: 97%;
+	padding: 0.2em;
+	margin-bottom: 0.2em;
+	display: block;
 }
 
+div.toolbox_add_item {
+	margin-bottom: 0.25em;
+}
 
+input.toolbox_txt {
+	width: 7em;
+}
+
+input.toolbox_add {
+}
 
 
 div.main { 
@@ -174,44 +241,11 @@ clear: both;
 font-size: small;
 }
 
-div.packages {
-display:block;
-margin: 1% 1% 1% 1%;
-float:left;
-}
 
 div.bugs {
 display:block;
 margin: 1% 1% 1% 1%;
 float:right;
-}
-
-div.submitted {
-display:block;
-margin: 1% 1% 1% 1%;
-float:left;
-}
-
-div.received {
-display:block;
-margin: 1% 1% 1% 1%;
-float:right;
-}
-
-div.selected_bugs {
-display:block;
-margin: 1% 1% 1% 1%;
-float:right;
-}
-
-div.owned_bugs { 
-display:block;
-clear: both;
-}
-
-div.chosen_bugs { 
-display:block;
-clear: both;
 }
 
 table.bugs {
@@ -229,10 +263,26 @@ font-weight: bold;
 color: #9999dd;
 }
 
+div.loading {
+	position: fixed;
+	top: 1.5em;
+	right: 0;
+}
+
 span.loading {
-font-family: sans-serif;
-font-size: large;
-color: #9999dd;
+	font-family: sans-serif;
+	font-size: small;
+	background-color: #9999dd;
+	color: #FFFFFF;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+}
+span.error {
+	font-family: sans-serif;
+	font-size: normal;
+	color: #CC6666;
 }
 
 tr.critical {

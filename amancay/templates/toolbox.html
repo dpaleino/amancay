@@ -1,0 +1,30 @@
+<span class="toolbox_title">{{ toolbox.title }}</span>
+<div class="toolbox_itemlist">
+<form name="item_selection" id="item_selection" method="POST">
+{% if toolbox.item_list %}
+<table id="item_list">
+    {% for item in toolbox.item_list %}
+        <tr>
+			<td class="item_select">
+				<input type="checkbox" name="{{ toolbox.item_type }}_select"
+				       id="item_select" value="{{ item }}" />
+			</td>
+			<td class="item_name">{{ item }}</td>
+		</tr>
+    {% endfor %}
+</table>
+<div class="toolbox_remove">
+		<input class="toolbox_remove" type="submit" value="Remove" />
+</div>
+{% else %}
+    <span class="toolbox_message">No items selected</span>
+{% endif %}
+</form>
+</div>
+<div class="toolbox_add_item">
+<form name="add_item" id="add_item" method="POST" >
+	<input class="toolbox_txt" type="text" name="{{ toolbox.item_type }}" 
+	id="item" value="" />
+	<input class="toolbox_add" id="toolbox_add" type="submit" value="Add" />
+</form>
+</div>

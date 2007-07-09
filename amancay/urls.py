@@ -6,6 +6,9 @@ urlpatterns = patterns('',
 	(r'^$', 'bts_webui.amancay.views.index',),
 	(r'^index', 'bts_webui.amancay.views.index',),
 
+	# Toolboxes
+	(r'toolbox', 'bts_webui.amancay.toolbox.render_toolbox',),
+
 	# Bug pages
 	(r'^submitted_bugs', 'bts_webui.amancay.tables.submitted_bugs',),
 	(r'^received_bugs', 'bts_webui.amancay.tables.received_bugs',),
@@ -26,6 +29,8 @@ urlpatterns = patterns('',
 	# MochiKit and other static pages
 	(r'^static/(.*)$', 'django.views.static.serve', {'document_root':
 	'amancay/static/'}),
+	(r'^images/(.*)$', 'django.views.static.serve', {'document_root':
+	'amancay/images/'}),
     
 	# Uncomment this for admin:
 #     (r'^admin/', include('django.contrib.admin.urls')),
