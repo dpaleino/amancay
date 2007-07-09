@@ -56,11 +56,12 @@ def submitted_bugs(request):
 	user = request.user
 	bugs = []
 	if (user.is_authenticated()):
-		bugs = queries.get_submitters_bugs(user.email)
+		emails = user.submitteremail_set.all()
+		submitter_emails = [ str(e) for e in emails]
 	else:
 		submitter_emails = request.session.get('submitter_emails')
-		if (submitter_emails):
-			bugs = queries.get_submitters_bugs(submitter_emails)
+	if (submitter_emails):
+		bugs = queries.get_submitters_bugs(submitter_emails)
 	return render_bug_table(request, queries, "Latest submitted bugs",
 	bugs, 15, "submitted_bugs")
 
@@ -69,11 +70,12 @@ def received_bugs(request):
 	user = request.user
 	bugs = []
 	if (user.is_authenticated()):
-		bugs = queries.get_maintainers_bugs(user.email)
+		emails = user.maintaineremail_set.all()
+		maintainer_emails = [ str(e) for e in emails]
 	else:
 		maintainer_emails = request.session.get('maintainer_emails')
-		if (maintainer_emails):
-			bugs = queries.get_maintainers_bugs(maintainer_emails)
+	if (maintainer_emails):
+		bugs = queries.get_maintainers_bugs(maintainer_emails)
 	bugs.sort(reverse=True)
 	return render_bug_table(request, queries, "Latest received bugs", bugs,
 	15, "received_bugs")
