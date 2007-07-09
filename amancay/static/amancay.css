@@ -227,8 +227,7 @@ div.main {
 	clear: both;*/
 	width: auto;
 	height: auto; 
-	padding-top: 2em;
-	right: 0;
+	top: 2em;
 	left: 12em;
 }
 
