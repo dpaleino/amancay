@@ -1,7 +1,7 @@
 div.header
 {
 	font-family: sans-serif;
-	font-size: normal;
+	font-size: medium;
 	float: right;
 	position: absolute;
 	top: 0.1em;
@@ -41,7 +41,7 @@ div.topnav ul {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
-	font-size: normal;
+	font-size: medium;
 }
 
 div.topnav ul li {
@@ -82,10 +82,12 @@ div.sidebar {
 	width: 10em;
 }
 
-span.sidebar_title {
-	padding-left: 0.4em;
-	font-size: normal;
+h3.sidebar_title {
+	font-size: medium;
 	font-weight: normal;
+	margin-top: 0.1em;
+	margin-bottom: 0.1em;
+	padding-left: 0.4em;
 }
 
 div.sidebar ul {
@@ -96,7 +98,7 @@ div.sidebar ul {
 	margin-bottom: 0.25em;
 	padding-left: 0.4em;
 	list-style-type: none;
-	font-size: normal;
+	font-size: medium;
 	font-weight: normal;
 }
 
@@ -128,9 +130,11 @@ div.toolbox {
 	width: 10em;
 }
 
-span.toolbox_title {
+h3.toolbox_title {
 	padding-left: 0.4em;
-	font-size: normal;
+	margin-top: 0.1em;
+	margin-bottom: 0.1em;
+	font-size: medium;
 	font-weight: normal;
 }
 
@@ -280,7 +284,7 @@ span.loading {
 }
 span.error {
 	font-family: sans-serif;
-	font-size: normal;
+	font-size: medium;
 	color: #CC6666;
 }
 
