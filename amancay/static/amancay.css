@@ -334,7 +334,7 @@ color: #006600;
 
 /* Registration */
 div.account_form {
-	width: 15em;
+	width: 20em;
 	float: left;
 }
 
@@ -344,18 +344,18 @@ div.account_form {
 	color: rgb(135,202,214);
 }
 
-fieldset.login {
+fieldset.account_form {
 	margin: 0.5em 0 0 0;  
 	padding: 0.5em; 
 }
 
-ol.login {
+ol.account_form {
 	margin-bottom: 0.3em;
 	margin-top: 0.3em;
 	padding: 0;  
 	list-style: none; 
 }
-ol.login li {
+ol.account_form li {
 	padding-bottom: 0.4em;
 	padding-top: 0.4em;
 }

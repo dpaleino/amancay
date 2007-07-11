@@ -10,9 +10,9 @@
 
 <div class="account_form">
 <form method="post" action="{% if next %}?next={{ next }}{% endif %}">
-<fieldset class="login">
+<fieldset class="account_form">
 <legend class="account_title">Login</legend>
-<ol class="login">
+<ol class="account_form">
 <li><dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
 <dd>{{ form.username }}</dd></li>
 <li><dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>

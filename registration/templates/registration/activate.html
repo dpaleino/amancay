@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}Account activation{% endblock %}
-{% block content_header %}Account activation{% endblock %}
+
 {% block main_content %}
+<h3 class="account_title">Account activation</h3>
 {% load humanize %}
 {% if account %}
 <p>Thanks for signing up! Now you can <a href="/accounts/login/">log in</a>
