@@ -338,7 +338,7 @@ div.account_form {
 	float: left;
 }
 
-legend.account_title {
+.account_title {
 	font-size: large;
 	font-weight: bold;
 	color: rgb(135,202,214);
