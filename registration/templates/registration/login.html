@@ -2,25 +2,30 @@
 
 {% block title %}Log in{% endblock %}
 
-{% block content_header %}Log in{% endblock %}
-
 {% block main_content %}
 
 {% if form.errors %}
 <p class="error">Please correct the errors below:</p>
 {% endif %}
 
+<div class="account_form">
 <form method="post" action="{% if next %}?next={{ next }}{% endif %}">
-<dl>
-<dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.username }}</dd>
-<dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.password }}</dd>
-<dt><input type="submit" value="Log in" /></dt>
+<fieldset class="login">
+<legend class="account_title">Login</legend>
+<ol class="login">
+<li><dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
+<dd>{{ form.username }}</dd></li>
+<li><dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
+<dd>{{ form.password }}</dd></li>
+</ol>
+<dt><input class="submit" type="submit" value="Log in" /></dt>
 </dl>
+</fieldset>
 </form>
-{% endblock %}
+</div>
 
-{% block sidebar %}
-<p>If you don't have an account, you can <a href="/accounts/register/">sign up</a> for one; it's free, and you'll get access to a bunch of nifty features.</p>
+<div class="account_comment">If you don't have an account, you can <a
+href="/accounts/register/">sign up</a> for one; it's free, and you'll get
+access to a bunch of nifty features.</div>
+
 {% endblock %}

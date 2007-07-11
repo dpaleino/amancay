@@ -124,7 +124,6 @@ div.toolbox {
 	right: auto;
 	position: absolute;
 	padding-bottom: 0;
-	padding-top: 0.2em;
 	padding-right: 0.25em;
 	padding-left: 0.2em;
 	background: #87d6ba;
@@ -135,6 +134,7 @@ h3.toolbox_title {
 	padding-left: 0.4em;
 	margin-top: 0.1em;
 	margin-bottom: 0.1em;
+	padding-top: 0.1em;
 	font-size: medium;
 	font-weight: normal;
 }
@@ -329,6 +329,45 @@ color: #333399;
 tr.wishlist {
 background: #dddddd;
 color: #006600;
+}
+
+
+/* Registration */
+div.account_form {
+	width: 15em;
+	float: left;
+}
+
+legend.account_title {
+	font-size: large;
+	font-weight: bold;
+	color: rgb(135,202,214);
+}
+
+fieldset.login {
+	margin: 0.5em 0 0 0;  
+	padding: 0.5em; 
+}
+
+ol.login {
+	margin-bottom: 0.3em;
+	margin-top: 0.3em;
+	padding: 0;  
+	list-style: none; 
+}
+ol.login li {
+	padding-bottom: 0.4em;
+	padding-top: 0.4em;
+}
+div.account_comment {
+	width: 15em;
+	float: left;
+	margin-left: 2em;
+	margin-right: 2em;
+	margin-top: 2em;
+}
+div.account_form input.submit {
+	float: right;	
 }
 
 
