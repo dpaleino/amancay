@@ -7,9 +7,10 @@ div.header
 	top: 0.1em;
 	left: 12em;
 	height: 1em;
-	bottom-margin: 0.5em;
-	right-margin: 0;
+	margin-bottom: 0.5em;
+	margin-right: 0;
 	border-bottom:dotted 1px #ccc;
+	background-color: #ffffff;
 }
 
 div.appname
@@ -20,11 +21,11 @@ div.appname
 	width: 7em;
 	top: 0.3em;
 	left: 0.5em;
-	background-color: #ffffff;
 	text-align: center;
 	font-family: sans-serif;
 	font-size: x-large;
 	font-weight: bold;
+	background-color: #ffffff;
 	color: #d70751;
 }
 
@@ -32,7 +33,7 @@ div.topnav
 {
 	float: right;
 	font-size: small;
-	font-color: #000000;
+	color: #000000;
 	margin-right: 1em;
 }
 
@@ -203,11 +204,11 @@ input.toolbox_remove {
 	background-image: url(../images/delete.png);
 }
 
-span.toolbox_message {
+div.toolbox_message {
 	background-color: white;
 	text-align: center;
 	font-size: small;
-	width: 97%;
+	width: 96%;
 	padding: 0.2em;
 	margin-bottom: 0.2em;
 	display: block;
@@ -217,13 +218,20 @@ div.toolbox_add_item {
 	margin-bottom: 0.25em;
 }
 
+div.toolbox_txt {
+	display: inline;
+}
 input.toolbox_txt {
 	width: 7em;
 }
-
-input.toolbox_add {
+div.toolbox_add {
+	text-align: right;
+	width: 100%;
+	display: inline;
 }
-
+input.toolbox_add {
+	width: 2.8em;
+}
 
 div.main { 
 	position: absolute;

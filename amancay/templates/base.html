@@ -1,4 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
 <head>
     <title>{% block title %}{% endblock %}</title>
@@ -12,17 +13,24 @@
 	<div class="topnav">
 		{% if current_user.is_authenticated %}
 		<ul>
-			<li>Logged in as {{ current_user }}</li> |
-			<li><a id="home_link" href="/index">Home</a></li> |
-			<li><a id="settings_link"href="/accounts/settings">Settings</a></li> |
-			<li><a id="help_link" href="/help">Help</a></li> |
+			<li>Logged in as {{ current_user }}</li>
+			<li style="list-style: none">|</li>
+			<li><a id="home_link" href="/index">Home</a></li>
+			<li style="list-style: none">|</li>
+			<li><a id="settings_link"href="/accounts/settings">Settings</a></li>
+			<li style="list-style: none">|</li>
+			<li><a id="help_link" href="/help">Help</a></li>
+			<li style="list-style: none">|</li>
 			<li><a id="logout_link" href="/accounts/logout">Logout</a></li>
 		</ul>
 		{% else %}
 		<ul>
-			<li>Not logged in</li> |
-			<li><a id="home_link" href="/index">Home</a></li> |
-			<li><a id="login_link" href="/accounts/login">Login</a></li> |
+			<li>Not logged in</li>
+			<li style="list-style: none">|</li>
+			<li><a id="home_link" href="/index">Home</a></li> 
+			<li style="list-style: none">|</li>
+			<li><a id="login_link" href="/accounts/login">Login</a></li>
+			<li style="list-style: none">|</li>
 			<li><a id="help_link" href="/help">Help</a></li>
 		</ul>
 		{% endif %}
@@ -34,7 +42,7 @@
 	<div class="body">
 		<div class="sidebar">
 		{% block sidebar %}
-		<H3 class="sidebar_title">Bugs</H3>
+		<h3 class="sidebar_title">Bugs</h3>
 		<ul>
 			<li><a id="selected_bugs_link" href="/selected_bugs">Selected</a></li>
 			<li><a id="tagged_bugs_link" href="/tagged_bugs">Tagged</a></li>
@@ -54,7 +62,7 @@
 		{% block main_content %}{% endblock %}
 		</div>
 
-		<div class="loading" id="loading" />
+		<div class="loading" id="loading"></div>
 	</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
-<H3 class="toolbox_title">{{ toolbox.title }}</H3>
+<h3 class="toolbox_title">{{ toolbox.title }}</h3>
 <div class="toolbox_itemlist">
-<form name="item_selection" id="item_selection" method="POST">
+<form id="item_selection" method="post" action=".">
 {% if toolbox.item_list %}
 <table id="item_list">
     {% for item in toolbox.item_list %}
@@ -17,14 +17,18 @@
 		<input class="toolbox_remove" type="submit" value="Remove" />
 </div>
 {% else %}
-    <span class="toolbox_message">No items selected</span>
+    <div class="toolbox_message">No items selected</div>
 {% endif %}
 </form>
 </div>
 <div class="toolbox_add_item">
-<form name="add_item" id="add_item" method="POST" >
-	<input class="toolbox_txt" type="text" name="{{ toolbox.item_type }}" 
+<form id="add_item" method="post" action=".">
+	<div class="toolbox_txt">
+		<input class="toolbox_txt" type="text" name="{{ toolbox.item_type }}" 
 	id="item" value="" />
-	<input class="toolbox_add" id="toolbox_add" type="submit" value="Add" />
+	</div>
+	<div class="toolbox_add">
+		<input class="toolbox_add" id="toolbox_add" type="submit" value="Add" />
+	</div>
 </form>
 </div>

@@ -9,7 +9,7 @@ var items_changed = function(request) {
 	var item_list = MochiKit.Async.evalJSONRequest(request)["item_list"];
 	if (item_list.length == 0) {
 		var dom_form = document.getElementById("item_selection");
-		new_span = SPAN({'class': 'toolbox_message'}, "No items selected");
+		new_span = DIV({'class': 'toolbox_message'}, "No items selected");
 		replaceChildNodes(dom_form, new_span);
 	} else {
 		var cells = new Array(item_list.length);
