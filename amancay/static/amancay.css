@@ -41,7 +41,7 @@ div.topnav ul {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
-	font-size: medium;
+	font-size: small;
 }
 
 div.topnav ul li {
@@ -51,7 +51,7 @@ div.topnav ul li {
 }
 
 div.topnav a {
-	font-size: small;
+/*	font-size: small;*/
 	text-decoration: none;
 	color: #047F54;
 }
