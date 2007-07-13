@@ -125,28 +125,28 @@ function load_toolbox(url) {
 }
 
 function get_submitted_bugs(evt) {
-	load_bugs(evt,"/submitted_bugs_table/");
 	load_toolbox("/submitted_bugs_toolbox/");
+	load_bugs(evt,"/submitted_bugs_table/");
 }
 function get_received_bugs(evt) {
-	load_bugs(evt,"/received_bugs_table/");
 	load_toolbox("/received_bugs_toolbox/");
+	load_bugs(evt,"/received_bugs_table/");
 }
 function get_package_bugs(evt) {
-	load_bugs(evt,"/package_bugs_table/");
 	load_toolbox("/package_bugs_toolbox/");
+	load_bugs(evt,"/package_bugs_table/");
 }
 function get_selected_bugs(evt) {
-	load_bugs(evt,"/selected_bugs_table/");
 	load_toolbox("/selected_bugs_toolbox/");
+	load_bugs(evt,"/selected_bugs_table/");
 }
 function get_tagged_bugs(evt) {
-	load_bugs(evt,"/tagged_bugs_table/");
 	load_toolbox("/tagged_bugs_toolbox/");
+	load_bugs(evt,"/tagged_bugs_table/");
 }
 function get_search_form(evt) {
-	load_bugs(evt,"/search_form/");
 	load_toolbox("/search_form_toolbox/");
+	load_bugs(evt,"/search_form/");
 }
 
 function toolboxConnect() {
