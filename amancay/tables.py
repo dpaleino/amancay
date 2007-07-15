@@ -107,6 +107,22 @@ def selected_bugs(request):
 	return render_bug_table(request, queries, "Latest selected bugs", bugs,
 	15, "selected_bugs")
 
+def tagged_bugs(request):
+	process_post(request)
+	user = request.user
+	if (user.is_authenticated()):
+		emails = user.useremail_set.all()
+		user_emails = [ str(e) for e in emails]
+	else:
+		user_emails = request.session.get('user_emails')
+	if (user_emails):
+		bugs = queries.get_tagged_bugs(user_emails)
+	bugs.sort(reverse=True)
+	return render_bug_table(request, queries, "Latest received bugs", bugs,
+	15, "received_bugs")
+	
+
+
 # Simple method that just calls the appropiate function.
 def process_post(request):
 	if request.POST:

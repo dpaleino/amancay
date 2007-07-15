@@ -44,23 +44,26 @@ class soap_queries(bts_queries):
 			return [ result.item.value ]
 
 	def get_bugs_status(self, bug_numbers):
-		self.server.soapaction = '%s#get_status' % self.ns
 		result = self.server.get_status(bug_numbers)
 		return self.process_result(result)
 	
 	def get_packages_bugs(self, packages):
-		self.server.soapaction = '%s#get_bugs' % self.ns
 		result = self.server.get_bugs("package",packages)
 		return result
 	
 	def get_submitters_bugs(self, emails):
-		self.server.soapaction = '%s#get_bugs' % self.ns
 		result = self.server.get_bugs("submitter", emails)
 		return result
 	
 	def get_maintainers_bugs(self, emails):
-		self.server.soapaction = '%s#get_bugs' % self.ns
 		result = self.server.get_bugs("maint",emails)
+		return result
+	
+	def get_tagged_bugs(self, users):
+		# TODO: ask Don to allow many users at the same time
+		result = {}
+		for user in users:
+			result[user] = self.server.get_usertag(user)
 		return result
 
 # ************************ LDAP Queries *****************************

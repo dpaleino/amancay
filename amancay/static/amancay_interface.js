@@ -78,7 +78,7 @@ function loading_finished() {
 var got_bugs = function(request) {
 	place = document.getElementById("bug_list");
 	if (strip(request.responseText) != "") {
-		new_table = TABLE();
+		new_table = TABLE({'class':'bugs'});
 		new_table.innerHTML = request.responseText;
 		replaceChildNodes(place, new_table);
 	} 

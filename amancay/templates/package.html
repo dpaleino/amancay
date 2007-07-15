@@ -9,17 +9,28 @@
 <span class="table_title">Package {{ package }} bugs</span>
 <table class="bugs">
 	<tr>
-		<th>Date reported</th>
-		<th>Title</th>
-		<th>Tags</th>
+		<th colspan=2>Summary</th>
 		<th>Status</th>
+		<th>Modified</th>
 	</tr>
 	{% for bug in bug_list %}
-	<tr class="{{ bug.severity }}">
-		<td>{{ bug.date }}</td>
-		<td>{{ bug.subject }}</td>
-		<td>{{ bug.tags }}</td>
-		<td>{{ bug.pending }}</td>
+	<tr >
+		<td class="bug_number">{{ bug.id }}</td>
+		<td class="subject"><a href="/bug/{{ bug.id }}">{{ bug.subject|slice:":60" }}
+		{% if bug.subject|slice:":60"|length_is:60 %}...{% endif %} 
+		<span class="hidden">
+		<b>Severity</b>: {{ bug.severity }}<br/>
+		<b>Submitted by</b>: {{ bug.originator }}<br/>
+		{% if bug.keywords %}
+		<b>Tags</b>: {{ bug.keywords }}<br/>
+		{% endif%}
+		</span></a>
+		
+		</td>
+		<td class="{{ bug.severity }}">
+			<span class="{{ bug.pending }}">{{ bug.pending }}</span>
+		</td>
+		<td class="date">{{ bug.log_modified }}</td>
 	</tr>
 	{% endfor %}
 </table>

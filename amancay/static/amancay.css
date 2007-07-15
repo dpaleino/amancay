@@ -252,21 +252,6 @@ clear: both;
 font-size: small;
 }
 
-
-div.bugs {
-display:block;
-margin: 1% 1% 1% 1%;
-float:right;
-}
-
-table.bugs {
-background: #999999; 
-border: 1px;
-font-family: sans-serif;
-font-size: small;
-/*width: 100%;*/
-}
-
 span.table_title {
 font-family: sans-serif;
 font-size: large;
@@ -296,39 +281,120 @@ span.error {
 	color: #CC6666;
 }
 
-tr.critical {
-background: #ff0000;
-font-weight: bold;
+div.bugs {
+display:block;
+margin: 1% 1% 1% 1%;
+/*float:right;*/
 }
 
-tr.grave {
-background: #cc0000;
-font-weight: bold;
-}
-
-tr.serious {
-background: #cc8888;
-font-weight: bold;
-}
-
-tr.important {
+table.bugs {
 background: #ffffff;
+border: 0;
+border-collapse: collapse;
+font-family: sans-serif;
+font-size: small;
+/*width: 98%;*/
+}
+
+table.bugs th {
+	border: 1px solid #999999;
+	padding-top: 0.3em;
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+	padding-bottom: 0.3em;
+}
+table.bugs td {
+	padding-left: 0.4em;
+	padding-right: 0.4em;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+	border-bottom:dotted 1px #CCCCCC;
+}
+table.bugs a {
+	color: #333399;
+	text-decoration: none;
+}
+table.bugs a:hover {
+	text-decoration: underline;
+}
+
+table.bugs td.package {
+	color: #333399;
+}
+table.bugs td.bug_number {
+	text-align:right;
+}
+table.bugs td.subject {
+	color: #333399;
+}
+table.bugs td.date {
+	color: #999999;
+	text-align: right;
+}
+
+/* Hover boxes */
+table.bugs tr:hover {
+	background-color: rgb(135,202,214);
+}
+
+table.bugs a {
+    position:relative;/*this is the key*/
+    z-index:24; 
+}
+table.bugs a:hover {
+	z-index:25; 
+}
+table.bugs a span.hidden{
+	display: none
+}
+
+table.bugs a:hover span.hidden{ /*the span will display just on :hover state*/
+    display: block;
+    position: absolute;
+    top:2em; left:2em;
+	width:30em;
+    border:2px solid #87d6ba;
+	background-color: #ffffff;
+	color:#000;
+    text-align: left;
+	padding: 0.3em;
+}
+
+
+/* Severities */
+td.critical {
 color: #771a1a;
+font-weight: bold;
 }
 
-tr.normal {
-background: #ffffff;
+td.grave {
+color: #771a1a;
+font-weight: bold;
+}
+
+td.serious {
+color: #771a1a;
+font-weight: bold;
+}
+
+td.important {
 color: #333399;
 }
 
-tr.minor {
-background: #dddddd;
+td.normal {
 color: #333399;
 }
 
-tr.wishlist {
-background: #dddddd;
+td.minor {
 color: #006600;
+}
+
+td.wishlist {
+color: #006600;
+}
+table.bugs span.done {
+	color: #000000;
+	font-weight: normal;
 }
 
 
