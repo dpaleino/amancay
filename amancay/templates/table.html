@@ -1,3 +1,4 @@
+{% load template_filters %}
 <input id="current_view" type="hidden" value="{{ current_view }}" />
 {% if bug_list %}
 <span class="table_title">{{ table_title }}</span>
@@ -28,7 +29,7 @@
 		<td class="{{ bug.severity }}">
 			<span class="{{ bug.pending }}">{{ bug.pending }}</span>
 		</td>
-		<td class="date">{{ bug.log_modified }}</td>
+		<td class="date">{{ bug.log_modified|tstodate:"%d/%m/%Y"}}</td>
 	</tr>
 	{% endfor %}
 </table>
