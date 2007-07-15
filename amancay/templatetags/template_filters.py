@@ -11,7 +11,18 @@ def tstodate(value, arg=None):
 	except:
 		return ''
 	if arg is None:
-		arg = "%s"
-	return datetime.strftime(datetime.fromtimestamp(value),arg)
+		d = datetime.fromtimestamp(value)
+		now = datetime.now()
+		if (d.year != now.year):
+			# marga says:
+			return d.strftime("%d/%m/%y")
+		elif (d.month != now.month):
+			return d.strftime("%b %e")
+		elif (d.day != now.day):
+			return d.strftime("%a %e")
+		else:
+			return d.strftime("%k:%M")
+	
+	return datetime.fromtimestamp(value).strftime(arg)
 
 register.filter(tstodate)
