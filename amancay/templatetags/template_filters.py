@@ -16,10 +16,12 @@ def tstodate(value, arg=None):
 		if (d.year != now.year):
 			# marga says:
 			return d.strftime("%d/%m/%y")
-		elif (d.month != now.month):
+		elif (d.month != now.month or d.day != now.day):
 			return d.strftime("%b %e")
-		elif (d.day != now.day):
-			return d.strftime("%a %e")
+		#elif (d.month != now.month):
+		#	return d.strftime("%b %e")
+		#elif (d.day != now.day):
+		#	return d.strftime("%a %e")
 		else:
 			return d.strftime("%k:%M")
 	

@@ -29,7 +29,7 @@
 		<td class="{{ bug.severity }}">
 			<span class="{{ bug.pending }}">{{ bug.pending }}</span>
 		</td>
-		<td class="date">{{ bug.log_modified|tstodate:"%d/%m/%Y"}}</td>
+		<td class="date">{{ bug.log_modified|tstodate}}</td>
 	</tr>
 	{% endfor %}
 </table>
