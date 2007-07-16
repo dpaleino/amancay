@@ -15,7 +15,7 @@ from bts_webui.amancay.models import Package
 from django.utils import simplejson 
 
 # Needed for SOAP
-from bts_queries import soap_queries
+from bts_queries import soap_queries, bug_sort
 queries = soap_queries()
 
 # Toolboxes
@@ -25,6 +25,7 @@ from toolbox import get_toolbox
 def render_bug_table(request, queries, title, bugs, amount, current_view):
 	if (bugs != None and len(bugs) > 0):
 		bug_list = queries.get_bugs_status(bugs[:amount])
+		bug_list.sort(bug_sort.cmp_log_modified, reverse=True)
 	else:
 		bug_list = None
 	if (request.GET.has_key('xhr')):
@@ -62,6 +63,9 @@ def submitted_bugs(request):
 		submitter_emails = request.session.get('submitter_emails')
 	if (submitter_emails):
 		bugs = queries.get_submitters_bugs(submitter_emails)
+		print bugs
+		bugs.sort(reverse=True)
+		print bugs
 	return render_bug_table(request, queries, "Latest submitted bugs",
 	bugs, 15, "submitted_bugs")
 

@@ -1,10 +1,30 @@
+{% load template_filters %}
 {% extends "base.html" %}
 
-{% block title %}Amancay BTS interface - Bug view{% endblock %}
+{% block title %}Amancay BTS interface - Bug View{% endblock %}
 
 {% block main_content %}
+<div class="bug_log">
+<span class="bug_log_title">Bug {{ bug_number }}</span>
+{% if bug_messages %}
+{% for message in bug_messages %}
+<div class="bug_log_item">
+	<div class="bug_log_header">
+	<span class="bug_log_from"><a 
+	href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
+	<span class="bug_log_date">said on {{ message.date|tstodate }}:<br/></span>
+	<span class="bug_log_subject">{{ message.subject }}</span>
+	</div>
 
+	<div class="bug_log_body">
+	<pre>{{ message.body }}</pre>
+	</div>
+</div>
+	{% endfor %}
+{% endif %}
+</div>
 {% endblock %}
+
 {% block footer %}
 <p align="right">
 {% if current_user.is_authenticated %}

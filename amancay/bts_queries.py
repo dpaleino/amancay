@@ -59,6 +59,10 @@ class soap_queries(bts_queries):
 		result = self.server.get_bugs("maint",emails)
 		return result
 	
+	def get_bug_log(self, bug):
+		result = self.server.get_bug_log(bug)
+		return result
+	
 	def get_tagged_bugs(self, users):
 		# TODO: ask Don to allow many users at the same time
 		result = {}
@@ -68,6 +72,15 @@ class soap_queries(bts_queries):
 
 # ************************ LDAP Queries *****************************
 
+# Is it worth it?
 
+# ************************ Sorting Functions ************************
+
+class bug_sort:
+	
+	def cmp_log_modified (x, y):
+		return cmp(x["log_modified"], y["log_modified"])
+	
+	cmp_log_modified = staticmethod(cmp_log_modified)
 
 

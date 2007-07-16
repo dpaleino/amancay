@@ -54,3 +54,45 @@ def package(request, package_name):
 		                           'current_user': user}
 		                         )
 
+# The bug page uses regular expresions to parse the log
+import re
+# The bug page uses rfc822 to parse emails, dates, etc.
+import rfc822
+
+def bug(request, bug_number):
+
+	user = request.user
+	queries = soap_queries()
+	bug_log = queries.get_bug_log(bug_number)
+
+	# Regular expressions to parse the mails
+	from_re = re.compile('^From: ?(.+)$', re.MULTILINE)
+	subject_re = re.compile('^Subject: ?(.+)$', re.MULTILINE)
+	date_re = re.compile('^Date: ?(.+)$', re.MULTILINE)
+
+	bug_messages = []
+	for item in bug_log:
+		message = {}
+		# Parse the header
+		from_value = from_re.findall(item["header"])
+		subject_value = subject_re.findall(item["header"])
+		date_value = date_re.findall(item["header"])
+		# Filter the values
+		if (len(from_value) > 0):
+			message["from"] = rfc822.parseaddr(from_value[0])
+		if (len(subject_value) > 0):
+			message["subject"] = subject_value[0]
+		if (len(date_value) > 0):
+			message["date"] = rfc822.mktime_tz(rfc822.parsedate_tz(
+			                                         date_value[0]))
+	
+		# Get the body
+		message["body"] = item["body"]
+		bug_messages.append(message)
+
+	return render_to_response('bug.html', 
+	                          {'bug_number': bug_number,
+	                           'bug_messages': bug_messages,
+	                           'current_user': user}
+	                         )
+
