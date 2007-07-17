@@ -63,6 +63,8 @@ def bug(request, bug_number):
 
 	user = request.user
 	queries = soap_queries()
+	bug_status = queries.get_bugs_status(bug_number)[0]
+	bug_originator =  rfc822.parseaddr(bug_status["originator"])
 	bug_log = queries.get_bug_log(bug_number)
 
 	# Regular expressions to parse the mails
@@ -92,6 +94,8 @@ def bug(request, bug_number):
 
 	return render_to_response('bug.html', 
 	                          {'bug_number': bug_number,
+							   'bug_originator': bug_originator,
+							   'bug_status': bug_status,
 	                           'bug_messages': bug_messages,
 	                           'current_user': user}
 	                         )
