@@ -57,14 +57,15 @@ def package(request, package_name):
 # The bug page uses regular expresions to parse the log
 import re
 # The bug page uses rfc822 to parse emails, dates, etc.
-import rfc822
+import email.Utils
+import email.Header
 
 def bug(request, bug_number):
 
 	user = request.user
 	queries = soap_queries()
 	bug_status = queries.get_bugs_status(bug_number)[0]
-	bug_originator =  rfc822.parseaddr(bug_status["originator"])
+	bug_originator = email.Utils.parseaddr(bug_status["originator"])
 	bug_log = queries.get_bug_log(bug_number)
 
 	# Regular expressions to parse the mails
@@ -81,11 +82,19 @@ def bug(request, bug_number):
 		date_value = date_re.findall(item["header"])
 		# Filter the values
 		if (len(from_value) > 0):
-			message["from"] = rfc822.parseaddr(from_value[0])
+			e_from = email.Utils.parseaddr(from_value[0])
+			d_from = email.Header.decode_header(e_from[0])
+			if (d_from[0][1] != None):
+				message["from"] = [d_from[0][0].decode(d_from[0][1]), e_from[1]]
+			else:
+				message["from"] = [e_from[0], e_from[1]]
+			if (message["from"][0] == "" and message["from"][1] != ""):
+				message["from"][0] = message["from"][1]
+
 		if (len(subject_value) > 0):
 			message["subject"] = subject_value[0]
 		if (len(date_value) > 0):
-			message["date"] = rfc822.mktime_tz(rfc822.parsedate_tz(
+			message["date"] = email.Utils.mktime_tz(email.Utils.parsedate_tz(
 			                                         date_value[0]))
 	
 		# Get the body

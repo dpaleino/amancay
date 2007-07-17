@@ -399,23 +399,36 @@ table.bugs span.done {
 
 /* Bug Page */
 div.bug_log {
-
+	margin-bottom: 2em;
 
 }
 div.bug_log_title div.report_information {
-	font-size: medium;
+	font-size: 0.9em;
 	font-weight: normal;
 	color: #333333;
 }
-div.bug_log_title span.bug_number{
+div.bug_log_title span.bug_number {
 	font-weight: bold;
 }
-div.bug_log_title span.bug_title{
+div.bug_log_title span.severity {
+	font-weight: bold;
+}
+div.bug_log_title span.modified {
+	font-weight: bold;
+}
+div.bug_log_title div.bug_title {
 	font-size: large;
 	font-weight: bold;
-	color: #047F54;
+	color: #7f042f;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
 }
-
+div.bug_log_title ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	font-size: 0.9em;
+}
 
 
 div.bug_log_item {

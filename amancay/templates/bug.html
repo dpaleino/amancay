@@ -8,21 +8,39 @@
 
 <div class="bug_log_title">
 <div class="report_information">
-Bug <span class="bug_number">{{ bug_number }}</span>
-reported by <span class="bug_submitter"><a 
+Bug <span class="bug_number">{{ bug_number }}</span> -
+Severity <span class="severity">{{ bug_status.severity }}</span> -
+Last modified on 
+<span class="modified">{{ bug_status.log_modified|tstodate }}</span>
+<!-- reported by <span class="bug_submitter"><a 
 href="mailto:{{ bug_originator.1 }}">{{ bug_originator.0 }}</a></span>
-<span class="bug_date">on {{ bug_status.date|tstodate }}</span>
+<span class="bug_date">on {{ bug_status.date|tstodate }}</span> -->
 </div>
-<span class="bug_title">on {{ bug_status.subject }}<br/></span>
+<div class="bug_title">{{ bug_status.subject }}</div>
+<div class="extra_information">
+<ul>
+<li>Package: <a 
+href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a></li>
+{% if bug_status.tags %}
+<li>Tags: {{ bug_status.tags }}</li>
+{% endif %}
+{% if bug_status.found_versions|length %}
+<li>Found in: {{ bug_status.found_versions|join:", " }}</li>
+{% endif %}
+
+</ul>
+</div>
 </div>
 
 {% if bug_messages %}
 {% for message in bug_messages %}
 <div class="bug_log_item">
 	<div class="bug_log_header">
+	{% if message.from.0 %}
 	<span class="bug_log_from"><a 
 	href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
-	<span class="bug_log_date">said on {{ message.date|tstodate }}:<br/></span>
+	<span class="bug_log_date">said 
+	{% endif %} on {{ message.date|tstodate }}:<br/></span>
 	<span class="bug_log_subject">{{ message.subject }}</span>
 	</div>
 
