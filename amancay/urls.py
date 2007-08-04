@@ -3,8 +3,8 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('',
 
 	# Normal pages
-	(r'^$', 'bts_webui.amancay.views.index',),
-	(r'^index', 'bts_webui.amancay.views.index',),
+	(r'^$', 'bts_webui.amancay.search.search',),
+	(r'^index', 'bts_webui.amancay.search.search',),
 
 	# Toolboxes
 	(r'toolbox', 'bts_webui.amancay.toolbox.render_toolbox',),
@@ -15,7 +15,7 @@ urlpatterns = patterns('',
 	(r'^package_bugs', 'bts_webui.amancay.tables.package_bugs',),
 	(r'^selected_bugs', 'bts_webui.amancay.tables.selected_bugs',),
 	(r'^tagged_bugs', 'bts_webui.amancay.tables.tagged_bugs',),
-	(r'^search', 'bts_webui.amancay.forms.search',),
+	(r'^search', 'bts_webui.amancay.search.search',),
 
 	# Inside pages
 	(r'^package/(?P<package_name>\w+)', 'bts_webui.amancay.views.package',),

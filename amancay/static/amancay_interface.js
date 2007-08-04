@@ -144,10 +144,10 @@ function get_tagged_bugs(evt) {
 	load_toolbox("/tagged_bugs_toolbox/");
 	load_bugs(evt,"/tagged_bugs_table/");
 }
-function get_search_form(evt) {
+/*function get_search_form(evt) {
 	load_toolbox("/search_form_toolbox/");
 	load_bugs(evt,"/search_form/");
-}
+}*/
 
 function toolboxConnect() {
 	var item_add = document.getElementById("add_item");
@@ -176,8 +176,8 @@ function myLoadFunction()
 	link = document.getElementById("tagged_bugs_link");
     MochiKit.Signal.connect( link, 'onclick', get_tagged_bugs );
 
-	link = document.getElementById("search_link");
-    MochiKit.Signal.connect( link, 'onclick', get_search_form );
+	/*link = document.getElementById("search_link");
+    MochiKit.Signal.connect( link, 'onclick', get_search_form );*/
 }
 
 /*connect our event handlers right off*/

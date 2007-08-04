@@ -234,13 +234,14 @@ input.toolbox_add {
 }
 
 div.main { 
-	position: absolute;
+/*	position: absolute;*/
 /*	float: right;
 	clear: both;*/
 	width: auto;
 	height: auto; 
-	top: 2em;
-	left: 12em;
+	margin-top: 2em;
+	margin-left: 12em;
+	margin-right: 0.5em;
 }
 
 div.footer
@@ -293,7 +294,7 @@ border: 0;
 border-collapse: collapse;
 font-family: sans-serif;
 font-size: small;
-/*width: 98%;*/
+width: 100%;
 }
 
 table.bugs th {
@@ -452,7 +453,51 @@ div.bug_log_body {
 	padding: 0.4em;
 }
 
-
+/* Search */
+div.search_form {
+	width: 100%;
+	margin-bottom: 0.5em;
+}
+fieldset.search_form {
+	margin: 0.2em 0 0 0;  
+	padding: 0.2em; 
+}
+legend.search_title {
+	font-size: normal;
+	font-weight: bold;
+	color: #4ea385;
+	padding-right: 1em;
+	padding-left: 1em;
+}
+ol.search_form {
+	margin-bottom: 0.5em;
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-top: 0.3em;
+	padding: 0;  
+	list-style: none; 
+}
+ol.search_form li {
+	padding-right: 0.5em;
+	display: inline;
+	margin: 0;
+	white-space: nowrap;
+	font-size: small;
+}
+input.search_field {
+	color: #4ea385;
+	font-size: small;
+	font-weight: bold;
+	background: #defcf4;
+	border: 1px solid #4ea385;
+	width: 25em;
+	padding-left: 0.2em;
+}
+input.submit_search {
+	color: #000;
+	background: rgb(135,202,214);
+	border: 2px outset #d7b9c9
+}
 
 /* Registration */
 div.account_form {
