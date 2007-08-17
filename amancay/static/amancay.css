@@ -310,6 +310,7 @@ table.bugs td {
 	padding-top: 0.1em;
 	padding-bottom: 0.1em;
 	border-bottom:dotted 1px #CCCCCC;
+	vertical-align: top;
 }
 table.bugs a {
 	color: #333399;
@@ -497,6 +498,29 @@ input.submit_search {
 	color: #000;
 	background: rgb(135,202,214);
 	border: 2px outset #d7b9c9
+}
+
+/* Pager */
+div.pager{
+	font-size: small;
+	margin-bottom: 0.2em;
+}
+span.total_bugs {
+}
+span.page_numbers {
+	float: right;
+}
+ul.page_numbers {
+	list-style: none; 
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+ul.page_numbers li {
+	padding-right: 0.5em;
+	display: inline;
+	margin: 0;
+	white-space: nowrap;
 }
 
 /* Registration */

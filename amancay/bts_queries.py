@@ -36,7 +36,8 @@ from sets import Set
 
 class soap_queries(bts_queries):
 	def __init__(self):
-		self.url = 'http://bugs.debian.org/cgi-bin/soap.cgi'
+		#self.url = 'http://bugs.debian.org/cgi-bin/soap.cgi'
+		self.url = 'http://bugs.donarmstrong.com/cgi-bin/soap.cgi'
 		self.ns = 'Debbugs/SOAP'
 		self.server = SOAPpy.SOAPProxy(self.url, self.ns)
 
@@ -47,6 +48,7 @@ class soap_queries(bts_queries):
 			return [ result.item.value ]
 
 	def get_bugs_status(self, bug_numbers):
+		print bug_numbers
 		result = self.server.get_status(bug_numbers)
 		return self.process_result(result)
 	

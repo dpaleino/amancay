@@ -2,6 +2,23 @@
 <input id="current_view" type="hidden" value="{{ current_view }}" />
 {% if bug_list %}
 <span class="table_title">{{ table_title }}</span>
+<div class="pager">
+{% if pages %}
+<span class="page_numbers">Pages:
+<ul class="page_numbers">
+{% for number in pages %}
+	{% ifequal number current_page %}
+		<li class="current">{{ number }}</li>
+	{% else %}
+		<li class="normal"><a href="{{ url }}&page={{number}}">{{ number }}</a></li>
+	{% endifequal %}
+{% endfor %}
+</ul>
+</span>
+{% endif %}
+<span class="total_bugs">Found {{ total_bugs }} 
+{% ifequal total_bugs 1 %}bug{% else %}bugs{%endifequal%}</span>
+</div>
 <table class="bugs">
 	<tr>
 		<th>Package</th>

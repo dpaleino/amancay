@@ -17,8 +17,7 @@
 	{% for bug in bug_list %}
 	<tr >
 		<td class="bug_number">{{ bug.id }}</td>
-		<td class="subject"><a href="/bug/{{ bug.id }}">{{ bug.subject|slice:":60" }}
-		{% if bug.subject|slice:":60"|length_is:60 %}...{% endif %} 
+		<td class="subject"><a href="/bug/{{ bug.id }}">{{ bug.subject|escape }}
 		<span class="hidden">
 		<b>Severity</b>: {{ bug.severity }}<br/>
 		<b>Submitted by</b>: {{ bug.originator }}<br/>
