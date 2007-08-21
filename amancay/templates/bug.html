@@ -5,7 +5,9 @@
 
 {% block main_content %}
 <div class="bug_log">
-
+{% if info_to_user %}
+<div class="info_to_user">{{ info_to_user }}</div>
+{% endif %}
 <div class="bug_log_title">
 <div class="report_information">
 Bug <span class="bug_number">{{ bug_number }}</span> -
@@ -49,19 +51,29 @@ href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a></li>
 	</div>
 </div>
 	{% endfor %}
+<div class="add_comment_button">
+<form name="show_add_comment" method="POST">
+<input id="add_comment_button" type="button" value="Add Comment" />
+</form>
+</div>
+<div class="add_comment" id="add_comment_form">
+<form name="add_comment" method="POST" action="./">
+<fieldset class="add_comment">
+<legend class="add_comment">Add Comment</legend>
+<ul>
+{% if current_user.is_authenticated %}
+<li>The message will be sent from <b>{{ current_user.email }}</b></li>
+{% else %}
+<li><label for="from_email">Email:</label><input name="from_email" /></li>
+{% endif %}
+<li><label for="subject">Subject:</label><input size="80"name="subject" /></li>
+<li><label for="comment">Comment:</label><textarea cols="80" rows="10" name="comment" />
+</textarea></li>
+<li><input type="submit" class="submit" value="Submit" /></li>
+</ul>
+</form>
+</div>
 {% endif %}
 </div>
 {% endblock %}
-
-{% block footer %}
-<p align="right">
-{% if current_user.is_authenticated %}
-Currently logged in as {{ current_user }} - <a href="/accounts/logout">Log out</a>.
-{% else %}
-You are browsing as an Anonymous User -  <a href="/accounts/login">Log in</a>
-{% endif %}
-</p>
-
-{% endblock %}
-
 

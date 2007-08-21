@@ -62,6 +62,9 @@ import email.Header
 
 def bug(request, bug_number):
 
+	# Process post
+	info = add_comment(request, bug_number)
+
 	user = request.user
 	queries = soap_queries()
 	bug_status = queries.get_bugs_status(bug_number)[0]
@@ -103,9 +106,32 @@ def bug(request, bug_number):
 
 	return render_to_response('bug.html', 
 	                          {'bug_number': bug_number,
+							   'info_to_user': info,
 							   'bug_originator': bug_originator,
 							   'bug_status': bug_status,
 	                           'bug_messages': bug_messages,
 	                           'current_user': user}
 	                         )
+
+# Function to add a comment to bug
+def add_comment(request, bug_number):
+	user = request.user
+	subject = request.POST.get("subject")
+	comment = request.POST.get("comment")
+	if (subject and comment):
+		to_address = "%s@bugs.debian.org" % bug_number
+		# If the user is registered, we send the mail.  If not, we store it, and
+		# validate the email
+		if (user.is_authenticated()):
+			from django.core.mail import send_mail
+			send_mail(subject, comment, user.email, to_address)
+			return "Your comment has been successfully sent"
+		else:
+			# TODO
+			return "A mail has been sent to your address to validate it"
+	else:
+		if (subject or comment):
+			return "You need to enter both the subject and the comment"
+		else:
+			return None
 

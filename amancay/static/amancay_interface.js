@@ -149,11 +149,18 @@ function get_tagged_bugs(evt) {
 	load_bugs(evt,"/search_form/");
 }*/
 
+function show_add_comment(evt) {
+	div = document.getElementById("add_comment_form");
+	div.style.display = "block";	
+}
+
 function toolboxConnect() {
 	var item_add = document.getElementById("add_item");
-    MochiKit.Signal.connect( item_add, 'onsubmit', send_item_add );
+	if (item_add)
+	    MochiKit.Signal.connect( item_add, 'onsubmit', send_item_add );
 	var item_selection = document.getElementById("item_selection");
-    MochiKit.Signal.connect( item_selection, 'onsubmit', send_item_selected );
+	if (item_selection)
+	    MochiKit.Signal.connect( item_selection, 'onsubmit', send_item_selected );
 }
 
 function myLoadFunction()
@@ -162,20 +169,29 @@ function myLoadFunction()
 
 	var link;
 	link = document.getElementById("submitted_bugs_link");
-    MochiKit.Signal.connect( link, 'onclick', get_submitted_bugs );
+	if (link)
+	    MochiKit.Signal.connect( link, 'onclick', get_submitted_bugs );
 
 	link = document.getElementById("received_bugs_link");
-    MochiKit.Signal.connect( link, 'onclick', get_received_bugs );
+	if (link)
+    	MochiKit.Signal.connect( link, 'onclick', get_received_bugs );
 
 	link = document.getElementById("package_bugs_link");
-    MochiKit.Signal.connect( link, 'onclick', get_package_bugs );
+	if (link)
+		MochiKit.Signal.connect( link, 'onclick', get_package_bugs );
 
 	link = document.getElementById("selected_bugs_link");
-    MochiKit.Signal.connect( link, 'onclick', get_selected_bugs );
+	if (link)
+    	MochiKit.Signal.connect( link, 'onclick', get_selected_bugs );
 
 	link = document.getElementById("tagged_bugs_link");
-    MochiKit.Signal.connect( link, 'onclick', get_tagged_bugs );
+	if (link)
+    	MochiKit.Signal.connect( link, 'onclick', get_tagged_bugs );
 
+	/* Hidden form */
+	var button = document.getElementById("add_comment_button");
+    if (button)
+		MochiKit.Signal.connect( button, 'onclick', show_add_comment );
 	/*link = document.getElementById("search_link");
     MochiKit.Signal.connect( link, 'onclick', get_search_form );*/
 }

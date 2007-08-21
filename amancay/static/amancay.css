@@ -523,6 +523,55 @@ ul.page_numbers li {
 	white-space: nowrap;
 }
 
+/* Comments */
+div.add_comment_button {
+	text-align: right;
+	width: 100%;
+}
+div.add_comment_button input {
+	margin-top: 0.5em;
+	margin-right: 2em;
+}
+div.add_comment {
+	display: none;
+	font-size: small;
+}
+fieldset.add_comment {
+	margin-top: 0.5em;
+	margin-right: 2em;  
+	padding: 0.5em; 
+}
+
+div.add_comment ul {
+	margin-bottom: 0.3em;
+	margin-top: 0.3em;
+	padding: 0;  
+	list-style: none; 
+}
+div.add_comment li {
+	padding-bottom: 0.4em;
+	padding-top: 0.4em;
+}
+div.add_comment label { 
+	display: block;
+	float: left; 
+	width: 8em;
+	margin-right: 1em;
+	text-align: right; 
+}
+div.add_comment input.submit {
+	margin-left: 9em;	
+}
+div.info_to_user {
+	text-align: center;
+	font-size: small;
+	background: #ffcccc;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	padding: 0.4em;
+	font-weight: bold;
+}
+
 /* Registration */
 div.account_form {
 	width: 20em;
