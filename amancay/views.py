@@ -124,7 +124,7 @@ def add_comment(request, bug_number):
 		# validate the email
 		if (user.is_authenticated()):
 			from django.core.mail import send_mail
-			send_mail(subject, comment, user.email, to_address)
+			send_mail(subject, comment, user.email, [to_address])
 			return "Your comment has been successfully sent"
 		else:
 			# TODO
