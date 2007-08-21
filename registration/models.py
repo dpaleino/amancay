@@ -84,7 +84,6 @@ class RegistrationManager(models.Manager):
                                         'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS })
             message = message_template.render(message_context)
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [new_user.email])
-            print "message should have been sent"
         return new_user
     
     def delete_expired_users(self):
