@@ -64,10 +64,13 @@ href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a></li>
 {% if current_user.is_authenticated %}
 <li>The message will be sent from <b>{{ current_user.email }}</b></li>
 {% else %}
-<li><label for="from_email">Email:</label><input name="from_email" /></li>
+<li><label for="from_email">Email:</label>
+<input size="80" name="from_email" maxlength="255" /></li>
 {% endif %}
-<li><label for="subject">Subject:</label><input size="80"name="subject" /></li>
-<li><label for="comment">Comment:</label><textarea cols="80" rows="10" name="comment" />
+<li><label for="subject">Subject:</label>
+<input size="80"name="subject" maxlength="255"/></li>
+<li><label for="comment">Comment:</label>
+<textarea cols="80" rows="10" name="comment" />
 </textarea></li>
 <li><input type="submit" class="submit" value="Submit" /></li>
 </ul>
