@@ -1,0 +1,24 @@
+Someone, hopefully you, added a comment to a Debian bug in the Amancay Bug
+System, using this email address. If it was you, and you'd like that
+comment to be sent, click the link below or copy and paste it into your web
+browser's address bar: 
+
+http://{{ site_url }}/activate_message/{{ activation_key }}/
+
+If you didn't request this, you don't need to do anything; you won't
+receive any more email from us.
+
+***
+
+This is the comment that was sent with your email address:
+
+Subject: 
+{{ subject }}
+
+Text: 
+{{ comment }}
+
+***
+
+Regards,
+Amancay Bug System

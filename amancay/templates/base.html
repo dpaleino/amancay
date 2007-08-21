@@ -59,7 +59,10 @@
 		</div>
 
 	    <div class="main">
-		{% block main_content %}{% endblock %}
+			{% if info_to_user %}
+			<div class="info_to_user">{{ info_to_user }}</div>
+			{% endif %}
+			{% block main_content %}{% endblock %}
 		</div>
 
 		<div class="loading" id="loading"></div>

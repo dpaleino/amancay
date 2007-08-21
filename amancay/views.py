@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 
 # Model clases
 from django.contrib.auth.models import User
-from bts_webui.amancay.models import Package
+from bts_webui.amancay.models import Package, Pending_Messages
 
 # Needed for AJAX
 from django.utils import simplejson 
@@ -20,6 +20,10 @@ from bts_queries import soap_queries
 # Tables POST processing
 from tables import process_post, selected_bugs
 from search import search
+
+# Needed for sending emails
+from django.core.mail import send_mail
+from smtplib import SMTPRecipientsRefused
 
 # The index page doesn't really do much.
 def index(request):
@@ -120,14 +124,40 @@ def add_comment(request, bug_number):
 	comment = request.POST.get("comment")
 	if (subject and comment):
 		to_address = "%s@bugs.debian.org" % bug_number
+		#to_address = "%s@marga.com.ar" % bug_number
 		# If the user is registered, we send the mail.  If not, we store it, and
 		# validate the email
 		if (user.is_authenticated()):
-			from django.core.mail import send_mail
 			send_mail(subject, comment, user.email, [to_address])
 			return "Your comment has been successfully sent"
 		else:
-			# TODO
+			import random, sha
+			from django.contrib.sites.models import Site
+			from django.conf import settings
+
+			# Store the email in the pending message db
+			from_address = request.POST.get("from_email")
+			salt = sha.new(str(random.random())).hexdigest()[:5]
+			activation_key = sha.new(salt+subject+from_address).hexdigest()
+
+			# Prepare the message to send to the user
+			message = Pending_Messages(from_address=from_address, 
+						to_address=to_address, 
+						subject=subject,
+						comment=comment, 
+						digest=activation_key)
+			message.save()
+			message_template = loader.get_template('activate_comment.txt')
+			message_context = Context({ 'activation_key': activation_key,
+			                            'subject': subject,
+										'comment': comment,
+										'site_url': Site.objects.get_current().domain
+										})
+			message = message_template.render(message_context)
+			# Send the email to the user
+			subject = "Activate the comment you prepared at Amancay"
+			send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [from_address])
+
 			return "A mail has been sent to your address to validate it"
 	else:
 		if (subject or comment):
@@ -135,3 +165,24 @@ def add_comment(request, bug_number):
 		else:
 			return None
 
+def activate_message(request, activation_key):
+	# Make sure the key we're trying conforms to the pattern of a
+	# SHA1 hash; if it doesn't, no point even trying to look it up
+	# in the DB.
+	if re.match('[a-f0-9]{40}', activation_key):
+		try:
+			message = Pending_Messages.objects.filter(digest=activation_key)[0]
+			send_mail(message.subject, message.comment, message.from_address, [message.to_address])
+			message.delete()
+			status = "Your message has now been successfully sent"
+		except SMTPRecipientsRefused:
+			status = "Invalid destination: %s." % message.to_address
+		except IndexError:
+			status = "Invalid activation key"
+	else:
+		status = "Malformed activation key"
+	
+	return render_to_response('search.html', 
+	                          {'info_to_user': status,
+	                           'current_user': request.user}
+	                         )

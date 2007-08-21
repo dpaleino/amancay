@@ -27,6 +27,9 @@ urlpatterns = patterns('',
 	# Account Settings
 	(r'^account_settings', 'bts_webui.amancay.views.account_settings',),
 	
+	# Activate a pending message
+	(r'^activate_message/(?P<activation_key>\w+)/$', 'bts_webui.amancay.views.activate_message',),
+
 	# MochiKit and other static pages
 	(r'^static/(.*)$', 'django.views.static.serve', {'document_root':
 	'amancay/static/'}),
