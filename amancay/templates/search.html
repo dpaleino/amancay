@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Amancay BTS interface{% endblock %}
+
+{% block toolbox %}
+{% endblock %}
+
+
+{% block main_content %}
+{% block search_form %}
+{% include "search_form.html" %}
+{% endblock %}
+{% if bug_list %}
+	{% block bug_list %}
+	{% include "table.html" %}
+	{% endblock %}
+{% endif %}
+{% endblock %}
+
