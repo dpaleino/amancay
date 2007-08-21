@@ -31,3 +31,11 @@ class SubmitterEmail(EmailItem):
 class UserEmail(EmailItem):
 	pass
 
+# Pending messages, to be sent when address is validated
+class Pending_Messages(models.Model):
+	from_address = models.CharField(maxlength=255)
+	to_address = models.CharField(maxlength=255)
+	subject = models.CharField(maxlength=255)
+	comment = models.TextField()
+	digest = models.CharField(maxlength=255)
+	
