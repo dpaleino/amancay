@@ -3,8 +3,8 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('',
 
 	# Normal pages
-	(r'^$', 'bts_webui.amancay.search.search',),
-	(r'^index', 'bts_webui.amancay.search.search',),
+	(r'^$', 'bts_webui.amancay.views.index',),
+	(r'^index', 'bts_webui.amancay.views.index',),
 
 	# Toolboxes
 	(r'toolbox', 'bts_webui.amancay.toolbox.render_toolbox',),

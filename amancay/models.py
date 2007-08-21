@@ -13,7 +13,7 @@ class Bug(models.Model):
 	number = models.IntegerField()
 
 	def __str__(self):
-		return self.number
+		return str(self.number)
 
 class EmailItem(models.Model):
 	user = models.ForeignKey(User)

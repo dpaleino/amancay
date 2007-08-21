@@ -48,7 +48,6 @@ class soap_queries(bts_queries):
 			return [ result.item.value ]
 
 	def get_bugs_status(self, bug_numbers):
-		print bug_numbers
 		result = self.server.get_status(bug_numbers)
 		return self.process_result(result)
 	

@@ -63,9 +63,7 @@ def submitted_bugs(request):
 		submitter_emails = request.session.get('submitter_emails')
 	if (submitter_emails):
 		bugs = queries.get_submitters_bugs(submitter_emails)
-		print bugs
 		bugs.sort(reverse=True)
-		print bugs
 	return render_bug_table(request, queries, "Latest submitted bugs",
 	bugs, 15, "submitted_bugs")
 

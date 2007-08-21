@@ -19,18 +19,18 @@ from bts_queries import soap_queries
 
 # Tables POST processing
 from tables import process_post, selected_bugs
+from search import search
 
 # The index page doesn't really do much.
 def index(request):
 	item_list = process_post(request)
-
 	# Check if it's AJAX or HTML
 	if (request.GET.has_key('xhr')):
 		return HttpResponse( simplejson.dumps({"item_list":	item_list}),
 		                     mimetype='application/javascript' )
 	else:
 		# TODO: choose which view to show.
-		return selected_bugs(request)
+		return search(request)
 
 
 # Package page

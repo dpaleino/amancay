@@ -24,7 +24,6 @@ def get_toolbox(request):
 
 	# Initialization
 	user = request.user
-	print user
 	toolbox = {}
 
 	# Fill the info according to the type of toolbox needed
