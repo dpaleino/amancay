@@ -16,8 +16,10 @@
 </ul>
 </span>
 {% endif %}
+{% if total_bugs %}
 <span class="total_bugs">Found {{ total_bugs }} 
 {% ifequal total_bugs 1 %}bug{% else %}bugs{%endifequal%}</span>
+{% endif %}
 </div>
 <table class="bugs">
 	<tr>
