@@ -1,0 +1,36 @@
+
+Features
+--------
+
+* Make the navigation bar reflect the page, even in AJAX
+* Paginate package pages
+* Figure out what to do with attachments in the bug log
+* Show user-tagged bugs
+* Check if the read-ahead thread is reading-ahead, and if it is, wait until
+  it has loaded the required page.
+* Make the "back" button work, even in AJAX mode.
+
+Bug Actions
+-----------
+
++ Reassign
++ Change severity
++ Tag
++ Usertag
++ Found / Fixed / Notfound
++ Retitle
++ Merge / Unmerge / Forcemerge
++ Clone
++ Change submitter
++ Forwarded / Unforwarded
++ Change owner
++ Subscribe
++ ReportSpam
+
+Interface Actions
+-----------------
+
+* Add bug to selected bugs
+* Add package to selected packages
+
+
