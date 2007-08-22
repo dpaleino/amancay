@@ -5,7 +5,7 @@
 <div class="pager">
 {% if pages %}
 <span class="page_numbers">Pages:
-<ul class="page_numbers">
+<ul class="page_numbers" id="pager">
 {% for number in pages %}
 	{% ifequal number current_page %}
 		<li class="current">{{ number }}</li>
@@ -34,8 +34,8 @@
 			<a href="/package/{{ bug.package }}">{{ bug.package }}</a>
 		</td>
 		<td class="bug_number">{{ bug.id }}</td>
-		<td class="subject"><a href="/bug/{{ bug.id }}">{{ bug.subject|slice:":60" }}
-		{% if bug.subject|slice:":60"|length_is:60 %}...{% endif %} 
+		<td class="subject"><a href="/bug/{{ bug.id }}">{{ bug.subject|escape|slice:":60" }}
+		{% if bug.subject|escape|slice:":60"|length_is:60 %}...{% endif %} 
 		<span class="hidden">
 		<b>Severity</b>: {{ bug.severity }}<br/>
 		<b>Submitted by</b>: {{ bug.originator }}<br/>

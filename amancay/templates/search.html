@@ -7,13 +7,17 @@
 
 
 {% block main_content %}
+<div id="main_content">
 {% block search_form %}
 {% include "search_form.html" %}
 {% endblock %}
+<div id="search_results">
 {% if bug_list %}
 	{% block bug_list %}
 	{% include "table.html" %}
 	{% endblock %}
 {% endif %}
+</div>
+</div>
 {% endblock %}
 

@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 	# Inside pages
 	(r'^package/(?P<package_name>\w+)', 'bts_webui.amancay.views.package',),
 	(r'^bug/(?P<bug_number>\d+)', 'bts_webui.amancay.views.bug',),
+	(r'^(?P<bug_number>\d+)/?$', 'bts_webui.amancay.views.bug',),
 
 	# Small pieces
 	(r'^add_package', 'bts_webui.amancay.views.add_package',),

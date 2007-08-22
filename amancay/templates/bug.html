@@ -4,7 +4,7 @@
 {% block title %}Amancay BTS interface - Bug View{% endblock %}
 
 {% block main_content %}
-<div class="bug_log" id="bug_list">
+<div class="bug_log" id="main_content">
 <div class="bug_log_title">
 <div class="report_information">
 Bug <span class="bug_number">{{ bug_number }}</span> -
@@ -15,7 +15,7 @@ Last modified on
 href="mailto:{{ bug_originator.1 }}">{{ bug_originator.0 }}</a></span>
 <span class="bug_date">on {{ bug_status.date|tstodate }}</span> -->
 </div>
-<div class="bug_title">{{ bug_status.subject }}</div>
+<div class="bug_title">{{ bug_status.subject|escape }}</div>
 <div class="extra_information">
 <ul>
 <li>Package: <a 
@@ -40,11 +40,11 @@ href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a></li>
 	href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
 	<span class="bug_log_date">said 
 	{% endif %} on {{ message.date|tstodate }}:<br/></span>
-	<span class="bug_log_subject">{{ message.subject }}</span>
+	<span class="bug_log_subject">{{ message.subject|escape }}</span>
 	</div>
 
 	<div class="bug_log_body">
-	<pre>{{ message.body }}</pre>
+	<pre>{{ message.body|escape }}</pre>
 	</div>
 </div>
 	{% endfor %}

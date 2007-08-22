@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 # Model clases
 from django.contrib.auth.models import User
 from bts_webui.amancay.models import Package
+from django.contrib.sites.models import Site
 
 # Needed for AJAX
 from django.utils import simplejson 
@@ -27,9 +28,7 @@ from django.contrib.sessions.models import Session
 # Bug views
 def search(request):
 	user = request.user
-	bugs = []
-	package = request.GET.get('package_search')
-	amount = 20
+	amount = 20 # TODO: get this amount from user prefs
 
 	# Get the page
 	page = request.GET.get('page')
@@ -40,6 +39,7 @@ def search(request):
 		page=0
 
 	# Perform the query
+	package = request.GET.get('package_search')
 	if (package):
 		search_id = "package:%s" % package
 		bug_list = retrieve_search(request, search_id, amount, page)
@@ -107,12 +107,12 @@ def render_bug_table(request, title, bug_list, page, num_pages, total,
 	start = page - 5
 	if (start < 1): start = 1
 	end = page + 5
-	if (end >= num_pages): end = num_pages - 1
-	pages = range(start, end)
+	if (end > num_pages): end = num_pages
+	pages = range(start, end+1)
 
 	# URL for future searches
-	url = "%s?%s=%s" % (request.path, current_view,
-		request.GET.get(current_view))
+	url = "http://%s/search/?%s=%s" % (Site.objects.get_current().domain, 
+		current_view, request.GET.get(current_view))
 
 	if (request.GET.has_key('xhr')):
 		# We only need to list the data.
