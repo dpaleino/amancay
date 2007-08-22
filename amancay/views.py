@@ -113,10 +113,10 @@ def bug(request, bug_number):
 			for part in content.walk():
 				if (part.get_content_maintype() == "multipart"):
 					continue
-				if (part["content-disposition"] == "inline"):
-					message["body"] += part.get_payload(decode=1) + "\n"
-				else:
+				if (part["content-disposition"] == "attachment"):
 					message["body"] += "[attach: %s]" % part.get_filename()
+				else:
+					message["body"] += part.get_payload(decode=1) + "\n"
 		else:
 			message["body"] = content.get_payload(decode=1)
 
