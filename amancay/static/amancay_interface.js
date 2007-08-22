@@ -74,13 +74,20 @@ function loading_finished() {
 	replaceChildNodes(document.getElementById("loading"), new_span);
 }
 
+var got_search_results = function(request) {
+	place = document.getElementById("search_results");
+	replace_content(request, place);
+	pagerConnect();
+}
 
 var got_bugs = function(request) {
-	place = document.getElementById("bug_list");
+	place = document.getElementById("main_content");
+	replace_content(request, place);
+}
+
+function replace_content(request, place) {
 	if (strip(request.responseText) != "") {
-		new_table = TABLE({'class':'bugs'});
-		new_table.innerHTML = request.responseText;
-		replaceChildNodes(place, new_table);
+		place.innerHTML = request.responseText;
 	} 
 	else {
 		new_span = SPAN({'class': 'error'}, "No bugs found");
@@ -88,12 +95,18 @@ var got_bugs = function(request) {
 	}
 	loading_finished();
 }
+
 var failed_bugs = function(request) {
 	new_span = SPAN({'class': 'error'}, "ERROR: bug list couldn't be loaded");
-	replaceChildNodes(document.getElementById("bug_list"), new_span);
+	replaceChildNodes(document.getElementById("main_content"), new_span);
 	loading_finished();
 }
 
+var failed_search_results = function(request) {
+	new_span = SPAN({'class': 'error'}, "ERROR: search results couldn't be loaded");
+	replaceChildNodes(document.getElementById("search_results"), new_span);
+	loading_finished();
+}
 var got_toolbox = function(request) {
 	place = document.getElementById("toolbox");
 	if (strip(request.responseText) != "") {
@@ -119,6 +132,12 @@ function load_bugs(evt, url) {
 	evt.preventDefault();
 }
 
+function load_search_results(evt, url) {
+	loading_bugs();
+	var d = doXHR(url);
+	d.addCallbacks(got_search_results, failed_search_results);
+	evt.preventDefault();
+}
 function load_toolbox(url) {
 	var d = doXHR(url);
 	d.addCallbacks(got_toolbox, failed_toolbox);
@@ -163,9 +182,27 @@ function toolboxConnect() {
 	    MochiKit.Signal.connect( item_selection, 'onsubmit', send_item_selected );
 }
 
+function send_page(evt) {
+	url = (evt.src() + "").replace(/search/, "search_table");
+	load_search_results(evt,url);
+	evt.preventDefault();
+}
+
+function pagerConnect() {
+	var pager = document.getElementById("pager")
+	if (pager) {
+		var items = pager.getElementsByTagName("a")
+		for (var i = 0; i < items.length; i++) {
+			 MochiKit.Signal.connect( items[i], 'onclick', send_page );
+		}
+	}
+}
+
+
 function myLoadFunction()
 {
 	toolboxConnect();
+	pagerConnect();
 
 	var link;
 	link = document.getElementById("submitted_bugs_link");
