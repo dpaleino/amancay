@@ -61,6 +61,7 @@ def package(request, package_name):
 # The bug page uses regular expresions to parse the log
 import re
 # The bug page uses rfc822 to parse emails, dates, etc.
+import email
 import email.Utils
 import email.Header
 
@@ -105,7 +106,20 @@ def bug(request, bug_number):
 			                                         date_value[0]))
 	
 		# Get the body
-		message["body"] = item["body"]
+		message["body"] = ""
+		content = item["header"] + "\n" + item["body"]
+		content = email.message_from_string(content)
+		if (content.is_multipart()):
+			for part in content.walk():
+				if (part.get_content_maintype() == "multipart"):
+					continue
+				if (part["content-disposition"] == "inline"):
+					message["body"] += part.get_payload(decode=1) + "\n"
+				else:
+					message["body"] += "[attach: %s]" % part.get_filename()
+		else:
+			message["body"] = content.get_payload(decode=1)
+
 		bug_messages.append(message)
 
 	return render_to_response('bug.html', 
