@@ -31,6 +31,7 @@ href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a></li>
 </div>
 </div>
 
+
 {% if bug_messages %}
 {% for message in bug_messages %}
 <div class="bug_log_item">
@@ -48,11 +49,8 @@ href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a></li>
 	</div>
 </div>
 	{% endfor %}
-<div class="add_comment_button">
-<form name="show_add_comment" method="POST">
-<input id="add_comment_button" type="button" value="Add Comment" />
-</form>
-</div>
+{% include "bug_actions.html" %}
+<!-- hidden forms -->
 <div class="add_comment" id="add_comment_form">
 <form name="add_comment" method="POST" action="./">
 <fieldset class="add_comment">
