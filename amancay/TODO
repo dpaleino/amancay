@@ -9,6 +9,7 @@ Features
 * Check if the read-ahead thread is reading-ahead, and if it is, wait until
   it has loaded the required page.
 * Make the "back" button work, even in AJAX mode.
+* Store the read-ahead data in the db.
 
 Bug Actions
 -----------
