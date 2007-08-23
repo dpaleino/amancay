@@ -113,7 +113,8 @@ def bug(request, bug_number):
 			for part in content.walk():
 				if (part.get_content_maintype() == "multipart"):
 					continue
-				if (part["content-disposition"] == "attachment"):
+				if (part["content-disposition"] and 
+				    part["content-disposition"][:10] == "attachment"):
 					message["body"] += "[attach: %s]" % part.get_filename()
 				else:
 					message["body"] += part.get_payload(decode=1) + "\n"
