@@ -402,7 +402,7 @@ table.bugs span.done {
 /* Bug Page */
 div.bug_log {
 	margin-bottom: 2em;
-
+	margin-right: 2em;
 }
 div.bug_log_title div.report_information {
 	font-size: 0.9em;
@@ -432,11 +432,9 @@ div.bug_log_title ul {
 	font-size: 0.9em;
 }
 
-
 div.bug_log_item {
 	margin-top: 1em;
 	border: 1px solid #a3b8a7;
-	margin-right: 2em;
 	font-size: 0.9em;
 }
 div.bug_log_header {
@@ -524,14 +522,25 @@ ul.page_numbers li {
 }
 
 /* Comments */
-div.add_comment_button {
+div.bug_actions {
 	text-align: right;
-	width: 100%;
+	background: rgb(135,202,214);
+	padding: 0;
+	border-bottom: solid #a3b8a7 1px;
+	border-left: solid #a3b8a7 1px;
+	border-right: solid #a3b8a7 1px;
 }
-div.add_comment_button input {
-	margin-top: 0.5em;
-	margin-right: 2em;
+div.bug_actions form {
+	padding: 0.2em;
+	font-size: small;
 }
+div.bug_actions input {
+	padding-right: 0.2em;
+}
+div.bug_actions select {
+	padding-right: 0.2em;
+}
+
 div.add_comment {
 	display: none;
 	font-size: small;
