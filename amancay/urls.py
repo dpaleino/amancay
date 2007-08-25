@@ -19,8 +19,8 @@ urlpatterns = patterns('',
 
 	# Inside pages
 	(r'^package/(?P<package_name>\w+)', 'bts_webui.amancay.views.package',),
-	(r'^bug/(?P<bug_number>\d+)', 'bts_webui.amancay.views.bug',),
-	(r'^(?P<bug_number>\d+)/?$', 'bts_webui.amancay.views.bug',),
+	(r'^bug/(?P<bug_number>\d+)', 'bts_webui.amancay.bugs.bug',),
+	(r'^(?P<bug_number>\d+)/?$', 'bts_webui.amancay.bugs.bug',),
 
 	# Small pieces
 	(r'^add_package', 'bts_webui.amancay.views.add_package',),
@@ -29,7 +29,7 @@ urlpatterns = patterns('',
 	(r'^account_settings', 'bts_webui.amancay.views.account_settings',),
 	
 	# Activate a pending message
-	(r'^activate_message/(?P<activation_key>\w+)/$', 'bts_webui.amancay.views.activate_message',),
+	(r'^send_message/(?P<activation_key>\w+)/$', 'bts_webui.amancay.bugs.activate_message',),
 
 	# MochiKit and other static pages
 	(r'^static/(.*)$', 'django.views.static.serve', {'document_root':
