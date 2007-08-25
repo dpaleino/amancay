@@ -168,11 +168,6 @@ function get_tagged_bugs(evt) {
 	load_bugs(evt,"/search_form/");
 }*/
 
-function show_add_comment(evt) {
-	div = document.getElementById("add_comment_form");
-	div.style.display = "block";	
-}
-
 function toolboxConnect() {
 	var item_add = document.getElementById("add_item");
 	if (item_add)
@@ -198,11 +193,13 @@ function pagerConnect() {
 	}
 }
 
-
 function myLoadFunction()
 {
 	toolboxConnect();
 	pagerConnect();
+
+	if (buglogConnect)
+		buglogConnect();
 
 	var link;
 	link = document.getElementById("submitted_bugs_link");
@@ -224,13 +221,6 @@ function myLoadFunction()
 	link = document.getElementById("tagged_bugs_link");
 	if (link)
     	MochiKit.Signal.connect( link, 'onclick', get_tagged_bugs );
-
-	/* Hidden form */
-	var button = document.getElementById("add_comment_button");
-    if (button)
-		MochiKit.Signal.connect( button, 'onclick', show_add_comment );
-	/*link = document.getElementById("search_link");
-    MochiKit.Signal.connect( link, 'onclick', get_search_form );*/
 }
 
 /*connect our event handlers right off*/
