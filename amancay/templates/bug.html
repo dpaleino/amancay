@@ -4,6 +4,7 @@
 {% block title %}Amancay BTS interface - Bug View{% endblock %}
 
 {% block main_content %}
+<script type="text/javascript" src="/static/buglog.js"></script> 
 <div class="bug_log" id="main_content">
 <div class="bug_log_title">
 <div class="report_information">
@@ -50,27 +51,7 @@ href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a></li>
 </div>
 	{% endfor %}
 {% include "bug_actions.html" %}
-<!-- hidden forms -->
-<div class="add_comment" id="add_comment_form">
-<form name="add_comment" method="POST" action="./">
-<fieldset class="add_comment">
-<legend class="add_comment">Add Comment</legend>
-<ul>
-{% if current_user.is_authenticated %}
-<li>The message will be sent from <b>{{ current_user.email }}</b></li>
-{% else %}
-<li><label for="from_email">Email:</label>
-<input size="80" name="from_email" maxlength="255" /></li>
-{% endif %}
-<li><label for="subject">Subject:</label>
-<input size="80"name="subject" maxlength="255"/></li>
-<li><label for="comment">Comment:</label>
-<textarea cols="80" rows="10" name="comment" />
-</textarea></li>
-<li><input type="submit" class="submit" value="Submit" /></li>
-</ul>
-</form>
-</div>
+{% include "bug_forms.html" %}
 {% endif %}
 </div>
 {% endblock %}
