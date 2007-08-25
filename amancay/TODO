@@ -12,6 +12,7 @@ Features
 * Store the read-ahead data in the db.
 * Fix sorting
 * Add help
+* Add "back to search results" link/button
 
 Bug Actions
 ===========
