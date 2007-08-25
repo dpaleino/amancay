@@ -521,7 +521,7 @@ ul.page_numbers li {
 	white-space: nowrap;
 }
 
-/* Comments */
+/* Bug actions */
 div.bug_actions {
 	text-align: right;
 	background: rgb(135,202,214);
@@ -537,38 +537,38 @@ div.bug_actions form {
 div.bug_actions input {
 	padding-right: 0.2em;
 }
-div.bug_actions select {
+div.bug_actions input {
 	padding-right: 0.2em;
 }
 
-div.add_comment {
+div.action_form {
 	display: none;
 	font-size: small;
 }
-fieldset.add_comment {
+fieldset.action_form {
 	margin-top: 0.5em;
 	margin-right: 2em;  
 	padding: 0.5em; 
 }
 
-div.add_comment ul {
+div.action_form ul {
 	margin-bottom: 0.3em;
 	margin-top: 0.3em;
 	padding: 0;  
 	list-style: none; 
 }
-div.add_comment li {
+div.action_form li {
 	padding-bottom: 0.4em;
 	padding-top: 0.4em;
 }
-div.add_comment label { 
+div.action_form label { 
 	display: block;
 	float: left; 
 	width: 8em;
 	margin-right: 1em;
 	text-align: right; 
 }
-div.add_comment input.submit {
+div.action_form input.submit {
 	margin-left: 9em;	
 }
 div.info_to_user {
