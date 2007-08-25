@@ -235,7 +235,7 @@ def activate_message(request, activation_key):
 		try:
 			message = Pending_Messages.objects.filter(digest=activation_key)[0]
 			to_address = message.to_address.split(",")
-			send_mail(message.subject, message.comment, message.from_address, message.to_address)
+			send_mail(message.subject, message.comment, message.from_address, to_address)
 			message.delete()
 			status = "Your message has now been successfully sent"
 		except SMTPRecipientsRefused:
