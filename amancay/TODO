@@ -10,16 +10,31 @@ Features
   it has loaded the required page.
 * Make the "back" button work, even in AJAX mode.
 * Store the read-ahead data in the db.
+* Fix sorting
+* Add help
 
 Bug Actions
------------
+===========
 
+* All actions
+  * Allow to send comment to submitter, maint-only, or quiet.
+  * Add information about "From Email"
+
+Existing Actions
+----------------
 + Reassign
+  * Check if the package exists
+  * Check if the version is valid
 + Change severity
+  * Select the current severity by default
++ Close
+  * Allow to close as invalid (i.e. with no version)
+
+Missing Actions
+---------------
 + Tag
 + Usertag
 + Found / Fixed / Notfound
-+ Retitle
 + Merge / Unmerge / Forcemerge
 + Clone
 + Change submitter
