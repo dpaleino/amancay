@@ -5,11 +5,29 @@ It uses Django as the server-side framework, and MochiKit as the javascript
 client side helper.
 
 In order to run this, you need to have python and django installed.  The
-Django version this program was tested against is 0.95, then one included
-in Debian.
+Django versions this program was tested against are 0.95 and 0.96.
 
-Packages to install
--------------------
+INSTALLATION AND SETUP
+======================
 
-apt-get install python python-django python-pysqlite2 python-soappy
+  Packages to install
+  -------------------
+
+    apt-get install python python-django python-pysqlite2 python-soappy
+
+  First time setup
+  ----------------
+
+  To get the necessary databases created you need to run:
+
+     python manage.py syncdb
+
+  From the main directory (bts_webui)
+
+  Running the server
+  -----------------
+
+  After creating the databases, you can use the "runserver.sh" script to
+  have a local webserver, that will start running on the 8000 port by
+  default.  Change the script if you need to use a different port.
 
