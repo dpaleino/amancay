@@ -23,10 +23,10 @@ urlpatterns = patterns('',
 	(r'^(?P<bug_number>\d+)/?$', 'bts_webui.amancay.bugs.bug',),
 
 	# Small pieces
-	(r'^add_package', 'bts_webui.amancay.views.add_package',),
+	#(r'^add_package', 'bts_webui.amancay.views.add_package',),
 
 	# Account Settings
-	(r'^account_settings', 'bts_webui.amancay.views.account_settings',),
+	#	(r'^account_settings', 'bts_webui.amancay.views.account_settings',),
 	
 	# Activate a pending message
 	(r'^send_message/(?P<activation_key>\w+)/$', 'bts_webui.amancay.bugs.activate_message',),
