@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from models import RegistrationProfile
-from forms import RegistrationForm
+from myforms import RegistrationForm
 
 def activate(request, activation_key):
     """
@@ -58,9 +58,9 @@ def register(request, success_url='/accounts/register/complete/'):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            new_user = RegistrationProfile.objects.create_inactive_user(username=form.clean_data['username'],
-            password=form.clean_data['password1'],
-            email=form.clean_data['email'])
+            new_user = RegistrationProfile.objects.create_inactive_user(username=form.cleaned_data['username'],
+            password=form.cleaned_data['password1'],
+            email=form.cleaned_data['email'])
             return HttpResponseRedirect(success_url)
     else:
         form = RegistrationForm()

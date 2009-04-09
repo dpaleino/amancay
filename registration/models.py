@@ -135,7 +135,7 @@ class RegistrationProfile(models.Model):
     class Admin:
         pass
     
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.id:
             self.key_generated = datetime.datetime.now()
         super(RegistrationProfile, self).save()
