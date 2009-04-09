@@ -31,3 +31,10 @@ INSTALLATION AND SETUP
   have a local webserver, that will start running on the 8000 port by
   default.  Change the script if you need to use a different port.
 
+  To set the domain name, you should go to:
+  http://yourhost:8000/admin
+
+  Using the admin user in the Amancay interface does not currently work.
+
+
+
