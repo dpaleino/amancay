@@ -5,21 +5,21 @@ class Package(models.Model):
 	user = models.ForeignKey(User)
 	package_name = models.CharField(max_length=200)
 
-	def __str__(self):
+	def __unicode__(self):
 		return self.package_name
 
 class Bug(models.Model):
 	user = models.ForeignKey(User)
 	number = models.IntegerField()
 
-	def __str__(self):
+	def __unicode__(self):
 		return str(self.number)
 
 class EmailItem(models.Model):
 	user = models.ForeignKey(User)
 	address = models.CharField(max_length=255)
 
-	def __str__(self):
+	def __unicode__(self):
 		return self.address
 
 class MaintainerEmail(EmailItem):
