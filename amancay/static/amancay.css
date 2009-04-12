@@ -189,9 +189,9 @@ div.toolbox_remove {
 input.toolbox_remove {
 	/* This part hides the original button. */
 	background-color: transparent; 
+	color: transparent; 
 	border: 0px;
 	padding: 0px;
-	padding-left: 3000px;
 	overflow: hidden;
 	
 	/* This part defines its new look. */
