@@ -117,12 +117,16 @@ def tagged_bugs(request):
 		user_emails = [ str(e) for e in emails]
 	else:
 		user_emails = request.session.get('user_emails')
+	bugs = {}
 	if (user_emails):
 		bugs = queries.get_tagged_bugs(user_emails)
-	bugs.sort(reverse=True)
+	print bugs
+	# bugs.sort(reverse=True)
+	# TODO: fix this, bugs is a dict where every value is a dict of tags and
+	# bugs associated to one mail
+	bugs = []
 	return render_bug_table(request, queries, "Latest received bugs", bugs,
 	15, "received_bugs")
-	
 
 
 # Simple method that just calls the appropiate function.
