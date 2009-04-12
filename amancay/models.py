@@ -19,6 +19,9 @@ class EmailItem(models.Model):
 	user = models.ForeignKey(User)
 	address = models.CharField(max_length=255)
 
+	class Meta:
+		abstract = True
+
 	def __unicode__(self):
 		return self.address
 
