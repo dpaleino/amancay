@@ -1,4 +1,6 @@
 import datetime
+import math, time
+import threading
 
 # Needed to get_template, prepare context and output Response
 from django.template import Context, loader
@@ -15,15 +17,12 @@ from django.contrib.sites.models import Site
 # Needed for AJAX
 from django.utils import simplejson
 
+# Manage the sessions myself
+from django.contrib.sessions.models import Session
+
 # Needed for SOAP
 from bts_queries import SoapQueries, bug_sort
 queries = SoapQueries()
-
-# Needed for timestamps, page calculation
-import time, math
-
-# Manage the sessions myself
-from django.contrib.sessions.models import Session
 
 # Bug views
 def search(request):
@@ -43,82 +42,100 @@ def search(request):
     if package:
         search_id = 'package:%s' % package
         bug_list = retrieve_search(request, search_id, amount, page)
-        if (bug_list == None):
+
+        if bug_list is None:
             bugs = queries.get_all_packages_bugs(package)
             bugs.sort(reverse=True)
             bug_list = get_bugs_status(request, search_id, bugs, amount, page)
             total = len(bugs)
         else:
             total = request.session['searches'][search_id]['total']
+
         pages = int(math.ceil(total/(amount*1.0)))
+
         return render_bug_table(request, 'Latest bugs for %s' % package,
             bug_list, page+1, pages, total, 'package_search')
     else:
         return render_bug_table(request, '', None, 0, 0, 0, 'search')
 
 def get_bugs_status(request, search_id, bugs, amount, page):
-    if (bugs != None and len(bugs) > 0):
-        start=page*amount
+    if bugs:
+        start = page * amount
         bug_list = queries.get_bugs_status(bugs[start:start+amount])
         store_search(request, search_id, bug_list, total=len(bugs))
         bug_list.sort(bug_sort.cmp_log_modified, reverse=True)
 
         # Start the read-ahead thread
-        reader = read_ahead(request, search_id, bugs, amount)
+        reader = _ReadAhead(request, search_id, bugs, amount)
         reader.start()
     else:
         bug_list = None
+
     return bug_list
 
-def store_search(request, search_id, bug_list, append=False, last_page=0,
-                    total=0):
+def store_search(request, search_id, bug_list, append=False, last_page=0, total=0):
     searches = request.session.get('searches')
-    if (searches == None):
+
+    if searches is not None:
         request.session['searches'] = {}
         searches = request.session['searches']
-    if (not searches.has_key(search_id)):
+
+    if not searches.has_key(search_id):
         searches[search_id] = {}
     searches[search_id]['stamp'] = time.time()
     searches[search_id]['last_page'] = last_page
-    if (total > 0):
+
+    if total:
         searches[search_id]['total'] = total
-    if (append):
-        if (not searches[search_id].has_key('bugs')):
+
+    if append:
+        if not searches[search_id].has_key('bugs'):
             searches[search_id]['bugs'] = []
     else:
         searches[search_id]['bugs'] = []
+
     searches[search_id]['bugs'].extend(bug_list)
 
 def retrieve_search(request, search_id, amount, page=0):
     searches = request.session.get('searches')
-    if (searches != None):
-        if (searches.has_key(search_id)):
-            if (time.time() - searches[search_id]['stamp'] < 900):
+
+    if searches is not None:
+        if searches.has_key(search_id):
+            if (time.time() - searches[search_id]['stamp']) < 900:
                 start = page * amount
                 searches[search_id]['last_page'] = 0
+
                 return searches[search_id]['bugs'][start:start+amount]
+
     return None
 
-# Bug renderer.
-def render_bug_table(request, title, bug_list, page, num_pages, total,
-                    current_view):
-
+def render_bug_table(request, title, bug_list, page, num_pages, total, current_view):
+    """
+    Render an individual bug table.
+    """
     # Calculate the pages
     start = page - 5
-    if (start < 1): start = 1
+
+    # FIXME: use django pager here
+    if start < 1:
+        start = 1
     end = page + 5
-    if (end > num_pages): end = num_pages
+
+    if end > num_pages:
+        end = num_pages
+
     pages = range(start, end+1)
 
     # URL for future searches
     url = 'http://%s/search/?%s=%s' % (Site.objects.get_current().domain,
-        current_view, request.GET.get(current_view))
+                                       current_view,
+                                       request.GET.get(current_view))
 
-    if (request.GET.has_key('xhr')):
+    if request.GET.has_key('xhr'):
         # We only need to list the data.
-        return HttpResponse( simplejson.dumps(bug_list),
-                             mimetype='application/javascript' )
-    elif (request.path.find('table') != -1):
+        return HttpResponse(simplejson.dumps(bug_list),
+                            mimetype='application/javascript')
+    elif request.path.find('table') != -1:
         # We only need to render the table
         return render_to_response('table.html',
                                   {'bug_list': bug_list,
@@ -140,26 +157,31 @@ def render_bug_table(request, title, bug_list, page, num_pages, total,
                                    'pages': pages},
                                  )
 
-
-
-# Read Ahead class
-import threading
-class read_ahead (threading.Thread):
+class _ReadAhead(threading.Thread):
+    """
+    ReadAhead class.
+    """
+    # FIXME: what does this do precisely?
+    # FIXME: what about a cache?
     def __init__(self, request, search_id, bugs, amount):
         threading.Thread.__init__(self)
         self.request = request
         self.bugs = bugs
         self.amount = amount
         self.search_id = search_id
+
     def run(self):
+        """
+        Start the ReadAhead thread.
+        """
         start = self.amount
         old_session = Session.objects.get(pk=self.request.session.session_key)
-        while (start < len(self.bugs)):
+        bug_number = len(self.bugs)
+        while start < bug_number:
             bug_list = queries.get_bugs_status(self.bugs[start:start+self.amount])
             store_search(self.request, self.search_id, bug_list, True)
             start += self.amount
-            # Ugly hack to make the session save
+            # FIXME: Ugly hack to make the session save
             Session.objects.save(self.request.session.session_key,
-                self.request.session._session, old_session.expire_date)
-
-
+                                 self.request.session._session,
+                                 old_session.expire_date)
