@@ -36,12 +36,12 @@ def search(request):
         page = int(page)
         page -= 1
     except:
-        page=0
+        page = 0
 
     # Perform the query
     package = request.GET.get('package_search')
-    if (package):
-        search_id = "package:%s" % package
+    if package:
+        search_id = 'package:%s' % package
         bug_list = retrieve_search(request, search_id, amount, page)
         if (bug_list == None):
             bugs = queries.get_all_packages_bugs(package)
@@ -49,12 +49,12 @@ def search(request):
             bug_list = get_bugs_status(request, search_id, bugs, amount, page)
             total = len(bugs)
         else:
-            total = request.session["searches"][search_id]["total"]
+            total = request.session['searches'][search_id]['total']
         pages = int(math.ceil(total/(amount*1.0)))
-        return render_bug_table(request, "Latest bugs for %s" % package,
-            bug_list, page+1, pages, total, "package_search")
+        return render_bug_table(request, 'Latest bugs for %s' % package,
+            bug_list, page+1, pages, total, 'package_search')
     else:
-        return render_bug_table(request, "", None, 0, 0, 0, "search")
+        return render_bug_table(request, '', None, 0, 0, 0, 'search')
 
 def get_bugs_status(request, search_id, bugs, amount, page):
     if (bugs != None and len(bugs) > 0):
@@ -72,31 +72,31 @@ def get_bugs_status(request, search_id, bugs, amount, page):
 
 def store_search(request, search_id, bug_list, append=False, last_page=0,
                     total=0):
-    searches = request.session.get("searches")
+    searches = request.session.get('searches')
     if (searches == None):
-        request.session["searches"] = {}
-        searches = request.session["searches"]
+        request.session['searches'] = {}
+        searches = request.session['searches']
     if (not searches.has_key(search_id)):
         searches[search_id] = {}
-    searches[search_id]["stamp"] = time.time()
-    searches[search_id]["last_page"] = last_page
+    searches[search_id]['stamp'] = time.time()
+    searches[search_id]['last_page'] = last_page
     if (total > 0):
-        searches[search_id]["total"] = total
+        searches[search_id]['total'] = total
     if (append):
-        if (not searches[search_id].has_key("bugs")):
-            searches[search_id]["bugs"] = []
+        if (not searches[search_id].has_key('bugs')):
+            searches[search_id]['bugs'] = []
     else:
-        searches[search_id]["bugs"] = []
-    searches[search_id]["bugs"].extend(bug_list)
+        searches[search_id]['bugs'] = []
+    searches[search_id]['bugs'].extend(bug_list)
 
 def retrieve_search(request, search_id, amount, page=0):
-    searches = request.session.get("searches")
+    searches = request.session.get('searches')
     if (searches != None):
         if (searches.has_key(search_id)):
-            if (time.time() - searches[search_id]["stamp"] < 900):
+            if (time.time() - searches[search_id]['stamp'] < 900):
                 start = page * amount
-                searches[search_id]["last_page"] = 0
-                return searches[search_id]["bugs"][start:start+amount]
+                searches[search_id]['last_page'] = 0
+                return searches[search_id]['bugs'][start:start+amount]
     return None
 
 # Bug renderer.
@@ -111,14 +111,14 @@ def render_bug_table(request, title, bug_list, page, num_pages, total,
     pages = range(start, end+1)
 
     # URL for future searches
-    url = "http://%s/search/?%s=%s" % (Site.objects.get_current().domain,
+    url = 'http://%s/search/?%s=%s' % (Site.objects.get_current().domain,
         current_view, request.GET.get(current_view))
 
     if (request.GET.has_key('xhr')):
         # We only need to list the data.
         return HttpResponse( simplejson.dumps(bug_list),
                              mimetype='application/javascript' )
-    elif (request.path.find("table") != -1):
+    elif (request.path.find('table') != -1):
         # We only need to render the table
         return render_to_response('table.html',
                                   {'bug_list': bug_list,
