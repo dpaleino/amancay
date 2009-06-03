@@ -9,30 +9,30 @@
 <div class="package_bugs">
 <span class="table_title">Package {{ package }} bugs</span>
 <table class="bugs">
-	<tr>
-		<th colspan=2>Summary</th>
-		<th>Status</th>
-		<th>Modified</th>
-	</tr>
-	{% for bug in bug_list %}
-	<tr >
-		<td class="bug_number">{{ bug.id }}</td>
-		<td class="subject"><a href="/bug/{{ bug.id }}">{{ bug.subject|escape }}
-		<span class="hidden">
-		<b>Severity</b>: {{ bug.severity }}<br/>
-		<b>Submitted by</b>: {{ bug.originator }}<br/>
-		{% if bug.keywords %}
-		<b>Tags</b>: {{ bug.keywords }}<br/>
-		{% endif%}
-		</span></a>
-		
-		</td>
-		<td class="{{ bug.severity }}">
-			<span class="{{ bug.pending }}">{{ bug.pending }}</span>
-		</td>
-		<td class="date">{{ bug.log_modified|tstodate }}</td>
-	</tr>
-	{% endfor %}
+    <tr>
+        <th colspan=2>Summary</th>
+        <th>Status</th>
+        <th>Modified</th>
+    </tr>
+    {% for bug in bug_list %}
+    <tr >
+        <td class="bug_number">{{ bug.id }}</td>
+        <td class="subject"><a href="/bug/{{ bug.id }}">{{ bug.subject|escape }}
+        <span class="hidden">
+        <b>Severity</b>: {{ bug.severity }}<br/>
+        <b>Submitted by</b>: {{ bug.originator }}<br/>
+        {% if bug.keywords %}
+        <b>Tags</b>: {{ bug.keywords }}<br/>
+        {% endif%}
+        </span></a>
+        
+        </td>
+        <td class="{{ bug.severity }}">
+            <span class="{{ bug.pending }}">{{ bug.pending }}</span>
+        </td>
+        <td class="date">{{ bug.log_modified|tstodate }}</td>
+    </tr>
+    {% endfor %}
 </table>
 </div>
 {% endif %}
