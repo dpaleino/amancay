@@ -94,17 +94,19 @@ def bug(request, bug_number):
                                'current_user': user}
                              )
 
-# Function to process the different forms that are there.
 def process_bug_post(request, bug_number):
-    if (request.POST.has_key("subject") or request.POST.has_key("comment")):
+    """
+    Function to process the different forms that are there.
+    """
+    if request.POST.has_key("subject") or request.POST.has_key("comment"):
         return add_comment(request, bug_number)
-    elif (request.POST.has_key("reassign_to")):
+    elif request.POST.has_key("reassign_to"):
         return reassign(request, bug_number)
-    elif (request.POST.has_key("retitle_to")):
+    elif request.POST.has_key("retitle_to"):
         return retitle(request, bug_number)
-    elif (request.POST.has_key("close_version")):
+    elif request.POST.has_key("close_version"):
         return close(request, bug_number)
-    elif (request.POST.has_key("severity")):
+    elif request.POST.has_key("severity"):
         return severity(request, bug_number)
     else:
         return None
@@ -194,7 +196,9 @@ def handle_email(request, to_address, subject, text):
         return "A mail has been sent to your address to validate it"
 
 def pending_message (from_address, to_address, subject, comment):
-    """ Create a pending message and send the activation email """
+    """
+    Create a pending message and send the activation email.
+    """
     import random, sha
     from django.contrib.sites.models import Site
     from django.conf import settings
