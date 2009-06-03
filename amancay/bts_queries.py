@@ -1,28 +1,35 @@
 #!/usr/bin/python
 
-# Abstract class that states the bts_queries all implementing classes
-# should support
 class bts_queries:
-	
-	# Returns an array with the status for all bug_numbers received.
-	def get_bugs_status(self, bug_numbers):
-		pass
+    '''
+    Abstract class implementing stubs for the required BTS queries the
+    different implementations should support.
+    '''
+    def get_bugs_status(self, bug_numbers):
+        '''
+        Returns an array with the status for all bug_numbers received.
+        '''
+        pass
 
-	# Returns an array of bug numbers, for all received packages.
-	def get_packages_bugs(self, packages):
-		pass
-	
-	# Returns an array of bug numbers, for which the emails received are
-	# submitters.
-	def get_submitters_bugs(self, emails):
-		pass
-	
-	# Returns an array of bug numbers, for which the emails received are
-	# maintainers.
-	def get_maintainers_bugs(self, emails):
-		pass
+    def get_packages_bugs(self, packages):
+        '''
+        Returns an array of bug numbers, for all received packages.
+        '''
+        pass
 
+    def get_submitters_bugs(self, emails):
+        '''
+        Returns an array of bug numbers, for which the emails received are
+        submitters.
+        '''
+        pass
 
+    def get_maintainers_bugs(self, emails):
+        '''
+        Returns an array of bug numbers, for which the emails received are
+        maintainers.
+        '''
+        pass
 
 # ************************ SOAP Queries *****************************
 
