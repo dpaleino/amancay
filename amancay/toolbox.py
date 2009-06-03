@@ -152,7 +152,7 @@ def remove_bugs(request):
 
 def package(request, package_name):
 	user = request.user
-	queries = soap_queries()
+	queries = SoapQueries()
 
 	bugs = queries.get_packages_bugs(package_name)
 	bugs.sort(reverse=True)

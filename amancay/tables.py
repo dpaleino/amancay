@@ -15,8 +15,8 @@ from bts_webui.amancay.models import Package
 from django.utils import simplejson 
 
 # Needed for SOAP
-from bts_queries import soap_queries, bug_sort
-queries = soap_queries()
+from bts_queries import SoapQueries, bug_sort
+queries = SoapQueries()
 
 # Toolboxes
 from toolbox import get_toolbox

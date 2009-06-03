@@ -15,7 +15,7 @@ from bts_webui.amancay.models import Package
 from django.utils import simplejson 
 
 # Needed for SOAP
-from bts_queries import soap_queries
+from bts_queries import SoapQueries
 
 # Tables POST processing
 from tables import process_post, selected_bugs
@@ -36,7 +36,7 @@ def index(request):
 # Package page
 def package(request, package_name):
 	user = request.user
-	queries = soap_queries()
+	queries = SoapQueries()
 
 	bugs = queries.get_packages_bugs(package_name)
 	bugs.sort(reverse=True)

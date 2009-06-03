@@ -16,8 +16,8 @@ from django.contrib.sites.models import Site
 from django.utils import simplejson 
 
 # Needed for SOAP
-from bts_queries import soap_queries, bug_sort
-queries = soap_queries()
+from bts_queries import SoapQueries, bug_sort
+queries = SoapQueries()
 
 # Needed for timestamps, page calculation
 import time, math

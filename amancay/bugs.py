@@ -15,7 +15,7 @@ from bts_webui.amancay.models import Pending_Messages
 from django.utils import simplejson 
 
 # Needed for SOAP
-from bts_queries import soap_queries
+from bts_queries import SoapQueries
 
 # Needed for sending emails
 from django.core.mail import send_mail
@@ -33,9 +33,9 @@ def bug(request, bug_number):
 	info = process_bug_post(request, bug_number)
 
 	user = request.user
-	queries = soap_queries()
+	queries = SoapQueries()
 	bug_status = queries.get_bugs_status(bug_number)[0]
-	bug_originator = email.Utils.parseaddr(bug_status["originator"])
+	bug_originator = email.Utils.parseaddr(bug_status['originator'])
 	bug_log = queries.get_bug_log(bug_number)
 
 	# Regular expressions to parse the mails
