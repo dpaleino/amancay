@@ -39,9 +39,6 @@ import SOAPpy
 #server.config.dumpSOAPOut = 1
 #server.config.dumpSOAPIn = 1
 
-# Import sets, for uniting lists of bugs
-from sets import Set
-
 class SoapQueries(BtsQueries):
     """
     SOAP based BtsQueries class.
@@ -76,11 +73,9 @@ class SoapQueries(BtsQueries):
 
     def get_all_packages_bugs(self, packages):
         # FIXME: Not in BtsQueries
-        pkg = self.server.get_bugs("package",packages)
-        src = self.server.get_bugs("src",packages)
-        # Unite this, and return the union.
-        result = Set(pkg)
-        result.update(src)
+        pkg = self.server.get_bugs('package', packages)
+        src = self.server.get_bugs('src', packages)
+        result = pkg + src
         return list(result)
 
     def get_bug_log(self, bug):
