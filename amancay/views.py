@@ -22,37 +22,37 @@ from tables import process_post, selected_bugs
 from search import search
 
 def index(request):
-    """
-    Our pretty useless index page.
-    """
-    item_list = process_post(request)
-    # Check if it's AJAX or HTML
-    if request.GET.has_key('xhr'):
-        return HttpResponse(simplejson.dumps({"item_list": item_list}),
-                            mimetype='application/javascript')
-    else:
-        # TODO: choose which view to show.
-        return search(request)
+	"""
+	Our pretty useless index page.
+	"""
+	item_list = process_post(request)
+	# Check if it's AJAX or HTML
+	if request.GET.has_key('xhr'):
+		return HttpResponse(simplejson.dumps({"item_list": item_list}),
+							mimetype='application/javascript')
+	else:
+		# TODO: choose which view to show.
+		return search(request)
 
 def package(request, package_name):
-    """
-    Individual package page.
-    """
-    user = request.user
-    queries = SoapQueries()
+	"""
+	Individual package page.
+	"""
+	user = request.user
+	queries = SoapQueries()
 
-    bugs = queries.get_packages_bugs(package_name)
-    bugs.sort(reverse=True)
-    bug_list = queries.get_bugs_status(bugs)
+	bugs = queries.get_packages_bugs(package_name)
+	bugs.sort(reverse=True)
+	bug_list = queries.get_bugs_status(bugs)
 
-    # Check if it's AJAX or HTML
-    if request.GET.has_key('xhr'):
-        return HttpResponse(simplejson.dumps({"package": package_name,
-                                              "bug_list": bug_list}),
-                            mimetype='application/javascript')
-    else:
-        return render_to_response('package.html',
-                                  {'package': package_name,
-                                   'bug_list': bug_list,
-                                   'current_user': user}
-                                 )
+	# Check if it's AJAX or HTML
+	if request.GET.has_key('xhr'):
+		return HttpResponse(simplejson.dumps({"package": package_name,
+											  "bug_list": bug_list}),
+							mimetype='application/javascript')
+	else:
+		return render_to_response('package.html',
+								  {'package': package_name,
+								   'bug_list': bug_list,
+								   'current_user': user}
+								 )

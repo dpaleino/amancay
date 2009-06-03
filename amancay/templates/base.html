@@ -1,71 +1,71 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
 <head>
-    <title>{% block title %}{% endblock %}</title>
-    <script type="text/javascript" src="/static/MochiKit.js"></script> 
-    <script type="text/javascript" src="/static/amancay_interface.js"></script> 
-    <link rel="stylesheet" href="/static/amancay.css" type="text/css" />
+	<title>{% block title %}{% endblock %}</title>
+	<script type="text/javascript" src="/static/MochiKit.js"></script> 
+	<script type="text/javascript" src="/static/amancay_interface.js"></script> 
+	<link rel="stylesheet" href="/static/amancay.css" type="text/css" />
 </head>
 <body>
-    <div class="header">
-    {% block content_header %}
-    <div class="topnav">
-        {% if current_user.is_authenticated %}
-        <ul>
-            <li>Logged in as {{ current_user }}</li>
-            <li style="list-style: none">|</li>
-            <li><a id="home_link" href="/index">Home</a></li>
-            <li style="list-style: none">|</li>
-            <li><a id="settings_link"href="/accounts/settings">Settings</a></li>
-            <li style="list-style: none">|</li>
-            <li><a id="help_link" href="/help">Help</a></li>
-            <li style="list-style: none">|</li>
-            <li><a id="logout_link" href="/accounts/logout">Logout</a></li>
-        </ul>
-        {% else %}
-        <ul>
-            <li>Not logged in</li>
-            <li style="list-style: none">|</li>
-            <li><a id="home_link" href="/index">Home</a></li> 
-            <li style="list-style: none">|</li>
-            <li><a id="login_link" href="/accounts/login">Login</a></li>
-            <li style="list-style: none">|</li>
-            <li><a id="help_link" href="/help">Help</a></li>
-        </ul>
-        {% endif %}
-    </div>
-    {% endblock %}
-    </div>
-    <div class="appname">Amancay</div>
+	<div class="header">
+	{% block content_header %}
+	<div class="topnav">
+		{% if current_user.is_authenticated %}
+		<ul>
+			<li>Logged in as {{ current_user }}</li>
+			<li style="list-style: none">|</li>
+			<li><a id="home_link" href="/index">Home</a></li>
+			<li style="list-style: none">|</li>
+			<li><a id="settings_link"href="/accounts/settings">Settings</a></li>
+			<li style="list-style: none">|</li>
+			<li><a id="help_link" href="/help">Help</a></li>
+			<li style="list-style: none">|</li>
+			<li><a id="logout_link" href="/accounts/logout">Logout</a></li>
+		</ul>
+		{% else %}
+		<ul>
+			<li>Not logged in</li>
+			<li style="list-style: none">|</li>
+			<li><a id="home_link" href="/index">Home</a></li> 
+			<li style="list-style: none">|</li>
+			<li><a id="login_link" href="/accounts/login">Login</a></li>
+			<li style="list-style: none">|</li>
+			<li><a id="help_link" href="/help">Help</a></li>
+		</ul>
+		{% endif %}
+	</div>
+	{% endblock %}
+	</div>
+	<div class="appname">Amancay</div>
 
-    <div class="body">
-        <div class="sidebar">
-        {% block sidebar %}
-        <h3 class="sidebar_title">Bugs</h3>
-        <ul>
-            <li><a id="search_link" href="/search">Search</a></li>
-            <li><a id="selected_bugs_link" href="/selected_bugs">Selected</a></li>
-            <li><a id="tagged_bugs_link" href="/tagged_bugs">Tagged</a></li>
-            <li><a id="submitted_bugs_link" href="/submitted_bugs">Latest Submitted</a></li>
-            <li><a id="received_bugs_link" href="/received_bugs">Latest Received</a></li>
-            <li><a id="package_bugs_link" href="/package_bugs">Selected Packages</a></li>
-        </ul>
-        {% endblock %}
-        </div>
+	<div class="body">
+		<div class="sidebar">
+		{% block sidebar %}
+		<h3 class="sidebar_title">Bugs</h3>
+		<ul>
+			<li><a id="search_link" href="/search">Search</a></li>
+			<li><a id="selected_bugs_link" href="/selected_bugs">Selected</a></li>
+			<li><a id="tagged_bugs_link" href="/tagged_bugs">Tagged</a></li>
+			<li><a id="submitted_bugs_link" href="/submitted_bugs">Latest Submitted</a></li>
+			<li><a id="received_bugs_link" href="/received_bugs">Latest Received</a></li>
+			<li><a id="package_bugs_link" href="/package_bugs">Selected Packages</a></li>
+		</ul>
+		{% endblock %}
+		</div>
 
-        <div id="toolbox" class="toolbox">
-        {% block toolbox %}{% endblock %}
-        </div>
+		<div id="toolbox" class="toolbox">
+		{% block toolbox %}{% endblock %}
+		</div>
 
-        <div class="main">
-            {% if info_to_user %}
-            <div class="info_to_user">{{ info_to_user }}</div>
-            {% endif %}
-            {% block main_content %}{% endblock %}
-        </div>
+		<div class="main">
+			{% if info_to_user %}
+			<div class="info_to_user">{{ info_to_user }}</div>
+			{% endif %}
+			{% block main_content %}{% endblock %}
+		</div>
 
-        <div class="loading" id="loading"></div>
-    </div>
+		<div class="loading" id="loading"></div>
+	</div>
 </body>
 </html>

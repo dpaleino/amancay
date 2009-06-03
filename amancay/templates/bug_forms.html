@@ -1,122 +1,122 @@
 <!-- hidden forms: add comment -->
 <div class="action_form" id="add_comment_form">
-    <form name="add_comment" method="POST">
-        <fieldset class="action_form">
-        <legend class="action_form">Add Comment</legend>
-        <ul>
-            {% if current_user.is_authenticated %}
-            <li>The message will be sent from <b>{{ current_user.email }}</b></li>
-            {% else %}
-            <li><label for="from_email">Your Email:</label>
-            <input size="80" name="from_email" maxlength="255" /></li>
-            {% endif %}
-            <li><label for="subject">Subject:</label>
-            <input size="80" name="subject" maxlength="255"/></li>
-            <li><label for="comment">Comment:</label>
-            <textarea cols="80" rows="10" name="comment" />
-            </textarea></li>
-            <li><input type="submit" class="submit" value="Submit" /></li>
-        </ul>
-        </fieldset>
-    </form>
+	<form name="add_comment" method="POST">
+		<fieldset class="action_form">
+		<legend class="action_form">Add Comment</legend>
+		<ul>
+			{% if current_user.is_authenticated %}
+			<li>The message will be sent from <b>{{ current_user.email }}</b></li>
+			{% else %}
+			<li><label for="from_email">Your Email:</label>
+			<input size="80" name="from_email" maxlength="255" /></li>
+			{% endif %}
+			<li><label for="subject">Subject:</label>
+			<input size="80" name="subject" maxlength="255"/></li>
+			<li><label for="comment">Comment:</label>
+			<textarea cols="80" rows="10" name="comment" />
+			</textarea></li>
+			<li><input type="submit" class="submit" value="Submit" /></li>
+		</ul>
+		</fieldset>
+	</form>
 </div>
 <!-- reassign -->
 <div class="action_form" id="reassign_form">
-    <form name="reassign" method="POST">
-        <fieldset class="action_form">
-        <legend class="action_form">Reassign report to</legend>
-        <ul>
-            {% if current_user.is_authenticated %}
-            <li>The message will be sent from <b>{{ current_user.email }}</b></li>
-            {% else %}
-            <li><label for="from_email">Your Email:</label>
-            <input size="80" name="from_email" maxlength="255" /></li>
-            {% endif %}
-            <li><label for="reassign_to">Reassign to:</label>
-            <input size="80" name="reassign_to" maxlength="255"/></li>
-            <li><label for="reassign_version">Version:</label>
-            <input size="80" name="reassign_version" maxlength="255"/></li>
-            <li><label for="reassign_comment">Comment:</label>
-            <textarea cols="80" rows="5" name="reassign_comment" />
-            </textarea></li>
-            <li><input type="submit" class="submit" value="Submit" /></li>
-        </ul>
-        </fieldset>
-    </form>
+	<form name="reassign" method="POST">
+		<fieldset class="action_form">
+		<legend class="action_form">Reassign report to</legend>
+		<ul>
+			{% if current_user.is_authenticated %}
+			<li>The message will be sent from <b>{{ current_user.email }}</b></li>
+			{% else %}
+			<li><label for="from_email">Your Email:</label>
+			<input size="80" name="from_email" maxlength="255" /></li>
+			{% endif %}
+			<li><label for="reassign_to">Reassign to:</label>
+			<input size="80" name="reassign_to" maxlength="255"/></li>
+			<li><label for="reassign_version">Version:</label>
+			<input size="80" name="reassign_version" maxlength="255"/></li>
+			<li><label for="reassign_comment">Comment:</label>
+			<textarea cols="80" rows="5" name="reassign_comment" />
+			</textarea></li>
+			<li><input type="submit" class="submit" value="Submit" /></li>
+		</ul>
+		</fieldset>
+	</form>
 </div>
 
 <!-- retitle -->
 <div class="action_form" id="retitle_form">
-    <form name="retitle" method="POST">
-        <fieldset class="action_form">
-        <legend class="action_form">Retitle bug report</legend>
-        <ul>
-        {% if current_user.is_authenticated %}
-        <li>The message will be sent from <b>{{ current_user.email }}</b></li>
-        {% else %}
-        <li><label for="from_email">Your Email:</label>
-        <input size="80" name="from_email" maxlength="255" /></li>
-        {% endif %}
-        <li><label for="retitle_to">Retitle to:</label>
-        <input size="80" name="retitle_to" maxlength="255"/></li>
-        <li><label for="retitle_comment">Comment:</label>
-        <textarea cols="80" rows="5" name="retitle_comment" />
-        </textarea></li>
-        <li><input type="submit" class="submit" value="Submit" /></li>
-        </ul>
-        </fieldset>
-    </form>
+	<form name="retitle" method="POST">
+		<fieldset class="action_form">
+		<legend class="action_form">Retitle bug report</legend>
+		<ul>
+		{% if current_user.is_authenticated %}
+		<li>The message will be sent from <b>{{ current_user.email }}</b></li>
+		{% else %}
+		<li><label for="from_email">Your Email:</label>
+		<input size="80" name="from_email" maxlength="255" /></li>
+		{% endif %}
+		<li><label for="retitle_to">Retitle to:</label>
+		<input size="80" name="retitle_to" maxlength="255"/></li>
+		<li><label for="retitle_comment">Comment:</label>
+		<textarea cols="80" rows="5" name="retitle_comment" />
+		</textarea></li>
+		<li><input type="submit" class="submit" value="Submit" /></li>
+		</ul>
+		</fieldset>
+	</form>
 </div>
 <!-- close -->
 <div class="action_form" id="close_form">
-    <form name="close" method="POST">
-        <fieldset class="action_form">
-        <legend class="action_form">Close bug report</legend>
-        <ul>
-            {% if current_user.is_authenticated %}
-            <li>The message will be sent from <b>{{ current_user.email }}</b></li>
-            {% else %}
-            <li><label for="from_email">Your Email:</label>
-            <input size="80" name="from_email" maxlength="255" /></li>
-            {% endif %}
-            <li><label for="close_version">Fixed Version:</label>
-            <input size="80" name="close_version" maxlength="255"/></li>
-            <li><label for="close_comment">Comment:</label>
-            <textarea cols="80" rows="5" name="close_comment" />
-            </textarea></li>
-            <li><input type="submit" class="submit" value="Submit" /></li>
-        </ul>
-        </fieldset>
-    </form>
+	<form name="close" method="POST">
+		<fieldset class="action_form">
+		<legend class="action_form">Close bug report</legend>
+		<ul>
+			{% if current_user.is_authenticated %}
+			<li>The message will be sent from <b>{{ current_user.email }}</b></li>
+			{% else %}
+			<li><label for="from_email">Your Email:</label>
+			<input size="80" name="from_email" maxlength="255" /></li>
+			{% endif %}
+			<li><label for="close_version">Fixed Version:</label>
+			<input size="80" name="close_version" maxlength="255"/></li>
+			<li><label for="close_comment">Comment:</label>
+			<textarea cols="80" rows="5" name="close_comment" />
+			</textarea></li>
+			<li><input type="submit" class="submit" value="Submit" /></li>
+		</ul>
+		</fieldset>
+	</form>
 </div>
 
 <!-- severity -->
 <div class="action_form" id="severity_form">
-    <form name="severity" method="POST">
-        <fieldset class="action_form">
-        <legend class="action_form">Change bug severity</legend>
-        <ul>
-            {% if current_user.is_authenticated %}
-            <li>The message will be sent from <b>{{ current_user.email }}</b></li>
-            {% else %}
-            <li><label for="from_email">Your Email:</label>
-            <input size="80" name="from_email" maxlength="255" /></li>
-            {% endif %}
-            <li><label for="severity">New severity:</label>
-            <select name="severity">
-                <option value="critical">Critical</option>
-                <option value="grave">Grave</option>
-                <option value="serious">Serious</option>
-                <option value="important">Important</option>
-                <option value="normal">Normal</option>
-                <option value="minor">Minor</option>
-                <option value="wishlist">Wishlist</option>
-            </select></li>
-            <li><label for="severity_comment">Comment:</label>
-            <textarea cols="80" rows="5" name="severity_comment" />
-            </textarea></li>
-            <li><input type="submit" class="submit" value="Submit" /></li>
-        </ul>
-        </fieldset>
-    </form>
+	<form name="severity" method="POST">
+		<fieldset class="action_form">
+		<legend class="action_form">Change bug severity</legend>
+		<ul>
+			{% if current_user.is_authenticated %}
+			<li>The message will be sent from <b>{{ current_user.email }}</b></li>
+			{% else %}
+			<li><label for="from_email">Your Email:</label>
+			<input size="80" name="from_email" maxlength="255" /></li>
+			{% endif %}
+			<li><label for="severity">New severity:</label>
+			<select name="severity">
+				<option value="critical">Critical</option>
+				<option value="grave">Grave</option>
+				<option value="serious">Serious</option>
+				<option value="important">Important</option>
+				<option value="normal">Normal</option>
+				<option value="minor">Minor</option>
+				<option value="wishlist">Wishlist</option>
+			</select></li>
+			<li><label for="severity_comment">Comment:</label>
+			<textarea cols="80" rows="5" name="severity_comment" />
+			</textarea></li>
+			<li><input type="submit" class="submit" value="Submit" /></li>
+		</ul>
+		</fieldset>
+	</form>
 </div>

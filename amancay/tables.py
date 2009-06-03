@@ -31,25 +31,25 @@ def render_bug_table(request, queries, title, bugs, amount, current_view):
 	if (request.GET.has_key('xhr')):
 		# We only need to list the data.
 		return HttpResponse( simplejson.dumps(bug_list),
-		                     mimetype='application/javascript' )
+							 mimetype='application/javascript' )
 	elif (request.path.find("table") != -1):
 		# We only need to render the table
 		return render_to_response('table.html', 
-		                          {'bug_list': bug_list,
-		                           'table_title': title,
+								  {'bug_list': bug_list,
+								   'table_title': title,
 								   'current_view': current_view},
-		                         )
+								 )
 	else:
 		# We need to render the whole page
 		# Get the corresponding toolbox
 		toolbox = get_toolbox(request)
 		return render_to_response('index.html', 
-		                          {'bug_list': bug_list,
-		                           'table_title': title,
+								  {'bug_list': bug_list,
+								   'table_title': title,
 								   'toolbox': toolbox,
 								   'current_view': current_view,
 								   'current_user': request.user}
-		                         )
+								 )
 
 # Bug views
 def submitted_bugs(request):

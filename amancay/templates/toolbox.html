@@ -3,32 +3,32 @@
 <form id="item_selection" method="post" action=".">
 {% if toolbox.item_list %}
 <table id="item_list">
-    {% for item in toolbox.item_list %}
-        <tr>
-            <td class="item_select">
-                <input type="checkbox" name="{{ toolbox.item_type }}_select"
-                       id="item_select" value="{{ item }}" />
-            </td>
-            <td class="item_name">{{ item }}</td>
-        </tr>
-    {% endfor %}
+	{% for item in toolbox.item_list %}
+		<tr>
+			<td class="item_select">
+				<input type="checkbox" name="{{ toolbox.item_type }}_select"
+					   id="item_select" value="{{ item }}" />
+			</td>
+			<td class="item_name">{{ item }}</td>
+		</tr>
+	{% endfor %}
 </table>
 <div class="toolbox_remove">
-        <input class="toolbox_remove" type="submit" value="Remove" />
+		<input class="toolbox_remove" type="submit" value="Remove" />
 </div>
 {% else %}
-    <div class="toolbox_message">No items selected</div>
+	<div class="toolbox_message">No items selected</div>
 {% endif %}
 </form>
 </div>
 <div class="toolbox_add_item">
 <form id="add_item" method="post" action=".">
-    <div class="toolbox_txt">
-        <input class="toolbox_txt" type="text" name="{{ toolbox.item_type }}" 
-    id="item" value="" />
-    </div>
-    <div class="toolbox_add">
-        <input class="toolbox_add" id="toolbox_add" type="submit" value="Add" />
-    </div>
+	<div class="toolbox_txt">
+		<input class="toolbox_txt" type="text" name="{{ toolbox.item_type }}" 
+	id="item" value="" />
+	</div>
+	<div class="toolbox_add">
+		<input class="toolbox_add" id="toolbox_add" type="submit" value="Add" />
+	</div>
 </form>
 </div>
