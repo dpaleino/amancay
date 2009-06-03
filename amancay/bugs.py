@@ -29,7 +29,6 @@ import email.Utils
 import email.Header
 
 def bug(request, bug_number):
-
 	# Process post
 	info = process_bug_post(request, bug_number)
 

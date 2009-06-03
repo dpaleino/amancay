@@ -33,7 +33,7 @@ class bts_queries:
 
 # ************************ SOAP Queries *****************************
 
-import SOAPpy 
+import SOAPpy
 # Uncomment those to enable debugging
 #server.config.dumpSOAPOut = 1
 #server.config.dumpSOAPIn = 1
@@ -56,20 +56,20 @@ class soap_queries(bts_queries):
 
 	def get_bugs_status(self, bug_numbers):
 		result = self.server.get_status(bug_numbers)
-		return self.process_result(result)
-	
+		return self.__process_result(result)
+
 	def get_packages_bugs(self, packages):
 		result = self.server.get_bugs("package",packages)
 		return result
-	
+
 	def get_submitters_bugs(self, emails):
 		result = self.server.get_bugs("submitter", emails)
 		return result
-	
+
 	def get_maintainers_bugs(self, emails):
 		result = self.server.get_bugs("maint",emails)
 		return result
-	
+
 	def get_all_packages_bugs(self, packages):
 		pkg = self.server.get_bugs("package",packages)
 		src = self.server.get_bugs("src",packages)
@@ -77,11 +77,11 @@ class soap_queries(bts_queries):
 		result = Set(pkg)
 		result.update(src)
 		return list(result)
-	
+
 	def get_bug_log(self, bug):
 		result = self.server.get_bug_log(bug)
 		return result
-	
+
 	def get_tagged_bugs(self, users):
 		# TODO: ask Don to allow many users at the same time
 		result = {}
@@ -96,10 +96,7 @@ class soap_queries(bts_queries):
 # ************************ Sorting Functions ************************
 
 class bug_sort:
-	
 	def cmp_log_modified (x, y):
 		return cmp(x["log_modified"], y["log_modified"])
-	
+
 	cmp_log_modified = staticmethod(cmp_log_modified)
-
-
