@@ -26,6 +26,9 @@ queries = SoapQueries()
 
 # Bug views
 def search(request):
+    """
+    View: render the bug table resulting from the current search.
+    """
     user = request.user
     amount = 20 # TODO: get this amount from user prefs
 
@@ -59,6 +62,9 @@ def search(request):
         return render_bug_table(request, '', None, 0, 0, 0, 'search')
 
 def get_bugs_status(request, search_id, bugs, amount, page):
+    """
+    Gets the status for the bugs in the provided list, returns such list.
+    """
     if bugs:
         start = page * amount
         bug_list = queries.get_bugs_status(bugs[start:start+amount])
@@ -74,6 +80,9 @@ def get_bugs_status(request, search_id, bugs, amount, page):
     return bug_list
 
 def store_search(request, search_id, bug_list, append=False, last_page=0, total=0):
+    """
+    Stores a search into the search db, which is serving now as a preloader.
+    """
     searches = request.session.get('searches')
 
     if searches is not None:
@@ -97,6 +106,9 @@ def store_search(request, search_id, bug_list, append=False, last_page=0, total=
     searches[search_id]['bugs'].extend(bug_list)
 
 def retrieve_search(request, search_id, amount, page=0):
+    """
+    Return a queued search.
+    """
     searches = request.session.get('searches')
 
     if searches is not None:
@@ -159,7 +171,7 @@ def render_bug_table(request, title, bug_list, page, num_pages, total, current_v
 
 class _ReadAhead(threading.Thread):
     """
-    ReadAhead class.
+    ReadAhead class used to preload bug lists.
     """
     # FIXME: what does this do precisely?
     # FIXME: what about a cache?
