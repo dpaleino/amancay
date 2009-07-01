@@ -111,9 +111,33 @@
 				<option value="wishlist">Wishlist</option>
 			</select></li>
 			<li><label for="severity_comment">Comment:</label>
-			<textarea cols="80" rows="5" name="severity_comment" />
-			</textarea></li>
+			<textarea cols="80" rows="5" name="severity_comment" /></textarea></li>
 			<li><input type="submit" class="submit" value="Submit" /></li>
+		</ul>
+		</fieldset>
+	</form>
+</div>
+
+<!-- subscription -->
+<div class="action_form" id="subscription_form">
+	<form name="severity" method="POST">
+		<fieldset class="action_form">
+		<legend class="action_form">Confirm subscription</legend>
+		<ul>
+			<li>Changes made to this bug report will be sent to the following
+			email address:
+			{% if current_user.is_authenticated %}
+				<b>{{ current_user.email }}</b>. If you are sure
+				about this, click Confirm.
+				<input type="hidden" size="80" name="subscribe_email"
+				maxlength="255" value="{{ current_user.email }}" />
+			{% else %}
+				<li><label for="from_email">Your Email:</label>
+				<input size="80" name="subscribe_email" maxlength="255" /></li>
+			{% endif %}
+			<br/>
+			Remember that some bug reports might produce high traffic.</li>
+			<li><input type="submit" class="submit" value="Confirm" /></li>
 		</ul>
 		</fieldset>
 	</form>

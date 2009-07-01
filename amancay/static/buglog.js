@@ -1,4 +1,6 @@
+/* vim: set sw=4 ts=4 sts=4 noet: */
 function hide_all() {
+	document.getElementById("subscribe_button").style.display = "none";
 	document.getElementById("add_comment_form").style.display = "none";
 	document.getElementById("reassign_form").style.display = "none";
 	document.getElementById("close_form").style.display = "none";
@@ -6,7 +8,7 @@ function hide_all() {
 	document.getElementById("retitle_form").style.display = "none";
 }
 function show_block(evt, block) {
-	block.style.display = "block";	
+	block.style.display = "block";
 }
 function show_add_comment(evt) {
 	hide_all();
@@ -40,10 +42,19 @@ function show_more_actions(evt) {
 	else if (select.options[index].value == "retitle")
 		show_retitle();
 }
+function subscribe_action(evt) {
+	show_block(evt, document.getElementById("subscription_form"));
+}
+
+
 function buglogConnect() {
 	/* Hidden forms */
+	var button = document.getElementById("subscribe_button");
+	if (button)
+		MochiKit.Signal.connect(button, 'onclick', subscribe_action);
+
 	var button = document.getElementById("add_comment_button");
-    if (button)
+	if (button)
 		MochiKit.Signal.connect(button, 'onclick', show_add_comment);
 
 	button = document.getElementById("report_spam_button");

@@ -108,6 +108,8 @@ def process_bug_post(request, bug_number):
 		return close(request, bug_number)
 	elif request.POST.has_key('severity'):
 		return severity(request, bug_number)
+	elif request.POST.has_key('subscribe_email'):
+		return subscribe(request, bug_number)
 	else:
 		return None
 
@@ -198,6 +200,15 @@ def severity(request, bug_number):
 		return handle_email(request, to_address, subject, text)
 	else:
 		return None
+
+def subscribe(request, bug_number):
+	if request.user.is_authenticated():
+		subscribe_email = request.user.email
+	else:
+		subscribe_email = request.POST.get('subscribe_email')
+
+	to_address = ['%s-subscribe@bugs.debian.org' % bug_number]
+	return handle_email(request, to_address, '', '')
 
 def handle_email(request, to_address, subject, text):
 	user = request.user
