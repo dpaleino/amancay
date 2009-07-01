@@ -1,0 +1,15 @@
+{% comment %} vim: set sw=4 ts=4 sts=4 noet: {% endcomment %}
+
+{% for tag in active_tags %}
+{% if tag %}
+<div id="tag_checkbox">
+	{{ tag }} <input type="checkbox" name="{{ tag }}" value="1"
+	checked="checked"/>
+</div>
+{% endif %}
+{% endfor %}
+{% for tag in all_tags %}
+<div id="tag_checkbox">
+	{{ tag }} <input type="checkbox" name="{{ tag }}" value="1"/>
+</div>
+{% endfor %}
