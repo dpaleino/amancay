@@ -1,60 +1,54 @@
-
 Bugs
 ----
- * Fix display for 273318, 31311, 146804
- * Fix display for bug status: "pending" should be "open", "pending-fixed"
-   should be "pending", "done" should be "closed".
+- Fix display for 273318, 31311, 146804
+- Fix display for bug status: "pending" should be "open", "pending-fixed"
+  should be "pending", "done" should be "closed".
 
 Features
 --------
-
-* Make the navigation bar reflect the page, even in AJAX
-* Paginate package pages
-* Figure out what to do with attachments in the bug log
-* Show user-tagged bugs
-* Check if the read-ahead thread is reading-ahead, and if it is, wait until
+- Make the navigation bar reflect the page, even in AJAX
+- Paginate package pages
+- Figure out what to do with attachments in the bug log
+- Show user-tagged bugs
+- Check if the read-ahead thread is reading-ahead, and if it is, wait until
   it has loaded the required page.
-* Make the "back" button work, even in AJAX mode.
-* Store the read-ahead data in the db.
-* Fix sorting
-* Add help
-* Add "back to search results" link/button
+- Make the "back" button work, even in AJAX mode.
+- Store the read-ahead data in the db.
+- Fix sorting
+- Add help
+- Add "back to search results" link/button
 
 Bug Actions
 ===========
-
-* All actions
-  * Allow to send comment to submitter, maint-only, or quiet.
-  * Add information about "From Email"
+- All actions
+  - Allow to send comment to submitter, maint-only, or quiet.
+  - Add information about "From Email"
 
 Existing Actions
 ----------------
-+ Reassign
-  * Check if the package exists
-  * Check if the version is valid
-+ Change severity
-  * Select the current severity by default
-+ Close
-  * Allow to close as invalid (i.e. with no version)
+- Reassign
+  - Check if the package exists
+  - Check if the version is valid
+- Change severity
+  - Select the current severity by default
+- Close
+  - Allow to close as invalid (i.e. with no version)
 
 Missing Actions
 ---------------
-+ Report a new bug
-+ Tag
-+ Usertag
-+ Found / Fixed / Notfound
-+ Merge / Unmerge / Forcemerge
-+ Clone
-+ Change submitter
-+ Forwarded / Unforwarded
-+ Change owner
+- Report a new bug
+- Tag
+- Usertag
+- Found / Fixed / Notfound
+- Merge / Unmerge / Forcemerge
+- Clone
+- Change submitter
+- Forwarded / Unforwarded
+- Change owner
 + Subscribe
-+ ReportSpam
+- ReportSpam
 
 Interface Actions
 -----------------
-
-* Add bug to selected bugs
-* Add package to selected packages
-
-
+- Add bug to selected bugs
+- Add package to selected packages
