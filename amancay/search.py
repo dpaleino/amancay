@@ -21,7 +21,7 @@ from django.utils import simplejson
 from django.contrib.sessions.models import Session
 
 # Needed for SOAP
-from bts_queries import SoapQueries, bug_sort
+from bts_queries import SoapQueries
 queries = SoapQueries()
 
 # Bug views
@@ -69,7 +69,7 @@ def get_bugs_status(request, search_id, bugs, amount, page):
 		start = page * amount
 		bug_list = queries.get_bugs_status(bugs[start:start+amount])
 		store_search(request, search_id, bug_list, total=len(bugs))
-		bug_list.sort(bug_sort.cmp_log_modified, reverse=True)
+		bug_list.sort(key=lambda x: x.log_modified, reverse=True)
 
 		# Start the read-ahead thread
 		reader = _ReadAhead(request, search_id, bugs, amount)

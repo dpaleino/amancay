@@ -1,4 +1,4 @@
-#!/usr/bin/python
+# vim: set sw=4 ts=4 sts=4 noet:
 
 class BtsQueries:
 	"""
@@ -90,15 +90,3 @@ class SoapQueries(BtsQueries):
 		for user in users:
 			result[user] = self.server.get_usertag(user)
 		return result
-
-# ************************ LDAP Queries *****************************
-
-# Is it worth it?
-
-# ************************ Sorting Functions ************************
-
-class bug_sort:
-	def cmp_log_modified (x, y):
-		return cmp(x["log_modified"], y["log_modified"])
-
-	cmp_log_modified = staticmethod(cmp_log_modified)

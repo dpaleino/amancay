@@ -1,3 +1,5 @@
+# vim: set sw=4 ts=4 sts=4 noet:
+
 import datetime
 
 # Needed to get_template, prepare context and output Response
@@ -15,7 +17,7 @@ from bts_webui.amancay.models import Package
 from django.utils import simplejson 
 
 # Needed for SOAP
-from bts_queries import SoapQueries, bug_sort
+from bts_queries import SoapQueries
 queries = SoapQueries()
 
 # Toolboxes
@@ -23,16 +25,17 @@ from toolbox import get_toolbox
 
 # Bug renderer.
 def render_bug_table(request, queries, title, bugs, amount, current_view):
-	if (bugs != None and len(bugs) > 0):
+	if bugs:
 		bug_list = queries.get_bugs_status(bugs[:amount])
-		bug_list.sort(bug_sort.cmp_log_modified, reverse=True)
+		bug_list.sort(key=lambda x: x.log_modified, reverse=True)
 	else:
 		bug_list = None
-	if (request.GET.has_key('xhr')):
+
+	if request.GET.has_key('xhr'):
 		# We only need to list the data.
-		return HttpResponse( simplejson.dumps(bug_list),
-							 mimetype='application/javascript' )
-	elif (request.path.find("table") != -1):
+		return HttpResponse(simplejson.dumps(bug_list),
+							 mimetype='application/javascript')
+	elif request.path.find("table") != -1:
 		# We only need to render the table
 		return render_to_response('table.html', 
 								  {'bug_list': bug_list,
