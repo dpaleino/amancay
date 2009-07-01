@@ -6,6 +6,7 @@ function hide_all() {
 	document.getElementById("close_form").style.display = "none";
 	document.getElementById("severity_form").style.display = "none";
 	document.getElementById("retitle_form").style.display = "none";
+	document.getElementById("owner_form").style.display = "none";
 }
 function show_block(evt, block) {
 	block.style.display = "block";
@@ -26,6 +27,9 @@ function show_severity(evt) {
 function show_retitle(evt) {
 	show_block(evt, document.getElementById("retitle_form"));
 }
+function show_owner(evt) {
+	show_block(evt, document.getElementById("owner_form"));
+}
 function report_spam(evt) {
 	alert("TODO");
 }
@@ -41,6 +45,10 @@ function show_more_actions(evt) {
 		show_severity();
 	else if (select.options[index].value == "retitle")
 		show_retitle();
+	else if (select.options[index].value == "retitle")
+		show_retitle();
+	else if (select.options[index].value == "owner")
+		show_owner();
 }
 function subscribe_action(evt) {
 	show_block(evt, document.getElementById("subscription_form"));

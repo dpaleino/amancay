@@ -142,3 +142,30 @@
 		</fieldset>
 	</form>
 </div>
+
+<!-- owner -->
+<div class="action_form" id="owner_form">
+	<form name="owner" method="POST">
+		<fieldset class="action_form">
+		<legend class="action_form">Change bug owner</legend>
+		<ul>
+			<li><label for="from_email">New owner email:</label>
+			<input size="80" name="new_owner_email" maxlength="255" /></li>
+			<br/>
+			<li><input type="submit" class="submit" value="Change owner" /></li>
+		</ul>
+		</fieldset>
+	</form>
+	{% if current_user.is_authenticated %}
+	<form name="owner" method="POST">
+		<fieldset class="action_form">
+		<legend class="action_form">Take over this bug</legend>
+		<ul>
+			<li><input size="80" name="new_owner_email" maxlength="255"
+			value="{{ current_user.email }}"/>
+			<input type="submit" class="submit" value="Take over this bug" /></li>
+		</ul>
+		</fieldset>
+	</form>
+	{% endif %}
+</div>

@@ -1,7 +1,7 @@
 Bugs
 ----
 - Fix display for 273318, 31311, 146804
-- Fix display for bug status: "pending" should be "open", "pending-fixed"
+? Fix display for bug status: "pending" should be "open", "pending-fixed"
   should be "pending", "done" should be "closed".
 
 Features
@@ -44,7 +44,7 @@ Missing Actions
 - Clone
 - Change submitter
 - Forwarded / Unforwarded
-- Change owner
++ Change owner
 + Subscribe
 - ReportSpam
 

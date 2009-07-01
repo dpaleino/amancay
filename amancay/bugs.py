@@ -117,8 +117,25 @@ def process_bug_post(request, bug_number):
 		return severity(request, bug_number)
 	elif request.POST.has_key('subscribe_email'):
 		return subscribe(request, bug_number)
+	elif request.POST.has_key('new_owner_email'):
+		return change_owner(request, bug_number)
 	else:
 		return None
+
+def change_owner(request, bug_number):
+	if request.user.is_authenticated():
+		new_owner_email = request.user.email
+	else:
+		new_owner_email = request.POST.get('new_owner_email')
+
+	to_address = ['control@bugs.debian.org',
+					'%s@bugs.debian.org' % bug_number]
+	text = 'owner %s %s' % (bug_number, new_owner_email)
+	text += '\nthanks\n\n'
+
+	subject = 'Changing owner of Debian Bug #%s to %s' % (bug_number, new_owner_email)
+
+	return handle_email(request, to_address, subject, text)
 
 def add_comment(request, bug_number):
 	user = request.user
