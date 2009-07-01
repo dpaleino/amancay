@@ -123,10 +123,7 @@ def process_bug_post(request, bug_number):
 		return None
 
 def change_owner(request, bug_number):
-	if request.user.is_authenticated():
-		new_owner_email = request.user.email
-	else:
-		new_owner_email = request.POST.get('new_owner_email')
+	new_owner_email = request.POST.get('new_owner_email')
 
 	to_address = ['control@bugs.debian.org',
 					'%s@bugs.debian.org' % bug_number]
