@@ -1,6 +1,5 @@
 /* vim: set sw=4 ts=4 sts=4 noet: */
 function hide_all() {
-	document.getElementById("subscribe_button").style.display = "none";
 	document.getElementById("add_comment_form").style.display = "none";
 	document.getElementById("reassign_form").style.display = "none";
 	document.getElementById("close_form").style.display = "none";
