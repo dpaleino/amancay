@@ -27,6 +27,13 @@ from django.core.mail import send_mail
 from smtplib import SMTPRecipientsRefused
 
 def bug(request, bug_number):
+	"""
+	Renders a bug page.
+
+	If the given bug page has been reached as a result of a POST action, the
+	data sent will be processed by process_bug_post and the bug will be
+	rendered after that to the user.
+	"""
 	# Process post
 	info = process_bug_post(request, bug_number)
 
@@ -96,7 +103,7 @@ def bug(request, bug_number):
 
 def process_bug_post(request, bug_number):
 	"""
-	Function to process the different forms that are there.
+	Process the different forms based on presence of some fields.
 	"""
 	if request.POST.has_key('subject') or request.POST.has_key('comment'):
 		return add_comment(request, bug_number)
@@ -211,6 +218,10 @@ def subscribe(request, bug_number):
 	return handle_email(request, to_address, '', '')
 
 def handle_email(request, to_address, subject, text):
+	"""
+	Sends an email to to_address if the user is authenticated, otherwise it
+	saves it in queue.
+	"""
 	user = request.user
 	if user.is_authenticated():
 		send_mail(subject, text, user.email, to_address)
@@ -256,6 +267,10 @@ def pending_message(from_address, to_address, subject, comment):
 	send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [from_address])
 
 def activate_message(request, activation_key):
+	"""
+	Flushes emails in the message queue corresponding to a given
+	activation_key.
+	"""
 	# Make sure the key we're trying conforms to the pattern of a
 	# SHA1 hash; if it doesn't, no point even trying to look it up
 	# in the DB.
