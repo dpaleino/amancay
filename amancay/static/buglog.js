@@ -50,7 +50,7 @@ function show_more_actions(evt) {
 		show_owner();
 }
 function subscribe_action(evt) {
-	show_block(evt, document.getElementById("subscription_form"));
+	show_block(evt, document.getElementById("subscribe_form"));
 }
 
 

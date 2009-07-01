@@ -105,19 +105,24 @@ def process_bug_post(request, bug_number):
 	"""
 	Process the different forms based on presence of some fields.
 	"""
-	if request.POST.has_key('subject') or request.POST.has_key('comment'):
+	form_type = request.POST.get('form_type', None)
+
+	if not form_type:
+		return None
+
+	if form_type == 'comment':
 		return add_comment(request, bug_number)
-	elif request.POST.has_key('reassign_to'):
+	elif form_type == 'reassign':
 		return reassign(request, bug_number)
-	elif request.POST.has_key('retitle_to'):
+	elif form_type == 'retitle':
 		return retitle(request, bug_number)
-	elif request.POST.has_key('close_version'):
+	elif form_type == 'close':
 		return close(request, bug_number)
-	elif request.POST.has_key('severity'):
+	elif form_type == 'severity':
 		return severity(request, bug_number)
-	elif request.POST.has_key('subscribe_email'):
+	elif form_type == 'subscribe':
 		return subscribe(request, bug_number)
-	elif request.POST.has_key('new_owner_email'):
+	elif form_type == 'owner':
 		return change_owner(request, bug_number)
 	else:
 		return None

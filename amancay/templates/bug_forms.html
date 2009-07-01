@@ -2,6 +2,7 @@
 <!-- hidden forms: add comment -->
 <div class="action_form" id="add_comment_form">
 	<form name="add_comment" method="POST">
+		<input type="hidden" name="form_type" value="comment"/>
 		<fieldset class="action_form">
 		<legend class="action_form">Add Comment</legend>
 		<ul>
@@ -24,6 +25,7 @@
 <!-- reassign -->
 <div class="action_form" id="reassign_form">
 	<form name="reassign" method="POST">
+		<input type="hidden" name="form_type" value="reassign"/>
 		<fieldset class="action_form">
 		<legend class="action_form">Reassign report to</legend>
 		<ul>
@@ -48,6 +50,7 @@
 <!-- retitle -->
 <div class="action_form" id="retitle_form">
 	<form name="retitle" method="POST">
+		<input type="hidden" name="form_type" value="retitle"/>
 		<fieldset class="action_form">
 		<legend class="action_form">Retitle bug report</legend>
 		<ul>
@@ -69,6 +72,7 @@
 <!-- close -->
 <div class="action_form" id="close_form">
 	<form name="close" method="POST">
+		<input type="hidden" name="form_type" value="close"/>
 		<fieldset class="action_form">
 		<legend class="action_form">Close bug report</legend>
 		<ul>
@@ -91,6 +95,7 @@
 <!-- severity -->
 <div class="action_form" id="severity_form">
 	<form name="severity" method="POST">
+		<input type="hidden" name="form_type" value="severity"/>
 		<fieldset class="action_form">
 		<legend class="action_form">Change bug severity</legend>
 		<ul>
@@ -119,8 +124,9 @@
 </div>
 
 <!-- subscription -->
-<div class="action_form" id="subscription_form">
+<div class="action_form" id="subscribe_form">
 	<form name="severity" method="POST">
+		<input type="hidden" name="form_type" value="subscribe"/>
 		<fieldset class="action_form">
 		<legend class="action_form">Confirm subscription</legend>
 		<ul>
@@ -145,7 +151,8 @@
 
 <!-- owner -->
 <div class="action_form" id="owner_form">
-	<form name="owner" method="POST">
+	<form name="owner_new" method="POST">
+		<input type="hidden" name="form_type" value="owner">
 		<fieldset class="action_form">
 		<legend class="action_form">Change bug owner</legend>
 		<ul>
@@ -157,7 +164,8 @@
 		</fieldset>
 	</form>
 	{% if current_user.is_authenticated %}
-	<form name="owner" method="POST">
+	<form name="owner_takeover" method="POST">
+		<input type="hidden" name="form_type" value="owner">
 		<fieldset class="action_form">
 		<legend class="action_form">Take over this bug</legend>
 		<ul>
