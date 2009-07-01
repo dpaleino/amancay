@@ -11,6 +11,8 @@ ADMINS = (
      ('Margarita Manterola', 'marga@debian.org'),
 )
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = '1025'
 
 MANAGERS = ADMINS
 
