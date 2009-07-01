@@ -20,8 +20,7 @@ def render_toolbox(request):
 
 # FIXME:
 # FIXME:
-# FIXME:
-# room for improvement.
+# FIXME: room for improvement.
 def get_toolbox(request):
 	# Initialization
 	user = request.user

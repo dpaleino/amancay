@@ -1,3 +1,4 @@
+# vim: set sw=4 ts=4 sts=4 noet:
 import datetime
 # The bug page uses regular expresions to parse the log
 import re
@@ -146,7 +147,7 @@ def reassign(request, bug_number):
 	else:
 		return None
 
-def retitle (request, bug_number):
+def retitle(request, bug_number):
 	new_title = request.POST.get('retitle_to')
 	comment = request.POST.get('retitle_comment')
 
@@ -164,7 +165,7 @@ def retitle (request, bug_number):
 	else:
 		return None
 
-def close (request, bug_number):
+def close(request, bug_number):
 	version = request.POST.get('close_version')
 	comment = request.POST.get('close_comment')
 
@@ -180,7 +181,7 @@ def close (request, bug_number):
 	else:
 		return None
 
-def severity (request, bug_number):
+def severity(request, bug_number):
 	new_severity = request.POST.get('severity')
 	comment = request.POST.get('severity_comment')
 
@@ -208,7 +209,7 @@ def handle_email(request, to_address, subject, text):
 		pending_message(from_address, to_address, subject, text)
 		return 'A mail has been sent to your address to validate it'
 
-def pending_message (from_address, to_address, subject, comment):
+def pending_message(from_address, to_address, subject, comment):
 	"""
 	Create a pending message and send the activation email.
 	"""

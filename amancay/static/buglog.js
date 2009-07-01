@@ -44,13 +44,13 @@ function buglogConnect() {
 	/* Hidden forms */
 	var button = document.getElementById("add_comment_button");
     if (button)
-		MochiKit.Signal.connect( button, 'onclick', show_add_comment );
+		MochiKit.Signal.connect(button, 'onclick', show_add_comment);
 
 	button = document.getElementById("report_spam_button");
 	if (button)
-		MochiKit.Signal.connect( button, 'onclick', report_spam );
+		MochiKit.Signal.connect(button, 'onclick', report_spam);
 
 	var select = document.getElementById("more_actions");
 	if (select)
-		MochiKit.Signal.connect( select, 'onchange', show_more_actions );
+		MochiKit.Signal.connect(select, 'onchange', show_more_actions);
 }
