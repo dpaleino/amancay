@@ -76,7 +76,7 @@ def received_bugs(request):
 	bugs = []
 	if (user.is_authenticated()):
 		emails = user.maintaineremail_set.all()
-		maintainer_emails = [ str(e) for e in emails]
+		maintainer_emails = [str(e) for e in emails]
 	else:
 		maintainer_emails = request.session.get('maintainer_emails')
 	if (maintainer_emails):
@@ -91,7 +91,7 @@ def package_bugs(request):
 	bugs = []
 	if (user.is_authenticated()):
 		package_list = request.user.package_set.all()
-		package_list = [ p.package_name for p in package_list]
+		package_list = [p.package_name for p in package_list]
 	else:
 		package_list = request.session.get('packages')
 
