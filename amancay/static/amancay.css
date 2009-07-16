@@ -180,5 +180,66 @@ table.bugs span.done {
 	color: #000000;
 	font-weight: normal;
 }
-
 /************* /amancay style ******************/
+
+/* bug */
+.bug .bug_number a {
+	font-size: smaller;
+	float: left;
+	text-decoration: none;
+	border-bottom: 1px dotted blue;
+}
+.bug .bug_modified {
+	font-size: smaller;
+	float: right;
+}
+.bug .bug_title {
+	clear: both;
+	font-size: xx-large;
+}
+.bug .bug_title .bug_severity {
+	font-size: xx-small;
+}
+.bug .bug_extra_information {
+	background-color: #eee;
+	color: #444;
+	border: 1px dashed #ddd;
+	border-left: 0.5em solid #ddd;
+	padding: 0.5em;
+	padding-left: 0.7em;
+}
+.bug .bug_log_item {
+	margin: 0.4em;
+	margin-bottom: 2em;
+}
+.bug .bug_log_body {
+	padding: 1em;
+	border: 1px dashed #BF1238;
+	border-top: 0;
+}
+.bug .bug_log_header {
+	background: #eee;
+	padding: 1em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	border: 1px solid #ddd;
+}
+.bug .bug_log_item_reporter {
+	background: #ffe;
+	border: 2px dotted #bbb;
+}
+.bug .bug_log_item_reporter .bug_log_header {
+	background: white;
+	border: 0;
+}
+.bug .bug_log_item_reporter .bug_log_body {
+	border: none;
+}
+.bug .bug_log_subject {
+	font-size: larger;
+	font-weight: bold;
+}
+.bug .bug_log_date,
+.bug .bug_log_from {
+	font-size: smaller;
+}
