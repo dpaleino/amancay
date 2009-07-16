@@ -1,314 +1,114 @@
-div.header
-{
-	font-family: sans-serif;
-	font-size: medium;
-	float: right;
-	position: absolute;
-	top: 0.1em;
-	left: 12em;
-	height: 1em;
-	margin-bottom: 0.5em;
-	margin-right: 0;
-	border-bottom:dotted 1px #ccc;
-	background-color: #ffffff;
+html {
+    padding: 0;
+    margin: 0;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Bitstream Vera Sans", "Verdana", sans-serif;
+    font-size: 0.9em;
+    background: #eee;
+    width:100%;
+    background:#fff;
+    min-width:600px;        /* Minimum width of layout - remove line if not required */ /* The min-width property does not work in old versions of Internet Explorer */
+    /*background: url('http://localhost:8000/static/bg.png') repeat-x top left white;*/
+    border:0;            /* This removes the border around the viewport in old versions of IE */
+}
+/*******************************************************************************
+                       Positioning rules
+*******************************************************************************/
+
+#header {
+    background: #BF1238;
+    border-bottom: 3px groove #BF1238;
+    color:white;
+    padding: 0.8em;
+    padding-left: 1.0em;
+}
+#main_title {
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+#main_title img {
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+#navbar {
+    text-align: right;
+    padding: 5px;
+}
+#footer {
+    color: #fff;
+    background-color: black;
+    clear:both;
+    float:left;
+    width:100%;
+    border-top:1px solid #000;
+}
+#footer p {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.8em;
 }
 
-div.appname
-{
-	position: absolute;
-	float: left;
-	display: block;
-	width: 7em;
-	top: 0.3em;
-	left: 0.5em;
-	text-align: center;
-	font-family: sans-serif;
-	font-size: x-large;
-	font-weight: bold;
-	background-color: #ffffff;
-	color: #d70751;
+/************* column holy grial **************/
+/* column container */
+.colmask {
+    position:relative;    /* This fixes the IE7 overflow hidden bug */
+    clear:both;
+    float:left;
+    width:100%;            /* width of whole page */
+    overflow:hidden;        /* This chops off any overhanging divs */
 }
+/* common column settings */
+.colright,
+.colmid,
+.colleft {
+    float:left;
+    width:100%;            /* width of page */
+    position:relative;
+}
+.col1,
+.col2,
+.col3 {
+    float:left;
+    position:relative;
+    padding:0 0 1em 0;    /* no left and right padding on columns, we just make them narrower instead
+                    only padding top and bottom is included here, make it whatever value you need */
+    overflow:hidden;
+}
+/* 2 Column (left menu) settings */
+.leftmenu {
+    background:#fff;        /* right column background colour */
+}
+.leftmenu .colleft {
+    right:80%;            /* right column width */
+/*    border: 1px blue solid;*/
+    background:#f4f4f4;    /* left column background colour */
+}
+.leftmenu .col1 {
+    width:76%;            /* right column content width */
+/*    border: 1px green solid;*/
+    left:102%;            /* 100% plus left column left padding */
+}
+.leftmenu .col2 {
+    width:17%;            /* left column content width (column width minus left and right padding) */
+/*    border: 1px purple solid;*/
+    left:6%;            /* (right column left and right padding) plus (left column left padding) */
+}
+/************* /column holy grial **************/
 
-div.topnav
-{
-	float: right;
-	font-size: small;
-	color: #000000;
-	margin-right: 1em;
-}
-
-div.topnav ul {
-	/*margin: 2px;*/
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-	font-size: small;
-}
-
-div.topnav ul li {
-	display: inline;
-	margin: 0;
-	white-space: nowrap;
-}
-
-div.topnav a {
-/*	font-size: small;*/
-	text-decoration: none;
-	color: #047F54;
-}
-
-div.topnav a:hover {
-	text-decoration: underline;
-}
-
-div.body {
-	margin: auto auto auto auto;
-	font-family: sans-serif;
-}
-
-
-div.sidebar { 
-	-moz-border-radius: 5px;
-	top: 3em;
-	margin-left: 0.05em;
-	right: auto;
-	float: left;
-	position: absolute;
-/*	padding-bottom: 0.5em;*/
-	padding-bottom: 0;
-	padding-top: 0.2em;
-	padding-right: 0.2em;
-	padding-left: 0.2em;
-	background-color: rgb(135,202,214);
-	width: 10em;
-}
-
-h3.sidebar_title {
-	font-size: medium;
-	font-weight: normal;
-	margin-top: 0.1em;
-	margin-bottom: 0.1em;
-	padding-left: 0.4em;
-}
-
-div.sidebar ul {
-	background: white;
-	margin-top: 0.15em;
-	margin-left: 0;
-	margin-right: 0;
-	margin-bottom: 0.25em;
-	padding-left: 0.4em;
-	list-style-type: none;
-	font-size: medium;
-	font-weight: normal;
-}
-
-div.sidebar a {
-	font-size: 0.85em;
-	line-height: 2em;
-	padding-right: 0.5em;
-	text-decoration: none;
-	color: #000000;
-	/* padding: 0.2em 0 0.3em 0em; */
-}
-
-div.sidebar a:hover {
-	text-decoration: underline;
-}
-
-div.toolbox { 
-	-moz-border-radius: 5px;
-	top: 16em;
-	margin-left: 0.05em;
-	float: left;
-	right: auto;
-	position: absolute;
-	padding-bottom: 0;
-	padding-right: 0.25em;
-	padding-left: 0.2em;
-	background: #87d6ba;
-	width: 10em;
-}
-
-h3.toolbox_title {
-	padding-left: 0.4em;
-	margin-top: 0.1em;
-	margin-bottom: 0.1em;
-	padding-top: 0.1em;
-	font-size: medium;
-	font-weight: normal;
-}
-
-div.toolbox_itemlist {
-	width: 100%;
-	background: white;
-	vertical-align: text-bottom;
-	margin-bottom: 0.2em;
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
-}
-
-div.toolbox_itemlist table {
-/*	float: left;*/
-/*	display: block;*/
-/*	position: relative;*/
-	display: inline-table;
-/*	margin-top: 0.15em;
-	margin-left: 0;
-	margin-bottom: 0.25em;*/
-	padding-left: 0em;
-	font-size: small;
-	font-weight: normal;
-	table-layout: fixed;
-	width: 100%;
-}
-td.item_select {
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
-	width: 1.3em;
-}
-td.item_name {
-/*	width: 5em;*/
-	white-space: nowrap;
-	overflow: hidden;
-}
-div.toolbox_remove {
-/*	display: inline;*/
-	width: 100%;
-/*	float: right;
-	clear: both;*/
-/*	height: 100%;*/
-/*	position: absolute;*/
-/*	position: relative;*/
-/*	left: 1em;*/
-/*	right: -0.1em;*/
-/*	position: fixed;*/
-	text-align: right;
-}
-
-input.toolbox_remove {
-	/* This part hides the original button. */
-	background-color: transparent; 
-	color: transparent; 
-	border: 0px;
-	padding: 0px;
-	overflow: hidden;
-	
-	/* This part defines its new look. */
-	width: 24px;
-	height: 24px;
-	max-width: 24px;
-	max-height: 24px;
-	/*background-position: center center;
-	background-repeat: no-repeat;*/
-	background-image: url(../images/delete.png);
-}
-
-div.toolbox_message {
-	background-color: white;
-	text-align: center;
-	font-size: small;
-	width: 96%;
-	padding: 0.2em;
-	margin-bottom: 0.2em;
-	display: block;
-}
-
-div.toolbox_add_item {
-	margin-bottom: 0.25em;
-}
-
-div.toolbox_txt {
-	display: inline;
-}
-input.toolbox_txt {
-	width: 7em;
-}
-div.toolbox_add {
-	text-align: right;
-	width: 100%;
-	display: inline;
-}
-input.toolbox_add {
-	width: 2.8em;
-}
-
-div.main { 
-/*	position: absolute;*/
-/*	float: right;
-	clear: both;*/
-	width: auto;
-	height: auto; 
-	margin-top: 2em;
-	margin-left: 12em;
-	margin-right: 0.5em;
-}
-
-div.footer
-{
-margin:10px auto 0px auto;
-width:100%;
-border-top:dotted 1px #ccc;
-clear: both;
-font-size: small;
-}
-
-span.table_title {
-font-family: sans-serif;
-font-size: large;
-font-weight: bold;
-color: #9999dd;
-}
-
-div.loading {
-	position: fixed;
-	top: 1.5em;
-	right: 0;
-}
-
-span.loading {
-	font-family: sans-serif;
-	font-size: small;
-	background-color: #9999dd;
-	color: #FFFFFF;
-	padding-top: 0.1em;
-	padding-bottom: 0.1em;
-	padding-left: 0.3em;
-	padding-right: 0.3em;
-}
-span.error {
-	font-family: sans-serif;
-	font-size: medium;
-	color: #CC6666;
-}
-
-div.bugs {
-display:block;
-margin: 1% 1% 1% 1%;
-/*float:right;*/
-}
+/************* amancay style *******************/
 
 table.bugs {
-background: #ffffff;
-border: 0;
-border-collapse: collapse;
-font-family: sans-serif;
-font-size: small;
-width: 100%;
-}
-
-table.bugs th {
-	border: 1px solid #999999;
-	padding-top: 0.3em;
-	padding-left: 0.2em;
-	padding-right: 0.2em;
-	padding-bottom: 0.3em;
+    border: 0;
+    border-collapse: collapse;
+    font-family: sans-serif;
+    font-size: small;
+    width: 100%;
 }
 table.bugs td {
-	padding-left: 0.4em;
-	padding-right: 0.4em;
-	padding-top: 0.1em;
-	padding-bottom: 0.1em;
 	border-bottom:dotted 1px #CCCCCC;
 	vertical-align: top;
 }
@@ -319,7 +119,6 @@ table.bugs a {
 table.bugs a:hover {
 	text-decoration: underline;
 }
-
 table.bugs td.package {
 	color: #333399;
 }
@@ -333,24 +132,15 @@ table.bugs td.date {
 	color: #999999;
 	text-align: right;
 }
-
 /* Hover boxes */
 table.bugs tr:hover {
 	background-color: rgb(135,202,214);
 }
-
-table.bugs a {
-    position:relative;/*this is the key*/
-    z-index:24; 
+table.bugs span.hidden {
+	display: none;
+	position: relative;
 }
-table.bugs a:hover {
-	z-index:25; 
-}
-table.bugs a span.hidden{
-	display: none
-}
-
-table.bugs a:hover span.hidden{ /*the span will display just on :hover state*/
+table.bugs a:hover span.hidden { /*the span will display just on :hover state*/
     display: block;
     position: absolute;
     top:2em; left:2em;
@@ -361,262 +151,34 @@ table.bugs a:hover span.hidden{ /*the span will display just on :hover state*/
     text-align: left;
 	padding: 0.3em;
 }
-
-
 /* Severities */
 td.critical {
-color: #771a1a;
-font-weight: bold;
+    color: #771a1a;
+    font-weight: bold;
 }
-
 td.grave {
-color: #771a1a;
-font-weight: bold;
+    color: #771a1a;
+    font-weight: bold;
 }
-
 td.serious {
-color: #771a1a;
-font-weight: bold;
+    color: #771a1a;
+    font-weight: bold;
 }
-
 td.important {
-color: #333399;
+    color: #333399;
 }
-
 td.normal {
-color: #333399;
+    color: #333399;
 }
-
 td.minor {
-color: #006600;
+    color: #006600;
 }
-
 td.wishlist {
-color: #006600;
+    color: #006600;
 }
 table.bugs span.done {
 	color: #000000;
 	font-weight: normal;
 }
 
-/* Bug Page */
-div.bug_log {
-	margin-bottom: 2em;
-	margin-right: 2em;
-}
-div.bug_log_title div.report_information {
-	font-size: 0.9em;
-	font-weight: normal;
-	color: #333333;
-}
-div.bug_log_title span.bug_number {
-	font-weight: bold;
-}
-div.bug_log_title span.severity {
-	font-weight: bold;
-}
-div.bug_log_title span.modified {
-	font-weight: bold;
-}
-div.bug_log_title div.bug_title {
-	font-size: large;
-	font-weight: bold;
-	color: #7f042f;
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
-}
-div.bug_log_title ul {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-	font-size: 0.9em;
-}
-
-div.bug_log_item {
-	margin-top: 1em;
-	border: 1px solid #a3b8a7;
-	font-size: 0.9em;
-}
-div.bug_log_header {
-	background: #c8e5d6;
-	padding: 0.4em;
-}
-span.bug_log_from {
-}
-span.bug_log_date {
-}
-span.bug_log_subject {
-	font-weight: bold;
-}
-div.bug_log_body {
-	padding: 0.4em;
-}
-
-/* Search */
-div.search_form {
-	width: 100%;
-	margin-bottom: 0.5em;
-}
-fieldset.search_form {
-	margin: 0.2em 0 0 0;  
-	padding: 0.2em; 
-}
-legend.search_title {
-	font-size: normal;
-	font-weight: bold;
-	color: #4ea385;
-	padding-right: 1em;
-	padding-left: 1em;
-}
-ol.search_form {
-	margin-bottom: 0.5em;
-	margin-left: 1em;
-	margin-right: 1em;
-	margin-top: 0.3em;
-	padding: 0;  
-	list-style: none; 
-}
-ol.search_form li {
-	padding-right: 0.5em;
-	display: inline;
-	margin: 0;
-	white-space: nowrap;
-	font-size: small;
-}
-input.search_field {
-	color: #4ea385;
-	font-size: small;
-	font-weight: bold;
-	background: #defcf4;
-	border: 1px solid #4ea385;
-	width: 25em;
-	padding-left: 0.2em;
-}
-input.submit_search {
-	color: #000;
-	background: rgb(135,202,214);
-	border: 2px outset #d7b9c9
-}
-
-/* Pager */
-div.pager{
-	font-size: small;
-	margin-bottom: 0.2em;
-}
-span.total_bugs {
-}
-span.page_numbers {
-	float: right;
-}
-ul.page_numbers {
-	list-style: none; 
-	margin: 0;
-	padding: 0;
-	display: inline;
-}
-ul.page_numbers li {
-	padding-right: 0.5em;
-	display: inline;
-	margin: 0;
-	white-space: nowrap;
-}
-
-/* Bug actions */
-div.bug_actions {
-	text-align: right;
-	background: rgb(135,202,214);
-	padding: 0;
-	border-bottom: solid #a3b8a7 1px;
-	border-left: solid #a3b8a7 1px;
-	border-right: solid #a3b8a7 1px;
-}
-div.bug_actions form {
-	padding: 0.2em;
-	font-size: small;
-}
-div.bug_actions input {
-	padding-right: 0.2em;
-}
-div.bug_actions input {
-	padding-right: 0.2em;
-}
-
-div.action_form {
-	display: none;
-	font-size: small;
-}
-fieldset.action_form {
-	margin-top: 0.5em;
-	margin-right: 2em;  
-	padding: 0.5em; 
-}
-
-div.action_form ul {
-	margin-bottom: 0.3em;
-	margin-top: 0.3em;
-	padding: 0;  
-	list-style: none; 
-}
-div.action_form li {
-	padding-bottom: 0.4em;
-	padding-top: 0.4em;
-}
-div.action_form label { 
-	display: block;
-	float: left; 
-	width: 8em;
-	margin-right: 1em;
-	text-align: right; 
-}
-div.action_form input.submit {
-	margin-left: 9em;	
-}
-div.info_to_user {
-	text-align: center;
-	font-size: small;
-	background: #ffcccc;
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-	padding: 0.4em;
-	font-weight: bold;
-}
-
-/* Registration */
-div.account_form {
-	width: 20em;
-	float: left;
-}
-
-.account_title {
-	font-size: large;
-	font-weight: bold;
-	color: rgb(135,202,214);
-}
-
-fieldset.account_form {
-	margin: 0.5em 0 0 0;  
-	padding: 0.5em; 
-}
-
-ol.account_form {
-	margin-bottom: 0.3em;
-	margin-top: 0.3em;
-	padding: 0;  
-	list-style: none; 
-}
-ol.account_form li {
-	padding-bottom: 0.4em;
-	padding-top: 0.4em;
-}
-div.account_comment {
-	width: 15em;
-	float: left;
-	margin-left: 2em;
-	margin-right: 2em;
-	margin-top: 2em;
-}
-div.account_form input.submit {
-	float: right;	
-}
-
-
+/************* /amancay style ******************/
