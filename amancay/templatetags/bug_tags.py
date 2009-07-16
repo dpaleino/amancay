@@ -14,16 +14,15 @@ def bug_tags_selector(context):
 	bug = context.get('bug_status')
 	if bug is None:
 		return None
-	
-	active_tags = bug.tags.split(' ')
 
+	# We have a constant list of tags, so we can easily find out which ones are
+	# set and which ones are not.
+	active_tags = bug.tags.split(' ')
 	all_tags = [t for t in TAGS if t not in active_tags]
 
 	# all_tags could be [''], let's check it's not
 	if all_tags and all_tags[0] == '':
 		all_tags = []
-
-	print active_tags, all_tags
 
 	return {
 		'bug':			bug,
