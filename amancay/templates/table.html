@@ -26,7 +26,7 @@
 		<th>Package</th>
 		<th colspan=2>Summary</th>
 		<th>Status</th>
-		<th>Modified</th>
+		<th>Last modified</th>
 	</tr>
 	{% for bug in bug_list %}
 	<tr>
@@ -48,7 +48,7 @@
 		<td class="{{ bug.severity }}">
 			<span class="{{ bug.pending }}">{{ bug.pending }}</span>
 		</td>
-		<td class="date">{{ bug.log_modified|tstodate}}</td>
+		<td class="date">{{ bug.log_modified|tstodatetime|timesince}} ago</td>
 	</tr>
 	{% endfor %}
 </table>
