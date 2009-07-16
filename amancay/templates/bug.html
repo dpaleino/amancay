@@ -15,42 +15,43 @@
 	<div class="bug_title">{{ bug_status.subject|escape }} <span class="bug_severity">((icon){{ bug_status.severity }})</span></div>
 	<div class="bug_extra_information">
 		(Package: <a href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a>)<br/>
-		{% if bug_status.tags %} Tags: {{ bug_status.tags }} {% endif %}
 		{% if bug_status.found_versions|length %}
-		Found in: {{ bug_status.found_versions|join:", " }}
+			Found in: {{ bug_status.found_versions|join:", " }}
 		{% endif %}
 	</div>
+	{% load bug_tags %}
+	{% bug_tags_selector %}
 	<br/><br/>
 {% if bug_messages %}
 	{% for message in bug_messages %}
-	{% if forloop.first %}
-	<div class="bug_log_item bug_log_item_reporter">
-		<div class="bug_log_header">
-			{% if message.from.0 %}
-			<span class="bug_log_from"><a href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
-			<span class="bug_log_date">said on {{ message.date|tstodate }}:<br/></span>
-			{% endif %}
-		</div>
+		{% if forloop.first %}
+		<div class="bug_log_item bug_log_item_reporter">
+			<div class="bug_log_header">
+				{% if message.from.0 %}
+				<span class="bug_log_from">reported by <a href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
+				<span class="bug_log_date">{{ message.date|tstodatetime|timesince }} ago ({{ message.date|tstodate }})</span>
+				{% endif %}
+			</div>
 
-		<div class="bug_log_body">
-			<pre>{{ message.body|escape }}</pre>
+			<div class="bug_log_body">
+				<pre>{{ message.body|escape }}</pre>
+			</div>
 		</div>
-	</div>
-	{% else %}
-	<div class="bug_log_item {% cycle 'bug_log_item_even' 'bug_log_item_odd' %}">
-		<div class="bug_log_header">
-			{% if message.from.0 %}
-			<span class="bug_log_from"><a href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
-			<span class="bug_log_date">said on {{ message.date|tstodate }}:<br/></span>
-			{% endif %}
-			<span class="bug_log_subject">{{ message.subject|escape }}</span>
-		</div>
+		{% else %}
+		<div class="bug_log_item {% cycle 'bug_log_item_even' 'bug_log_item_odd' %}">
+			<div class="bug_log_header">
+				{% if message.from.0 %}
+				<span class="bug_log_from"><a href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
+				<span class="bug_log_date">said on {{ message.date|tstodate }}:<br/></span>
+				{% endif %}
+				<span class="bug_log_subject">{{ message.subject|escape }}</span>
+			</div>
 
-		<div class="bug_log_body">
-			<pre>{{ message.body|escape }}</pre>
+			<div class="bug_log_body">
+				<pre>{{ message.body|escape }}</pre>
+			</div>
 		</div>
-	</div>
-	{% endif %}
+		{% endif %}
 	{% endfor %}
 	{% include "bug_actions.html" %}
 	{% include "bug_forms.html" %}

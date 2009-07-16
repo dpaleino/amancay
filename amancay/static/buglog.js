@@ -10,6 +10,7 @@ function hide_all() {
 function show_block(evt, block) {
 	block.style.display = "block";
 }
+/* FIXME: could this be a single function? */
 function show_add_comment(evt) {
 	hide_all();
 	show_block(evt, document.getElementById("add_comment_form"));

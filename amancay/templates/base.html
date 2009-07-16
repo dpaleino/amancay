@@ -42,8 +42,6 @@
 		</div>
 		<div class="col2">
 			<!-- Column 2 start -->
-			{% block sidebar %}
-			{% endblock %}
 			<h3 class="sidebar_title">Bugs</h3>
 			• <a id="search_link" href="/search">Search</a><br/>
 			• <a id="selected_bugs_link" href="/selected_bugs">Selected</a><br/>
@@ -52,6 +50,8 @@
 			• <a id="received_bugs_link" href="/received_bugs">Latest Received</a><br/>
 			• <a id="package_bugs_link" href="/package_bugs">Selected Packages</a><br/>
 
+			{% block sidebar %}
+			{% endblock %}
 			<div id="toolbox" class="toolbox">
 			{% block toolbox %}{% endblock %}
 			</div>

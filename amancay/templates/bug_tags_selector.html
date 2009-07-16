@@ -1,15 +1,65 @@
 {% comment %} vim: set sw=4 ts=4 sts=4 noet: {% endcomment %}
 
+<div id="tags_selected">
+{% for tag in active_tags %}
+	{% if tag %}
+		<span class="tag_draggable" id="tag_{{ tag }}">
+			{{ tag }} <a href="javascript:tag_remove('tag_{{ tag }}')">[x]</a>
+		</span>
+	{% else %}
+		{% comment %}this happens when we got an empty first tag or when there
+		are no tags in active_tags{% endcomment %}
+		drop tags here to activate them.
+	{% endif %}
+{% endfor %}
+</div>
+
+<div id="tags_available">
+{% for tag in all_tags %}
+	<span class="tag_draggable" id="tag_{{ tag }}">
+		{{ tag }} <a href="javascript:tag_remove('tag_{{ tag }}')" 
+		style="visibility:hidden">[x]</a>
+	</span>
+{% endfor %}
+</div>
+
+<script type="text/javascript">
+/* Create draggables for all the tags in the same block */
+/* all_tags content */
+{% for tag in all_tags %}
+new Draggable('tag_{{ tag }}', {revert: true});
+{% endfor %}
+/* active_tags contents */
 {% for tag in active_tags %}
 {% if tag %}
-<div id="tag_checkbox">
-	{{ tag }} <input type="checkbox" name="{{ tag }}" value="1"
-	checked="checked"/>
-</div>
+new Draggable('tag_{{ tag }}', {revert: true});
 {% endif %}
 {% endfor %}
-{% for tag in all_tags %}
-<div id="tag_checkbox">
-	{{ tag }} <input type="checkbox" name="{{ tag }}" value="1"/>
-</div>
-{% endfor %}
+
+function on_tag_drop (elem) {
+	/* handles tag dropping */
+	var eggs = document.getElementById('tags_available');
+	var basket = document.getElementById('tags_selected');
+
+	eggs.removeChild(elem);
+	basket.appendChild(elem);
+
+	elem.childNodes[1].style.visibility = 'visible';
+}
+function tag_remove (elem_id) {
+	/* handles tag removal */
+	var elem = document.getElementById(elem_id);
+
+	var eggs = document.getElementById('tags_available');
+	var basket = document.getElementById('tags_selected');
+
+	basket.removeChild(elem);
+	eggs.appendChild(elem);
+
+	elem.childNodes[1].style.visibility = 'hidden';
+}
+new Droppable('tags_selected', {
+	accept: ['tag_draggable'],
+	ondrop: on_tag_drop,
+});
+</script>

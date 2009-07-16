@@ -5,8 +5,8 @@ html {
 body {
     padding: 0;
     margin: 0;
-    font-family: "Bitstream Vera Sans", "Verdana", sans-serif;
-    font-size: 0.9em;
+    font-family: "Bitstream Vera Sans", "DejaVu Sans", "Verdana", sans-serif;
+    font-size: 0.8em;
     background: #eee;
     width:100%;
     background:#fff;
@@ -37,6 +37,9 @@ body {
 #navbar {
     text-align: right;
     padding: 5px;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0.5em;
 }
 #footer {
     color: #fff;
@@ -242,4 +245,27 @@ table.bugs span.done {
 .bug .bug_log_date,
 .bug .bug_log_from {
 	font-size: smaller;
+}
+.bug .bug_log_item_reporter .bug_log_from {
+    font-size: larger;
+    font-weight: bold;
+}
+#tags_available {
+	text-align: center;
+	padding: 0.5em;
+	margin: 0.6em;
+	border: 1px dashed #bbb;
+}
+#tags_selected {
+	padding: 0.5em;
+	margin: 0.7em;
+	border: 3px dashed #bf1238;
+}
+.tag_draggable a {
+	text-decoration: none;
+	font-size: small;
+	color: #d88;
+}
+.tag_draggable a:hover {
+	color: red;
 }
