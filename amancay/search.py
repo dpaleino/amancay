@@ -85,7 +85,7 @@ def store_search(request, search_id, bug_list, append=False, last_page=0, total=
 	"""
 	searches = request.session.get('searches')
 
-	if searches is not None:
+	if searches is None:
 		request.session['searches'] = {}
 		searches = request.session['searches']
 
