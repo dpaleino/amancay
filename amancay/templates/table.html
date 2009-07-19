@@ -27,13 +27,12 @@
 		<th></th>
 		<th>Bug #</th>
 		<th>Summary</th>
-		<th>Status</th>
 		<th>Last modified</th>
 	</tr>
 	{% for bug in bug_list %}
 	{% ifchanged %}
 	<tr>
-		<td>
+		<td class="starred">
 			<img src="/static/icons/starred.png" style="vertical-align: middle"/>
 		</td>
 		<td class="package" colspan="4">
@@ -42,22 +41,25 @@
 	</tr>
 	{% endifchanged %}
 	<tr>
-		<td></td>
+		<td class="starred"></td>
 		<td class="bug_number">#{{ bug.id }}</td>
 		<td class="subject">
-			<a href="/bug/{{ bug.id }}">{{ bug.subject|truncatewords:6 }}
-			<span class="hidden">
-			<b>Severity</b>: {{ bug.severity }}<br/>
-			<b>Submitted by</b>: {{ bug.originator }}<br/>
-			{% if bug.keywords %}
-			<b>Tags</b>: {{ bug.keywords }}<br/>
-			{% endif%}
-			</span></a>
-		</td>
-		<td class="status {{ bug.severity }}">
-			<span class="{{ bug.pending }}">{{ bug.pending }}</span>
+			<a href="/bug/{{ bug.id }}">{{ bug.subject|truncatewords:6 }}</a>
 		</td>
 		<td class="date">{{ bug.log_modified|tstodatetime|timesince}} ago</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td colspan="3">
+			<span class="extra">
+				<span class="status {{ bug.severity }}">{{ bug.severity }}</span>
+				reported by <b>{{ bug.originator }}</b> marked <b>{{ bug.pending }}</b>
+				{% if bug.keywords %}
+				tagged <b>{{ bug.keywords }}</b>
+				{% endif%}
+			</span>
+		</td>
 	</tr>
 	{% endfor %}
 </table>

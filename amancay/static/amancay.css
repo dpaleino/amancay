@@ -116,9 +116,6 @@ table.bugs td {
 	vertical-align: middle;
 	height: 2em;
 }
-table.bugs td.date,
-table.bugs td.status {
-}
 table.bugs a {
 	color: #333399;
 	text-decoration: none;
@@ -129,64 +126,59 @@ table.bugs a:hover {
 table.bugs td.package {
 	color: #333399;
 }
+table.bugs td.starred {
+    width: 26px;
+}
 table.bugs td.bug_number {
 	text-align:right;
+	width: 3.2em;
 }
 table.bugs td.subject {
 	color: #333399;
 	text-align:left;
 }
+table.bugs .extra {
+    color: #999;
+    font-size: 90%;
+    height: auto;
+}
+table.bugs .status {
+    font-weight: bold;
+}
+table.bugs tr:hover .extra {
+    color: white;
+}
 table.bugs td.date {
 	color: #999999;
 	text-align: right;
 }
-/* Hover boxes */
 table.bugs tr:hover {
 	background-color: rgb(135,202,214);
 }
-table.bugs span.hidden {
-	display: none;
-	position: relative;
-}
-table.bugs a:hover span.hidden { /*the span will display just on :hover state*/
-    display: block;
-    position: absolute;
-    top:2em; left:2em;
-	width:30em;
-    border:2px solid #87d6ba;
-	background-color: #ffffff;
-	color:#000;
-    text-align: left;
-	padding: 0.3em;
-}
 /* Severities */
-td.critical {
+span.critical {
     color: #771a1a;
     font-weight: bold;
 }
-td.grave {
+span.grave {
     color: #771a1a;
     font-weight: bold;
 }
-td.serious {
+span.serious {
     color: #771a1a;
     font-weight: bold;
 }
-td.important {
+span.important {
     color: #333399;
 }
-td.normal {
+span.normal {
     color: #333399;
 }
-td.minor {
+span.minor {
     color: #006600;
 }
-td.wishlist {
+span.wishlist {
     color: #006600;
-}
-table.bugs span.done {
-	color: #000000;
-	font-weight: normal;
 }
 /************* /amancay style ******************/
 
