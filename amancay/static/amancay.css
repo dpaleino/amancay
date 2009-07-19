@@ -116,6 +116,9 @@ table.bugs td {
 	vertical-align: middle;
 	height: 2em;
 }
+table.bugs td.date,
+table.bugs td.status {
+}
 table.bugs a {
 	color: #333399;
 	text-decoration: none;
@@ -131,6 +134,7 @@ table.bugs td.bug_number {
 }
 table.bugs td.subject {
 	color: #333399;
+	text-align:left;
 }
 table.bugs td.date {
 	color: #999999;

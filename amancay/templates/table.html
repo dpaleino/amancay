@@ -1,3 +1,4 @@
+{% comment %} vim: set sw=4 ts=4 sts=4 noet: {% endcomment %}
 {% load template_filters %}
 <input id="current_view" type="hidden" value="{{ current_view }}" />
 {% if bug_list %}
@@ -23,25 +24,28 @@
 </div>
 <table class="bugs">
 	<tr>
+		<th></th>
 		<th>Bug #</th>
 		<th>Summary</th>
 		<th>Status</th>
 		<th>Last modified</th>
 	</tr>
 	{% for bug in bug_list %}
-    {% ifchanged %}
+	{% ifchanged %}
 	<tr>
-		<td class="package" colspan="4">
+		<td>
 			<img src="/static/icons/starred.png" style="vertical-align: middle"/>
+		</td>
+		<td class="package" colspan="4">
 			<a href="/package/{{ bug.package }}">{{ bug.package }}</a>
 		</td>
 	</tr>
 	{% endifchanged %}
 	<tr>
+		<td></td>
 		<td class="bug_number">#{{ bug.id }}</td>
 		<td class="subject">
-			<a href="/bug/{{ bug.id }}">{{ bug.subject|escape|slice:":60" }}
-			{% if bug.subject|escape|slice:":60"|length_is:60 %}...{% endif %} 
+			<a href="/bug/{{ bug.id }}">{{ bug.subject|truncatewords:6 }}
 			<span class="hidden">
 			<b>Severity</b>: {{ bug.severity }}<br/>
 			<b>Submitted by</b>: {{ bug.originator }}<br/>
@@ -50,7 +54,7 @@
 			{% endif%}
 			</span></a>
 		</td>
-		<td class="{{ bug.severity }}">
+		<td class="status {{ bug.severity }}">
 			<span class="{{ bug.pending }}">{{ bug.pending }}</span>
 		</td>
 		<td class="date">{{ bug.log_modified|tstodatetime|timesince}} ago</td>
