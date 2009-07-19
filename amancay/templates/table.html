@@ -23,17 +23,22 @@
 </div>
 <table class="bugs">
 	<tr>
-		<th>Package</th>
-		<th colspan=2>Summary</th>
+		<th>Bug #</th>
+		<th>Summary</th>
 		<th>Status</th>
 		<th>Last modified</th>
 	</tr>
 	{% for bug in bug_list %}
+    {% ifchanged %}
 	<tr>
-		<td class="package">
+		<td class="package" colspan="4">
+			<img src="/static/icons/starred.png" style="vertical-align: middle"/>
 			<a href="/package/{{ bug.package }}">{{ bug.package }}</a>
 		</td>
-		<td class="bug_number">{{ bug.id }}</td>
+	</tr>
+	{% endifchanged %}
+	<tr>
+		<td class="bug_number">#{{ bug.id }}</td>
 		<td class="subject">
 			<a href="/bug/{{ bug.id }}">{{ bug.subject|escape|slice:":60" }}
 			{% if bug.subject|escape|slice:":60"|length_is:60 %}...{% endif %} 

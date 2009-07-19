@@ -112,8 +112,9 @@ table.bugs {
     width: 100%;
 }
 table.bugs td {
-	border-bottom:dotted 1px #CCCCCC;
-	vertical-align: top;
+	border-bottom: dotted 1px #CCCCCC;
+	vertical-align: middle;
+	height: 2em;
 }
 table.bugs a {
 	color: #333399;
