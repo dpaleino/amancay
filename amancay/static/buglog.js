@@ -7,32 +7,35 @@ function hide_all() {
 	document.getElementById("retitle_form").style.display = "none";
 	document.getElementById("owner_form").style.display = "none";
 }
+
 function show_block(evt, block) {
-	block.style.display = "block";
+	hide_all();
+	document.getElementById(block).style.display = "block";
 }
+
 /* FIXME: could this be a single function? */
 function show_add_comment(evt) {
-	hide_all();
-	show_block(evt, document.getElementById("add_comment_form"));
+	show_block(evt, "add_comment_form");
 }
 function show_reassign(evt) {
-	show_block(evt, document.getElementById("reassign_form"));
+	show_block(evt, "reassign_form");
 }
 function show_close(evt) {
-	show_block(evt, document.getElementById("close_form"));
+	show_block(evt, "close_form");
 }
 function show_severity(evt) {
-	show_block(evt, document.getElementById("severity_form"));
+	show_block(evt, "severity_form");
 }
 function show_retitle(evt) {
-	show_block(evt, document.getElementById("retitle_form"));
+	show_block(evt, "retitle_form");
 }
 function show_owner(evt) {
-	show_block(evt, document.getElementById("owner_form"));
+	show_block(evt, "owner_form");
 }
 function report_spam(evt) {
 	alert("TODO");
 }
+
 function show_more_actions(evt) {
 	hide_all()
 	select = document.getElementById("more_actions");
@@ -65,7 +68,7 @@ function buglogConnect() {
 	if (button)
 		MochiKit.Signal.connect(button, 'onclick', show_add_comment);
 
-	button = document.getElementById("report_spam_button");
+	var button = document.getElementById("report_spam_button");
 	if (button)
 		MochiKit.Signal.connect(button, 'onclick', report_spam);
 
