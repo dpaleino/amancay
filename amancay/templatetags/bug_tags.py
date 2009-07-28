@@ -1,6 +1,7 @@
 # vim: set sw=4 ts=4 sts=4 noet:
 
-TAGS = ('patch', 'wontfix', 'moreinfo', 'unreproducible', 'help', 'pending', 'fixed', 'security', 'upstream', 'confirmed', 'fixed-upstream', 'fixed-in-experimental', 'd-i', 'ipv6', 'lfs', 'l10n', 'potato', 'woody', 'sarge', 'sarge-ignore', 'etch', 'etch-ignore', 'sid', 'experimental')
+#TAGS = ('patch', 'wontfix', 'moreinfo', 'unreproducible', 'help', 'pending', 'fixed', 'security', 'upstream', 'confirmed', 'fixed-upstream', 'fixed-in-experimental', 'd-i', 'ipv6', 'lfs', 'l10n', 'potato', 'woody', 'sarge', 'sarge-ignore', 'etch', 'etch-ignore', 'sid', 'experimental')
+TAGS = ('patch', 'wontfix', 'moreinfo', 'unreproducible', 'help', 'pending', 'fixed', 'security', 'upstream', 'confirmed', 'fixed-upstream', 'fixed-in-experimental', 'd-i', 'ipv6', 'lfs', 'l10n', 'etch', 'etch-ignore', 'sid', 'experimental')
 
 from django import template
 
