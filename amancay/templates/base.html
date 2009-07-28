@@ -22,7 +22,7 @@
 			<div id="navbar">
 			    {% block navbar %}
 			    <a href="/">Home</a> • 
-			    {% if session.logged %}
+			    {% if current_user.is_authenticated %}
 			        <a href="/accounts/settings">Settings</a> • 
 			        <a href="/accounts/logout">Logout</a> •
 			    {% else %}
@@ -63,7 +63,7 @@
 </div>
 
 <div id="footer">
-    <p>Copyright © 2009 - The <a href="#">Amancay</a> authors.<br/>
+    <p>Copyright © 2009 - The Amancay authors.<br/>
 </div>
 
 </body>
