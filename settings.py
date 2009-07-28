@@ -12,7 +12,7 @@ ADMINS = (
 )
 
 EMAIL_HOST = 'localhost'
-EMAIL_PORT = '1025'
+EMAIL_PORT = '25'
 
 MANAGERS = ADMINS
 
