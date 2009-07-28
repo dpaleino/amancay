@@ -24,7 +24,9 @@
 			    <a href="/">Home</a> • 
 			    {% if session.logged %}
 			        <a href="/accounts/settings">Settings</a> • 
-			        <a href="/accounts/logout">Logout</a>
+			        <a href="/accounts/logout">Logout</a> •
+			    {% else %}
+			        <a href="/accounts/login">Login</a> •
 			    {% endif %}
 			    <a href="/accounts/settings">Help</a> •
 			    {% endblock %}
