@@ -4,28 +4,28 @@
 
 {% block main_content %}
 
+<div class="info">If you don't have an account, you can <a
+href="/accounts/register/">sign up</a> for one.<br/>
+It's free, and you'll get access to a bunch of nifty features.</div>
+
 {% if form.errors %}
 <p class="error">Please correct the errors below:</p>
 {% endif %}
-
 <div class="account_form">
-<form method="post" action="{% if next %}?next={{ next }}{% endif %}">
-<fieldset class="account_form">
-<legend class="account_title">Login</legend>
-<ol class="account_form">
-<li><dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.username }}</dd></li>
-<li><dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.password }}</dd></li>
-</ol>
-<dt><input class="submit" type="submit" value="Log in" /></dt>
-</dl>
-</fieldset>
-</form>
+    <form method="post" action="{% url django.contrib.auth.views.login %}">
+    <table>
+    <tr>
+        <td><label for="id_username">Username:</label></td>
+        <td>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %} {{ form.username }}</td>
+    </tr>
+    <tr>
+        <td><label for="id_password">Password:</label></td>
+        <td>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %} {{ form.password }}</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="button_box"><input class="submit" type="submit" value="Log in" /></td>
+    </tr>
+    </table>
+    </form>
 </div>
-
-<div class="account_comment">If you don't have an account, you can <a
-href="/accounts/register/">sign up</a> for one; it's free, and you'll get
-access to a bunch of nifty features.</div>
-
 {% endblock %}

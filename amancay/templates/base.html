@@ -9,11 +9,19 @@
 	<script type="text/javascript" src="/static/MochiKit/MochiKit.js"></script>
 	<script type="text/javascript" src="/static/amancay_interface.js"></script>
 	{% block extrajs %} {% endblock %}
+    <script type="text/javascript" language="javascript" charset="utf-8">
+        function dismiss_notification() {
+            fade(document.getElementById('notification'));
+        }
+        function pop_notification() {
+            appear(document.getElementById('notification'));
+        }
+    </script>
 </head>
 
 <body>
 <div id="header">
-    <h1 id="main_title"><img src="/static/spiral.png"/>Amancay!</h1>
+    <h1 id="main_title"><a href="/"><img src="/static/spiral.png"/>Amancay!</a></h1>
 </div>
 <div class="colmask leftmenu">
 	<div class="colleft">
@@ -22,7 +30,7 @@
 			<div id="navbar">
 			    {% block navbar %}
 			    <a href="/">Home</a> • 
-			    {% if current_user.is_authenticated %}
+			    {% if user.is_authenticated %}
 			        <a href="/accounts/settings">Settings</a> • 
 			        <a href="/accounts/logout">Logout</a> •
 			    {% else %}
@@ -36,7 +44,7 @@
 			    </span>
 			</div>
 			{% if info_to_user %}
-				<div class="info_to_user">{{ info_to_user }}</div>
+				<div id="notification" class="info"><a href="javascript:dismiss_notification()">[x]</a> {{ info_to_user }}</div>
 			{% endif %}
 			{% block main_content %}{% endblock %}
 			<div class="loading" id="loading"></div>

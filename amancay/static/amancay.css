@@ -19,6 +19,7 @@ body {
 *******************************************************************************/
 
 #header {
+	margin-top: 0;
     background: #BF1238;
     border-bottom: 3px groove #BF1238;
     color:white;
@@ -30,9 +31,14 @@ body {
     margin: 0;
     vertical-align: middle;
 }
+#main_title a {
+    text-decoration: none;
+    color: white;
+}
 #main_title img {
     vertical-align: middle;
     margin-right: 0.5em;
+    border: 0;
 }
 #navbar {
     text-align: right;
@@ -183,9 +189,11 @@ span.wishlist {
 /************* /amancay style ******************/
 
 /* bug */
+.bug .bug_number {
+	float: left;
+}
 .bug .bug_number a {
 	font-size: smaller;
-	float: left;
 	text-decoration: none;
 	border-bottom: 1px dotted blue;
 }
@@ -203,7 +211,7 @@ span.wishlist {
 .bug .bug_extra_information {
 	background-color: #eee;
 	color: #444;
-	border: 1px dashed #ddd;
+	border: 1px dashed #bbb;
 	border-left: 0.5em solid #ddd;
 	padding: 0.5em;
 	padding-left: 0.7em;
@@ -214,7 +222,7 @@ span.wishlist {
 }
 .bug .bug_log_body {
 	padding: 1em;
-	border: 1px dashed #BF1238;
+	border: 1px solid #bbb;
 	border-top: 0;
 }
 .bug .bug_log_header {
@@ -378,5 +386,35 @@ div.account_form input.submit {
 	float: right;	
 }
 
-
-
+#id_password,
+#id_username {
+    padding: 2px;
+    padding-left:20px;
+    background-repeat: no-repeat;
+    background-position: 2px 2px;
+    border: 1px solid #ddd;
+}
+#id_username {
+    background-image: url('/images/stock_person.png');
+}
+#id_password {
+    background-image: url('/images/stock_keyring.png');
+}
+.button_box {
+	text-align: right;
+}
+.info {
+	padding: 1.5em;
+	margin: 0.8em;
+	background: #cc0a34;
+	color: white;
+}
+.info a {
+	color: black;
+}
+#notification a {
+	color: white;
+	font-size: smaller;
+	border-bottom: 1px dotted white;
+	text-decoration: none;
+}

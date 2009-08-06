@@ -1,3 +1,4 @@
+# vim: set sw=4 ts=4 sts=4 noet:
 import datetime
 
 # Needed to get_template, prepare context and output Response
@@ -25,14 +26,14 @@ def index(request):
 	"""
 	Our pretty useless index page.
 	"""
-	item_list = process_post(request)
-	# Check if it's AJAX or HTML
-	if request.GET.has_key('xhr'):
-		return HttpResponse(simplejson.dumps({"item_list": item_list}),
-							mimetype='application/javascript')
+	if request.user:
+		user = request.user
 	else:
-		# TODO: choose which view to show.
-		return search(request)
+		user = None
+
+	return render_to_response('home.html',
+							  {'user': user,}
+							 )
 
 def package(request, package_name):
 	"""
