@@ -38,6 +38,8 @@ def bug(request, bug_number):
 	info = process_bug_post(request, bug_number)
 
 	user = request.user
+	# FIXME: we need API
+	user.subscribed = False
 	queries = SoapQueries()
 	bug_status = queries.get_bugs_status(bug_number)[0]
 	bug_originator = email.Utils.parseaddr(bug_status['originator'])
@@ -226,15 +228,6 @@ def severity(request, bug_number):
 		return handle_email(request, to_address, subject, text)
 	else:
 		return None
-
-def subscribe(request, bug_number):
-	if request.user.is_authenticated():
-		subscribe_email = request.user.email
-	else:
-		subscribe_email = request.POST.get('subscribe_email')
-
-	to_address = ['%s-subscribe@bugs.debian.org' % bug_number]
-	return handle_email(request, to_address, '', '')
 
 def handle_email(request, to_address, subject, text):
 	"""

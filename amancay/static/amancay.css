@@ -421,3 +421,14 @@ div.account_form input.submit {
 .favorite_icon img {
     border: 0;
 }
+.action img {
+	border: 0;
+	vertical-align: middle;
+}
+.action {
+	text-decoration: none;
+	vertical-align: middle;
+}
+#subscribe {
+	text-align: right;
+}

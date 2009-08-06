@@ -24,6 +24,8 @@ urlpatterns = patterns('',
 	# Small pieces
 	(r'^ajax/package/add/', 'bts_webui.amancay.ajax.add_package',),
 	(r'^ajax/package/remove/', 'bts_webui.amancay.ajax.remove_package',),
+	(r'^ajax/bug/subscribe/', 'bts_webui.amancay.ajax.bug_subscribe',),
+	(r'^ajax/bug/unsubscribe/', 'bts_webui.amancay.ajax.bug_unsubscribe',),
 
 	# Account Settings
 	#   (r'^account_settings', 'bts_webui.amancay.views.account_settings',),

@@ -4,6 +4,34 @@
 {% block title %}Amancay BTS interface - Bug View{% endblock %}
 {% block extrajs %}
 <script type="text/javascript" src="/static/buglog.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8">
+function toggle_subscribe_cb(img, newimg, txt, newtxt, xml) {
+	img.src = newimg;
+	txt.innerHTML = newtxt;
+}
+function toggle_subscribe(id) {
+	var url = '/ajax/bug/';
+	var img = document.getElementById('subscribe_img');
+	var txt = document.getElementById('subscribe_text');
+	var newimg = '';
+
+	if (MochiKit.Text.endsWith('list-remove.png', img.src))
+	{
+		newimg = '/static/icons/list-add.png';
+		newtxt = 'Subscribe to this report';
+		url += 'unsubscribe/';
+	}
+	else
+	{
+		newimg = '/static/icons/list-remove.png';
+		newtxt = 'Unsubscribe from this report';
+		url += 'subscribe/';
+	}
+
+	res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
+	res.addCallback(toggle_subscribe_cb, img, newimg, txt, newtxt);
+}
+</script>
 {% endblock %}
 
 {% block main_content %}
@@ -19,7 +47,20 @@
 			Found in: {{ bug_status.found_versions|join:", " }}
 		{% endif %}
 	</div>
-	<br/>
+	<div id="subscribe">
+	{% if current_user.is_authenticated %}
+		<a href="javascript:toggle_subscribe({{ bug_number }})" class="action">
+		{% if current_user.subscribed %}
+		<img id="subscribe_img" src="/static/icons/list-remove.png" /> <span id="subscribe_text">Unsubscribe from this report</span>
+		{% else %}
+		<img id="subscribe_img" src="/static/icons/list-add.png" /> <span id="subscribe_text">Subscribe to this report</span>
+		{% endif %}
+		</a>
+	{% else %}
+	Log in to be able to subscribe to reports.
+	{% endif %}
+	</div>
+
 {% if bug_messages %}
 	{% for message in bug_messages %}
 		{% if forloop.first %}
