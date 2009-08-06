@@ -1,4 +1,30 @@
 {% comment %} vim: set sw=4 ts=4 sts=4 noet: {% endcomment %}
+{% block extrajs %}
+<script type="text/javascript" language="javascript" charset="utf-8">
+function toggle_star_cb(img, newimg, xml) {
+	img.src = newimg;
+}
+function toggle_star(id) {
+	var url = '/ajax/package/';
+	var img = document.getElementById(id + '_star');
+	var newimg = '';
+
+	if (MochiKit.Text.endsWith('star_on.png', img.src))
+	{
+		newimg = '/static/icons/star_off.png';
+		url += 'remove/';
+	}
+	else
+	{
+		newimg = '/static/icons/star_on.png';
+		url += 'add/';
+	}
+
+	res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
+	res.addCallback(toggle_star_cb, img, newimg);
+}
+</script>
+{% endblock %}
 {% load template_filters %}
 <input id="current_view" type="hidden" value="{{ current_view }}" />
 {% if bug_list %}
@@ -33,7 +59,13 @@
 	{% ifchanged %}
 	<tr>
 		<td class="starred">
-			<img src="/static/icons/starred.png" style="vertical-align: middle"/>
+			<a href="javascript:toggle_star('{{ bug.package }}')" class="favorite_icon">
+		{% if bug.pkg_fav %}
+			<img id="{{ bug.package }}_star" src="/static/icons/star_on.png" style="vertical-align: middle"/>
+		{% else %}
+			<img id="{{ bug.package }}_star" src="/static/icons/star_off.png" style="vertical-align: middle"/>
+		{% endif %}
+			</a>
 		</td>
 		<td class="package" colspan="4">
 			<a href="/package/{{ bug.package }}">{{ bug.package }}</a>

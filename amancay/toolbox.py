@@ -1,3 +1,4 @@
+# vim: set sw=4 ts=4 sts=4 noet:
 import datetime
 
 # Needed to get_template, prepare context and output Response
@@ -98,7 +99,7 @@ def add_package(request):
 	package_name = request.POST['package_name']
 	if user.is_authenticated():
 		packages = user.package_set.filter(package_name=package_name)
-		if packages:
+		if not packages:
 			user.package_set.create(package_name=package_name)
 	else:
 		packages = request.session.get('packages', [])

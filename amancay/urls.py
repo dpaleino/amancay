@@ -22,7 +22,7 @@ urlpatterns = patterns('',
 	(r'^package/(?P<package_name>\w+)', 'bts_webui.amancay.views.package',),
 
 	# Small pieces
-	#   (r'^add_package', 'bts_webui.amancay.views.add_package',),
+	(r'^ajax/package/add/', 'bts_webui.amancay.ajax.add_package',),
 
 	# Account Settings
 	#   (r'^account_settings', 'bts_webui.amancay.views.account_settings',),

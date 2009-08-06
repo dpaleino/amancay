@@ -133,7 +133,7 @@ table.bugs td.package {
 	color: #333399;
 }
 table.bugs td.starred {
-    width: 26px;
+    width: 18px;
 }
 table.bugs td.bug_number {
 	text-align:right;
@@ -417,4 +417,7 @@ div.account_form input.submit {
 	font-size: smaller;
 	border-bottom: 1px dotted white;
 	text-decoration: none;
+}
+.favorite_icon img {
+    border: 0;
 }

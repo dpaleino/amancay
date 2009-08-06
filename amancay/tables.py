@@ -27,9 +27,14 @@ from toolbox import get_toolbox
 def render_bug_table(request, queries, title, bugs, amount, current_view):
 	if bugs:
 		bug_list = queries.get_bugs_status(bugs[:amount])
-		bug_list.sort(key=lambda x: x.log_modified, reverse=True)
+		bug_list.sort(key=lambda x: x.package)
 	else:
 		bug_list = None
+
+	fav_packages = [p.package_name for p in request.user.package_set.all()]
+	for bug in bug_list:
+		if bug.package in fav_packages:
+			bug.pkg_fav = True
 
 	if request.GET.has_key('xhr'):
 		# We only need to list the data.
@@ -89,13 +94,14 @@ def package_bugs(request):
 	process_post(request)
 	user = request.user
 	bugs = []
-	if (user.is_authenticated()):
+
+	if user.is_authenticated():
 		package_list = request.user.package_set.all()
 		package_list = [p.package_name for p in package_list]
 	else:
 		package_list = request.session.get('packages')
 
-	if (package_list):
+	if package_list:
 		bugs = queries.get_packages_bugs(package_list)
 		bugs.sort(reverse=True)
 	return render_bug_table(request, queries, "Latest bugs on selected packages", bugs, 15, "package_bugs")
