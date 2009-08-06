@@ -86,6 +86,5 @@ INSTALLED_APPS = (
 	'django.contrib.admin',
 	'django.contrib.sites',
 	'bts_webui.amancay',
-	'bts_webui.amancay.templatetags',
 	'bts_webui.registration'
 )

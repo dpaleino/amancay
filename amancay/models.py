@@ -1,3 +1,5 @@
+# vim: set sw=4 ts=4 sts=4 noet:
+
 from django.db import models
 from django.contrib.auth.models import User
 
