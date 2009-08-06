@@ -1,6 +1,6 @@
 /***
 
-MochiKit.Signal 1.4.2
+MochiKit.Signal 1.5
 
 See <http://mochikit.com/> for documentation, downloads, license, etc.
 
@@ -8,10 +8,7 @@ See <http://mochikit.com/> for documentation, downloads, license, etc.
 
 ***/
 
-MochiKit.Base._deps('Signal', ['Base', 'DOM', 'Style']);
-
-MochiKit.Signal.NAME = 'MochiKit.Signal';
-MochiKit.Signal.VERSION = '1.4.2';
+MochiKit.Base._module('Signal', '1.5', ['Base', 'DOM', 'Style']);
 
 MochiKit.Signal._observers = [];
 
@@ -20,6 +17,7 @@ MochiKit.Signal.Event = function (src, e) {
     this._event = e || window.event;
     this._src = src;
 };
+MochiKit.Signal.Event.__export__ = false;
 
 MochiKit.Base.update(MochiKit.Signal.Event.prototype, {
 
@@ -268,6 +266,7 @@ MochiKit.Base.update(MochiKit.Signal.Event.prototype, {
 
         if (this.type() && (
             this.type().indexOf('mouse') === 0 ||
+            this.type().indexOf('drag') === 0 ||
             this.type().indexOf('click') != -1 ||
             this.type() == 'contextmenu')) {
 
@@ -409,7 +408,7 @@ MochiKit.Signal._specialMacKeys = {
 /* for KEY_F1 - KEY_F12 */
 (function () {
     var _specialMacKeys = MochiKit.Signal._specialMacKeys;
-    for (i = 63236; i <= 63242; i++) {
+    for (var i = 63236; i <= 63242; i++) {
         // no F0
         _specialMacKeys[i] = 'KEY_F' + (i - 63236 + 1);
     }
@@ -498,18 +497,10 @@ MochiKit.Signal.Ident = function (ident) {
     this.funcOrStr = ident.funcOrStr;
     this.connected = ident.connected;
 };
-
+MochiKit.Signal.Ident.__export__ = false;
 MochiKit.Signal.Ident.prototype = {};
 
 MochiKit.Base.update(MochiKit.Signal, {
-
-    __repr__: function () {
-        return '[' + this.NAME + ' ' + this.VERSION + ']';
-    },
-
-    toString: function () {
-        return this.__repr__();
-    },
 
     _unloadCache: function () {
         var self = MochiKit.Signal;
@@ -625,7 +616,9 @@ MochiKit.Base.update(MochiKit.Signal, {
 
     /** @id MochiKit.Signal.connect */
     connect: function (src, sig, objOrFunc/* optional */, funcOrStr) {
-        src = MochiKit.DOM.getElement(src);
+        if (typeof(src) == "string") {
+            src = MochiKit.DOM.getElement(src);
+        }
         var self = MochiKit.Signal;
 
         if (typeof(sig) != 'string') {
@@ -712,7 +705,10 @@ MochiKit.Base.update(MochiKit.Signal, {
         var m = MochiKit.Base;
         if (arguments.length > 1) {
             // compatibility API
-            var src = MochiKit.DOM.getElement(arguments[0]);
+            var src = arguments[0];
+            if (typeof(src) == "string") {
+                src = MochiKit.DOM.getElement(src);
+            }
             var sig = arguments[1];
             var obj = arguments[2];
             var func = arguments[3];
@@ -720,7 +716,7 @@ MochiKit.Base.update(MochiKit.Signal, {
                 var o = observers[i];
                 if (o.source === src && o.signal === sig && o.objOrFunc === obj && o.funcOrStr === func) {
                     self._disconnect(o);
-                    if (!self._lock) {
+                    if (self._lock === 0) {
                         observers.splice(i, 1);
                     } else {
                         self._dirty = true;
@@ -732,7 +728,7 @@ MochiKit.Base.update(MochiKit.Signal, {
             var idx = m.findIdentical(observers, ident);
             if (idx >= 0) {
                 self._disconnect(ident);
-                if (!self._lock) {
+                if (self._lock === 0) {
                     observers.splice(idx, 1);
                 } else {
                     self._dirty = true;
@@ -748,7 +744,7 @@ MochiKit.Base.update(MochiKit.Signal, {
         var self = MochiKit.Signal;
         var observers = self._observers;
         var disconnect = self._disconnect;
-        var locked = self._lock;
+        var lock = self._lock;
         var dirty = self._dirty;
         if (typeof(funcOrStr) === 'undefined') {
             funcOrStr = null;
@@ -758,10 +754,10 @@ MochiKit.Base.update(MochiKit.Signal, {
             if (ident.objOrFunc === objOrFunc &&
                     (funcOrStr === null || ident.funcOrStr === funcOrStr)) {
                 disconnect(ident);
-                if (locked) {
-                    dirty = true;
-                } else {
+                if (lock === 0) {
                     observers.splice(i, 1);
+                } else {
+                    dirty = true;
                 }
             }
         }
@@ -770,14 +766,16 @@ MochiKit.Base.update(MochiKit.Signal, {
 
     /** @id MochiKit.Signal.disconnectAll */
     disconnectAll: function (src/* optional */, sig) {
-        src = MochiKit.DOM.getElement(src);
+        if (typeof(src) == "string") {
+            src = MochiKit.DOM.getElement(src);
+        }
         var m = MochiKit.Base;
         var signals = m.flattenArguments(m.extend(null, arguments, 1));
         var self = MochiKit.Signal;
         var disconnect = self._disconnect;
         var observers = self._observers;
         var i, ident;
-        var locked = self._lock;
+        var lock = self._lock;
         var dirty = self._dirty;
         if (signals.length === 0) {
             // disconnect all
@@ -785,7 +783,7 @@ MochiKit.Base.update(MochiKit.Signal, {
                 ident = observers[i];
                 if (ident.source === src) {
                     disconnect(ident);
-                    if (!locked) {
+                    if (lock === 0) {
                         observers.splice(i, 1);
                     } else {
                         dirty = true;
@@ -801,7 +799,7 @@ MochiKit.Base.update(MochiKit.Signal, {
                 ident = observers[i];
                 if (ident.source === src && ident.signal in sigs) {
                     disconnect(ident);
-                    if (!locked) {
+                    if (lock === 0) {
                         observers.splice(i, 1);
                     } else {
                         dirty = true;
@@ -816,23 +814,32 @@ MochiKit.Base.update(MochiKit.Signal, {
     signal: function (src, sig) {
         var self = MochiKit.Signal;
         var observers = self._observers;
-        src = MochiKit.DOM.getElement(src);
+        if (typeof(src) == "string") {
+            src = MochiKit.DOM.getElement(src);
+        }
         var args = MochiKit.Base.extend(null, arguments, 2);
         var errors = [];
-        self._lock = true;
+        self._lock++;
         for (var i = 0; i < observers.length; i++) {
             var ident = observers[i];
             if (ident.source === src && ident.signal === sig &&
                     ident.connected) {
                 try {
-                    ident.listener.apply(src, args);
+                    if (ident.isDOM && ident.funcOrStr != null) {
+                        var obj = ident.objOrFunc;
+                        obj[ident.funcOrStr].apply(obj, args);
+                    } else if (ident.isDOM) {
+                        ident.objOrFunc.apply(src, args);
+                    } else {
+                        ident.listener.apply(src, args);
+                    }
                 } catch (e) {
                     errors.push(e);
                 }
             }
         }
-        self._lock = false;
-        if (self._dirty) {
+        self._lock--;
+        if (self._lock === 0 && self._dirty) {
             self._dirty = false;
             for (var i = observers.length - 1; i >= 0; i--) {
                 if (!observers[i].connected) {
@@ -851,21 +858,11 @@ MochiKit.Base.update(MochiKit.Signal, {
 
 });
 
-MochiKit.Signal.EXPORT_OK = [];
-
-MochiKit.Signal.EXPORT = [
-    'connect',
-    'disconnect',
-    'signal',
-    'disconnectAll',
-    'disconnectAllTo'
-];
-
 MochiKit.Signal.__new__ = function (win) {
     var m = MochiKit.Base;
     this._document = document;
     this._window = win;
-    this._lock = false;
+    this._lock = 0;
     this._dirty = false;
 
     try {
@@ -873,11 +870,6 @@ MochiKit.Signal.__new__ = function (win) {
     } catch (e) {
         // pass: might not be a browser
     }
-
-    this.EXPORT_TAGS = {
-        ':common': this.EXPORT,
-        ':all': m.concat(this.EXPORT, this.EXPORT_OK)
-    };
 
     m.nameFunctions(this);
 };

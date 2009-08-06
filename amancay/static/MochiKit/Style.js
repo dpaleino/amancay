@@ -1,6 +1,6 @@
 /***
 
-MochiKit.Style 1.4.2
+MochiKit.Style 1.5
 
 See <http://mochikit.com/> for documentation, downloads, license, etc.
 
@@ -8,50 +8,14 @@ See <http://mochikit.com/> for documentation, downloads, license, etc.
 
 ***/
 
-MochiKit.Base._deps('Style', ['Base', 'DOM']);
-
-MochiKit.Style.NAME = 'MochiKit.Style';
-MochiKit.Style.VERSION = '1.4.2';
-MochiKit.Style.__repr__ = function () {
-    return '[' + this.NAME + ' ' + this.VERSION + ']';
-};
-MochiKit.Style.toString = function () {
-    return this.__repr__();
-};
-
-MochiKit.Style.EXPORT_OK = [];
-
-MochiKit.Style.EXPORT = [
-    'setStyle',
-    'setOpacity',
-    'getStyle',
-    'getElementDimensions',
-    'elementDimensions', // deprecated
-    'setElementDimensions',
-    'getElementPosition',
-    'elementPosition', // deprecated
-    'setElementPosition',
-    "makePositioned",
-    "undoPositioned",
-    "makeClipping",
-    "undoClipping",
-    'setDisplayForElement',
-    'hideElement',
-    'showElement',
-    'getViewportDimensions',
-    'getViewportPosition',
-    'Dimensions',
-    'Coordinates'
-];
+MochiKit.Base._module('Style', '1.5', ['Base', 'DOM']);
 
 
-/*
-
-    Dimensions
-
-*/
 /** @id MochiKit.Style.Dimensions */
 MochiKit.Style.Dimensions = function (w, h) {
+    if (!(this instanceof MochiKit.Style.Dimensions)) {
+        return new MochiKit.Style.Dimensions(w, h);
+    }
     this.w = w;
     this.h = h;
 };
@@ -66,13 +30,11 @@ MochiKit.Style.Dimensions.prototype.toString = function () {
 };
 
 
-/*
-
-    Coordinates
-
-*/
 /** @id MochiKit.Style.Coordinates */
 MochiKit.Style.Coordinates = function (x, y) {
+    if (!(this instanceof MochiKit.Style.Coordinates)) {
+        return new MochiKit.Style.Coordinates(x, y);
+    }
     this.x = x;
     this.y = y;
 };
@@ -212,12 +174,18 @@ MochiKit.Base.update(MochiKit.Style, {
     getElementPosition: function (elem, /* optional */relativeTo) {
         var self = MochiKit.Style;
         var dom = MochiKit.DOM;
-        elem = dom.getElement(elem);
+        var isCoordinates = function (o) {
+            return o != null &&
+                   o.nodeType == null &&
+                   typeof(o.x) == "number" &&
+                   typeof(o.y) == "number";
+        }
 
-        if (!elem ||
-            (!(elem.x && elem.y) &&
-            (!elem.parentNode === null ||
-            self.getStyle(elem, 'display') == 'none'))) {
+        if (typeof(elem) == "string") {
+            elem = dom.getElement(elem);
+        }
+        if (elem == null ||
+            (!isCoordinates(elem) && self.getStyle(elem, 'display') == 'none')) {
             return undefined;
         }
 
@@ -310,7 +278,7 @@ MochiKit.Base.update(MochiKit.Style, {
             }
         }
 
-        if (typeof(relativeTo) != 'undefined') {
+        if (relativeTo) {
             relativeTo = arguments.callee(relativeTo);
             if (relativeTo) {
                 c.x -= (relativeTo.x || 0);
@@ -574,17 +542,13 @@ MochiKit.Base.update(MochiKit.Style, {
             this._defaultDisplay[inlines[i]] = 'inline';
         }
 
-        this.elementPosition = this.getElementPosition;
-        this.elementDimensions = this.getElementDimensions;
+        // Backwards compatibility aliases
+        m._deprecated(this, 'elementPosition', 'MochiKit.Style.getElementPosition', '1.3', true);
+        m._deprecated(this, 'elementDimensions', 'MochiKit.Style.getElementDimensions', '1.3', true);
 
         this.hideElement = m.partial(this.setDisplayForElement, 'none');
         // TODO: showElement could be improved by using getDefaultDisplay.
         this.showElement = m.partial(this.setDisplayForElement, 'block');
-
-        this.EXPORT_TAGS = {
-            ':common': this.EXPORT,
-            ':all': m.concat(this.EXPORT, this.EXPORT_OK)
-        };
 
         m.nameFunctions(this);
     }

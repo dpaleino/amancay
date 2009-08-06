@@ -1,6 +1,6 @@
 /***
 
-MochiKit.DOM 1.4.2
+MochiKit.DOM 1.5
 
 See <http://mochikit.com/> for documentation, downloads, license, etc.
 
@@ -8,138 +8,7 @@ See <http://mochikit.com/> for documentation, downloads, license, etc.
 
 ***/
 
-MochiKit.Base._deps('DOM', ['Base']);
-
-MochiKit.DOM.NAME = "MochiKit.DOM";
-MochiKit.DOM.VERSION = "1.4.2";
-MochiKit.DOM.__repr__ = function () {
-    return "[" + this.NAME + " " + this.VERSION + "]";
-};
-MochiKit.DOM.toString = function () {
-    return this.__repr__();
-};
-
-MochiKit.DOM.EXPORT = [
-    "removeEmptyTextNodes",
-    "formContents",
-    "currentWindow",
-    "currentDocument",
-    "withWindow",
-    "withDocument",
-    "registerDOMConverter",
-    "coerceToDOM",
-    "createDOM",
-    "createDOMFunc",
-    "isChildNode",
-    "getNodeAttribute",
-    "removeNodeAttribute",
-    "setNodeAttribute",
-    "updateNodeAttributes",
-    "appendChildNodes",
-    "insertSiblingNodesAfter",
-    "insertSiblingNodesBefore",
-    "replaceChildNodes",
-    "removeElement",
-    "swapDOM",
-    "BUTTON",
-    "TT",
-    "PRE",
-    "H1",
-    "H2",
-    "H3",
-    "H4",
-    "H5",
-    "H6",
-    "BR",
-    "CANVAS",
-    "HR",
-    "LABEL",
-    "TEXTAREA",
-    "FORM",
-    "STRONG",
-    "SELECT",
-    "OPTION",
-    "OPTGROUP",
-    "LEGEND",
-    "FIELDSET",
-    "P",
-    "UL",
-    "OL",
-    "LI",
-    "DL",
-    "DT",
-    "DD",
-    "TD",
-    "TR",
-    "THEAD",
-    "TBODY",
-    "TFOOT",
-    "TABLE",
-    "TH",
-    "INPUT",
-    "SPAN",
-    "A",
-    "DIV",
-    "IMG",
-    "getElement",
-    "$",
-    "getElementsByTagAndClassName",
-    "addToCallStack",
-    "addLoadEvent",
-    "focusOnLoad",
-    "setElementClass",
-    "toggleElementClass",
-    "addElementClass",
-    "removeElementClass",
-    "swapElementClass",
-    "hasElementClass",
-    "computedStyle", // deprecated in 1.4
-    "escapeHTML",
-    "toHTML",
-    "emitHTML",
-    "scrapeText",
-    "getFirstParentByTagAndClassName",
-    "getFirstElementByTagAndClassName"
-];
-
-MochiKit.DOM.EXPORT_OK = [
-    "domConverters"
-];
-
-MochiKit.DOM.DEPRECATED = [
-    /** @id MochiKit.DOM.computedStyle  */
-    ['computedStyle', 'MochiKit.Style.getStyle', '1.4'],
-    /** @id MochiKit.DOM.elementDimensions  */
-    ['elementDimensions', 'MochiKit.Style.getElementDimensions', '1.4'],
-    /** @id MochiKit.DOM.elementPosition  */
-    ['elementPosition', 'MochiKit.Style.getElementPosition', '1.4'],
-    /** @id MochiKit.DOM.getViewportDimensions */
-    ['getViewportDimensions', 'MochiKit.Style.getViewportDimensions', '1.4'],
-    /** @id MochiKit.DOM.hideElement */
-    ['hideElement', 'MochiKit.Style.hideElement', '1.4'],
-    /** @id MochiKit.DOM.makeClipping */
-    ['makeClipping', 'MochiKit.Style.makeClipping', '1.4.1'],
-    /** @id MochiKit.DOM.makePositioned */
-    ['makePositioned', 'MochiKit.Style.makePositioned', '1.4.1'],
-    /** @id MochiKit.DOM.setElementDimensions */
-    ['setElementDimensions', 'MochiKit.Style.setElementDimensions', '1.4'],
-    /** @id MochiKit.DOM.setElementPosition */
-    ['setElementPosition', 'MochiKit.Style.setElementPosition', '1.4'],
-    /** @id MochiKit.DOM.setDisplayForElement */
-    ['setDisplayForElement', 'MochiKit.Style.setDisplayForElement', '1.4'],
-    /** @id MochiKit.DOM.setOpacity */
-    ['setOpacity', 'MochiKit.Style.setOpacity', '1.4'],
-    /** @id MochiKit.DOM.showElement */
-    ['showElement', 'MochiKit.Style.showElement', '1.4'],
-    /** @id MochiKit.DOM.undoClipping */
-    ['undoClipping', 'MochiKit.Style.undoClipping', '1.4.1'],
-    /** @id MochiKit.DOM.undoPositioned */
-    ['undoPositioned', 'MochiKit.Style.undoPositioned', '1.4.1'],
-    /** @id MochiKit.DOM.Coordinates */
-    ['Coordinates', 'MochiKit.Style.Coordinates', '1.4'], // FIXME: broken
-    /** @id MochiKit.DOM.Dimensions */
-    ['Dimensions', 'MochiKit.Style.Dimensions', '1.4'] // FIXME: broken
-];
+MochiKit.Base._module('DOM', '1.5', ['Base']);
 
 MochiKit.Base.update(MochiKit.DOM, {
 
@@ -647,7 +516,10 @@ MochiKit.Base.update(MochiKit.DOM, {
     /** @id MochiKit.DOM.removeElement */
     removeElement: function (elem) {
         var self = MochiKit.DOM;
-        var e = self.coerceToDOM(self.getElement(elem));
+        if (typeof(elem) == "string") {
+            elem = self.getElement(elem);
+        }
+        var e = self.coerceToDOM(elem);
         e.parentNode.removeChild(e);
         return e;
     },
@@ -658,7 +530,10 @@ MochiKit.Base.update(MochiKit.DOM, {
         dest = self.getElement(dest);
         var parent = dest.parentNode;
         if (src) {
-            src = self.coerceToDOM(self.getElement(src), parent);
+            if (typeof(src) == "string") {
+                src = self.getElement(src);
+            }
+            src = self.coerceToDOM(src, parent);
             parent.replaceChild(src, dest);
         } else {
             parent.removeChild(dest);
@@ -872,7 +747,7 @@ MochiKit.Base.update(MochiKit.DOM, {
             return false;
         }
         var cls = obj.className;
-        if (typeof(cls) != "string") {
+        if (typeof(cls) != "string" && typeof(obj.getAttribute) == "function") {
             cls = obj.getAttribute("class");
         }
         if (typeof(cls) != "string") {
@@ -1127,24 +1002,42 @@ MochiKit.Base.update(MochiKit.DOM, {
             attributeArray.ignoreAttr = {};
             attributeArray.renames = {};
         }
+        attributeArray.__export__ = false;
         this.attributeArray = attributeArray;
 
-        // FIXME: this really belongs in Base, and could probably be cleaner
-        var _deprecated = function(fromModule, arr) {
-            var fromName = arr[0];
-            var toName = arr[1];
-            var toModule = toName.split('.')[1];
-            var str = '';
-
-            str += 'if (!MochiKit.' + toModule + ') { throw new Error("';
-            str += 'This function has been deprecated and depends on MochiKit.';
-            str += toModule + '.");}';
-            str += 'return ' + toName + '.apply(this, arguments);';
-            MochiKit[fromModule][fromName] = new Function(str);
-        }
-        for (var i = 0; i < MochiKit.DOM.DEPRECATED.length; i++) {
-            _deprecated('DOM', MochiKit.DOM.DEPRECATED[i]);
-        }
+        // Backwards compatibility aliases
+        /** @id MochiKit.DOM.computedStyle  */
+        m._deprecated(this, 'computedStyle', 'MochiKit.Style.getStyle', '1.4', true);
+        /** @id MochiKit.DOM.elementDimensions  */
+        m._deprecated(this, 'elementDimensions', 'MochiKit.Style.getElementDimensions', '1.4');
+        /** @id MochiKit.DOM.elementPosition  */
+        m._deprecated(this, 'elementPosition', 'MochiKit.Style.getElementPosition', '1.4');
+        /** @id MochiKit.DOM.getViewportDimensions */
+        m._deprecated(this, 'getViewportDimensions', 'MochiKit.Style.getViewportDimensions', '1.4');
+        /** @id MochiKit.DOM.hideElement */
+        m._deprecated(this, 'hideElement', 'MochiKit.Style.hideElement', '1.4');
+        /** @id MochiKit.DOM.makeClipping */
+        m._deprecated(this, 'makeClipping', 'MochiKit.Style.makeClipping', '1.4.1');
+        /** @id MochiKit.DOM.makePositioned */
+        m._deprecated(this, 'makePositioned', 'MochiKit.Style.makePositioned', '1.4.1');
+        /** @id MochiKit.DOM.setElementDimensions */
+        m._deprecated(this, 'setElementDimensions', 'MochiKit.Style.setElementDimensions', '1.4');
+        /** @id MochiKit.DOM.setElementPosition */
+        m._deprecated(this, 'setElementPosition', 'MochiKit.Style.setElementPosition', '1.4');
+        /** @id MochiKit.DOM.setDisplayForElement */
+        m._deprecated(this, 'setDisplayForElement', 'MochiKit.Style.setDisplayForElement', '1.4');
+        /** @id MochiKit.DOM.setOpacity */
+        m._deprecated(this, 'setOpacity', 'MochiKit.Style.setOpacity', '1.4');
+        /** @id MochiKit.DOM.showElement */
+        m._deprecated(this, 'showElement', 'MochiKit.Style.showElement', '1.4');
+        /** @id MochiKit.DOM.undoClipping */
+        m._deprecated(this, 'undoClipping', 'MochiKit.Style.undoClipping', '1.4.1');
+        /** @id MochiKit.DOM.undoPositioned */
+        m._deprecated(this, 'undoPositioned', 'MochiKit.Style.undoPositioned', '1.4.1');
+        /** @id MochiKit.DOM.Coordinates */
+        m._deprecated(this, 'Coordinates', 'MochiKit.Style.Coordinates', '1.4');
+        /** @id MochiKit.DOM.Dimensions */
+        m._deprecated(this, 'Dimensions', 'MochiKit.Style.Dimensions', '1.4');
 
         // shorthand for createDOM syntax
         var createDOMFunc = this.createDOMFunc;
@@ -1231,11 +1124,6 @@ MochiKit.Base.update(MochiKit.DOM, {
 
         /** @id MochiKit.DOM.$ */
         this.$ = this.getElement;
-
-        this.EXPORT_TAGS = {
-            ":common": this.EXPORT,
-            ":all": m.concat(this.EXPORT, this.EXPORT_OK)
-        };
 
         m.nameFunctions(this);
 

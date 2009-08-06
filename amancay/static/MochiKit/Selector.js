@@ -1,6 +1,6 @@
 /***
 
-MochiKit.Selector 1.4.2
+MochiKit.Selector 1.5
 
 See <http://mochikit.com/> for documentation, downloads, license, etc.
 
@@ -8,28 +8,7 @@ See <http://mochikit.com/> for documentation, downloads, license, etc.
 
 ***/
 
-MochiKit.Base._deps('Selector', ['Base', 'DOM', 'Iter']);
-
-MochiKit.Selector.NAME = "MochiKit.Selector";
-MochiKit.Selector.VERSION = "1.4.2";
-
-MochiKit.Selector.__repr__ = function () {
-    return "[" + this.NAME + " " + this.VERSION + "]";
-};
-
-MochiKit.Selector.toString = function () {
-    return this.__repr__();
-};
-
-MochiKit.Selector.EXPORT = [
-    "Selector",
-    "findChildElements",
-    "findDocElements",
-    "$$"
-];
-
-MochiKit.Selector.EXPORT_OK = [
-];
+MochiKit.Base._module('Selector', '1.5', ['Base', 'DOM', 'Iter']);
 
 MochiKit.Selector.Selector = function (expression) {
     this.params = {classNames: [], pseudoClassNames: []};
@@ -362,6 +341,7 @@ MochiKit.Base.update(MochiKit.Selector, {
 
     /** @id MochiKit.Selector.findChildElements */
     findChildElements: function (element, expressions) {
+        element = MochiKit.DOM.getElement(element);
         var uniq = function(arr) {
             var res = [];
             for (var i = 0; i < arr.length; i++) {
@@ -374,7 +354,8 @@ MochiKit.Base.update(MochiKit.Selector, {
         return MochiKit.Base.flattenArray(MochiKit.Base.map(function (expression) {
             var nextScope = "";
             var reducer = function (results, expr) {
-                if (match = expr.match(/^[>+~]$/)) {
+                var match = expr.match(/^[>+~]$/);
+                if (match) {
                     nextScope = match[0];
                     return results;
                 } else {
@@ -396,20 +377,11 @@ MochiKit.Base.update(MochiKit.Selector, {
     },
 
     __new__: function () {
-        var m = MochiKit.Base;
-
         this.$$ = this.findDocElements;
-
-        this.EXPORT_TAGS = {
-            ":common": this.EXPORT,
-            ":all": m.concat(this.EXPORT, this.EXPORT_OK)
-        };
-
-        m.nameFunctions(this);
+        MochiKit.Base.nameFunctions(this);
     }
 });
 
 MochiKit.Selector.__new__();
 
 MochiKit.Base._exportSymbols(this, MochiKit.Selector);
-

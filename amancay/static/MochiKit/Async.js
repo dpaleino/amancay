@@ -1,6 +1,6 @@
 /***
 
-MochiKit.Async 1.4.2
+MochiKit.Async 1.5
 
 See <http://mochikit.com/> for documentation, downloads, license, etc.
 
@@ -8,16 +8,7 @@ See <http://mochikit.com/> for documentation, downloads, license, etc.
 
 ***/
 
-MochiKit.Base._deps('Async', ['Base']);
-
-MochiKit.Async.NAME = "MochiKit.Async";
-MochiKit.Async.VERSION = "1.4.2";
-MochiKit.Async.__repr__ = function () {
-    return "[" + this.NAME + " " + this.VERSION + "]";
-};
-MochiKit.Async.toString = function () {
-    return this.__repr__();
-};
+MochiKit.Base._module('Async', '1.5', ['Base']);
 
 /** @id MochiKit.Async.Deferred */
 MochiKit.Async.Deferred = function (/* optional */ canceller) {
@@ -29,6 +20,7 @@ MochiKit.Async.Deferred = function (/* optional */ canceller) {
     this.canceller = canceller;
     this.silentlyCancelled = false;
     this.chained = false;
+    this.finalized = false;
 };
 
 MochiKit.Async.Deferred.prototype = {
@@ -74,7 +66,9 @@ MochiKit.Async.Deferred.prototype = {
         ***/
         this.fired = ((res instanceof Error) ? 1 : 0);
         this.results[this.fired] = res;
-        this._fire();
+        if (this.paused === 0) {
+            this._fire();
+        }
     },
 
     _check: function () {
@@ -138,7 +132,28 @@ MochiKit.Async.Deferred.prototype = {
         if (this.chained) {
             throw new Error("Chained Deferreds can not be re-used");
         }
+        if (this.finalized) {
+            throw new Error("Finalized Deferreds can not be re-used");
+        }
         this.chain.push([cb, eb]);
+        if (this.fired >= 0) {
+            this._fire();
+        }
+        return this;
+    },
+
+    /** @id MochiKit.Async.Deferred.prototype.setFinalizer */
+    setFinalizer: function (fn) {
+        if (this.chained) {
+            throw new Error("Chained Deferreds can not be re-used");
+        }
+        if (this.finalized) {
+            throw new Error("Finalized Deferreds can not be re-used");
+        }
+        if (arguments.length > 1) {
+            fn = MochiKit.Base.partial.apply(null, arguments);
+        }
+        this._finalizer = fn;
         if (this.fired >= 0) {
             this._fire();
         }
@@ -169,11 +184,8 @@ MochiKit.Async.Deferred.prototype = {
                 fired = ((res instanceof Error) ? 1 : 0);
                 if (res instanceof MochiKit.Async.Deferred) {
                     cb = function (res) {
-                        self._resback(res);
                         self.paused--;
-                        if ((self.paused === 0) && (self.fired >= 0)) {
-                            self._fire();
-                        }
+                        self._resback(res);
                     };
                     this.paused++;
                 }
@@ -187,6 +199,10 @@ MochiKit.Async.Deferred.prototype = {
         }
         this.fired = fired;
         this.results[fired] = res;
+        if (this.chain.length == 0 && this.paused === 0 && this._finalizer) {
+            this.finalized = true;
+            this._finalizer(res);
+        }
         if (cb && this.paused) {
             // this is for "tail recursion" in case the dependent deferred
             // is already fired
@@ -416,13 +432,8 @@ MochiKit.Base.update(MochiKit.Async, {
     /** @id MochiKit.Async.wait */
     wait: function (seconds, /* optional */value) {
         var d = new MochiKit.Async.Deferred();
-        var m = MochiKit.Base;
-        if (typeof(value) != 'undefined') {
-            d.addCallback(function () { return value; });
-        }
-        var timeout = setTimeout(
-            m.bind("callback", d),
-            Math.floor(seconds * 1000));
+        var cb = MochiKit.Base.bind("callback", d, value);
+        var timeout = setTimeout(cb, Math.floor(seconds * 1000));
         d.canceller = function () {
             try {
                 clearTimeout(timeout);
@@ -571,32 +582,6 @@ MochiKit.Async.maybeDeferred = function (func) {
 };
 
 
-MochiKit.Async.EXPORT = [
-    "AlreadyCalledError",
-    "CancelledError",
-    "BrowserComplianceError",
-    "GenericError",
-    "XMLHttpRequestError",
-    "Deferred",
-    "succeed",
-    "fail",
-    "getXMLHttpRequest",
-    "doSimpleXMLHttpRequest",
-    "loadJSONDoc",
-    "wait",
-    "callLater",
-    "sendXMLHttpRequest",
-    "DeferredLock",
-    "DeferredList",
-    "gatherResults",
-    "maybeDeferred",
-    "doXHR"
-];
-
-MochiKit.Async.EXPORT_OK = [
-    "evalJSONRequest"
-];
-
 MochiKit.Async.__new__ = function () {
     var m = MochiKit.Base;
     var ne = m.partial(m._newNamedError, this);
@@ -667,14 +652,7 @@ MochiKit.Async.__new__ = function () {
         }
     );
 
-
-    this.EXPORT_TAGS = {
-        ":common": this.EXPORT,
-        ":all": m.concat(this.EXPORT, this.EXPORT_OK)
-    };
-
     m.nameFunctions(this);
-
 };
 
 MochiKit.Async.__new__();
