@@ -1,13 +1,12 @@
 # vim: set sw=4 ts=4 sts=4 noet:
-
 import datetime
 
 # Needed to get_template, prepare context and output Response
-from django.template import Context, loader
+from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 
 # Shortcut for rendering a response
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import render_to_response
 
 # Model clases
 from django.contrib.auth.models import User
@@ -31,10 +30,14 @@ def render_bug_table(request, queries, title, bugs, amount, current_view):
 	else:
 		bug_list = None
 
-	fav_packages = [p.package_name for p in request.user.package_set.all()]
-	for bug in bug_list:
-		if bug.package in fav_packages:
-			bug.pkg_fav = True
+	if request.user.is_authenticated():
+		fav_packages = [p.package_name for p in request.user.package_set.all()]
+
+		for bug in bug_list:
+			if bug.package in fav_packages:
+				bug.pkg_fav = True
+			else:
+				bug.pkg_fav = False
 
 	if request.GET.has_key('xhr'):
 		# We only need to list the data.
@@ -46,18 +49,13 @@ def render_bug_table(request, queries, title, bugs, amount, current_view):
 								  {'bug_list': bug_list,
 								   'table_title': title,
 								   'current_view': current_view},
-								 )
+								  context_instance=RequestContext(request))
 	else:
-		# We need to render the whole page
-		# Get the corresponding toolbox
-		toolbox = get_toolbox(request)
 		return render_to_response('index.html', 
 								  {'bug_list': bug_list,
 								   'table_title': title,
-								   'toolbox': toolbox,
-								   'current_view': current_view,
-								   'current_user': request.user}
-								 )
+								   'current_view': current_view},
+								  context_instance=RequestContext(request))
 
 # Bug views
 def submitted_bugs(request):

@@ -12,7 +12,7 @@ ADMINS = (
 )
 
 EMAIL_HOST = 'localhost'
-EMAIL_PORT = '25'
+EMAIL_PORT = '1025'
 
 MANAGERS = ADMINS
 
@@ -59,6 +59,12 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.load_template_source',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+	'django.core.context_processors.auth',
+	'django.core.context_processors.debug',
+	'django.core.context_processors.request',
 )
 
 MIDDLEWARE_CLASSES = (

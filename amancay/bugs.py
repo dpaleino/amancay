@@ -1,23 +1,17 @@
 # vim: set sw=4 ts=4 sts=4 noet:
-import datetime
 # The bug page uses regular expresions to parse the log
 import re
 # The bug page uses rfc822 to parse emails, dates, etc.
 import email
 
 # Needed to get_template, prepare context and output Response
-from django.template import Context, loader
-from django.http import HttpResponse, HttpResponseRedirect
+from django.template import RequestContext, Context, loader
 
 # Shortcut for rendering a response
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import render_to_response
 
 # Model clases
-from django.contrib.auth.models import User
 from bts_webui.amancay.models import Pending_Messages
-
-# Needed for AJAX
-from django.utils import simplejson
 
 # Needed for SOAP
 from bts_queries import SoapQueries
@@ -37,15 +31,14 @@ def bug(request, bug_number):
 	# Process post
 	info = process_bug_post(request, bug_number)
 
-	user = request.user
 	# FIXME: we need API
-	user.subscribed = False
+	request.user.subscribed = False
 	queries = SoapQueries()
 	bug_status = queries.get_bugs_status(bug_number)[0]
 	bug_originator = email.Utils.parseaddr(bug_status['originator'])
 	bug_log = queries.get_bug_log(bug_number)
 	# having as a selected bug is not the same as subscribing
-	bug_is_fav = bool(user.bug_set.filter(number=bug_number)[:1])
+	bug_is_fav = bool(request.user.bug_set.filter(number=bug_number)[:1])
 
 	# Regular expressions to parse the mails
 	from_re = re.compile('^From: ?(.+)$', re.MULTILINE)
@@ -102,9 +95,8 @@ def bug(request, bug_number):
 							   'bug_originator': bug_originator,
 							   'bug_status': bug_status,
 							   'bug_messages': bug_messages,
-							   'bug_is_fav': bug_is_fav,
-							   'current_user': user}
-							 )
+							   'bug_is_fav': bug_is_fav},
+							  context_instance=RequestContext(request))
 
 def process_bug_post(request, bug_number):
 	"""
@@ -145,7 +137,6 @@ def change_owner(request, bug_number):
 	return handle_email(request, to_address, subject, text)
 
 def add_comment(request, bug_number):
-	user = request.user
 	subject = request.POST.get('subject')
 	comment = request.POST.get('comment')
 
@@ -158,7 +149,6 @@ def add_comment(request, bug_number):
 		return 'You need to enter both the subject and the comment.'
 
 def reassign(request, bug_number):
-	user = request.user
 	package = request.POST.get('reassign_to')
 	version = request.POST.get('reassign_version')
 	comment = request.POST.get('reassign_comment')
@@ -237,9 +227,8 @@ def handle_email(request, to_address, subject, text):
 	Sends an email to to_address if the user is authenticated, otherwise it
 	saves it in queue.
 	"""
-	user = request.user
-	if user.is_authenticated():
-		send_mail(subject, text, user.email, to_address)
+	if request.user.is_authenticated():
+		send_mail(subject, text, request.user.email, to_address)
 		return 'Your comment has been successfully sent'
 	else:
 		from_address = request.POST.get('from_email')
@@ -304,6 +293,5 @@ def activate_message(request, activation_key):
 		status = 'Malformed activation key'
 
 	return render_to_response('search.html',
-							  {'info_to_user': status,
-							   'current_user': request.user}
-							 )
+							  {'info_to_user': status},
+							  context_instance=RequestContext(request))
