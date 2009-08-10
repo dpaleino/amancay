@@ -49,6 +49,15 @@ function toggle_subscribe(id) {
 	</div>
 	<div id="subscribe">
 	{% if current_user.is_authenticated %}
+		<a href="#http://bugs.debian.org/cgi-bin/bugspam.cgi?bug={{ bug_number }}" class="action" id="report_spam">
+		<img id="spam_img" src="/static/icons/mail-mark-junk.png" /> <span id="spam_text">This report contains spam</span>
+		</a>
+		<script type="text/javascript" language="javascript" charset="utf-8">
+		connect('report_spam', 'onclick', function (event) {
+											alert('notify spam still needs SOAP api.');
+											});
+		</script>
+
 		<a href="javascript:toggle_subscribe({{ bug_number }})" class="action">
 		{% if current_user.subscribed %}
 		<img id="subscribe_img" src="/static/icons/list-remove.png" /> <span id="subscribe_text">Unsubscribe from this report</span>
