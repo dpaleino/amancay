@@ -48,15 +48,18 @@ class SoapQueries(BtsQueries):
 		self.ns = 'Debbugs/SOAP'
 		self.server = SOAPpy.SOAPProxy(self.url, self.ns)
 
-	def __process_result(self, result):
+	def get_bugs_status(self, bug_numbers):
+		result = self.server.get_status(bug_numbers)
+
+		# FIXME: looks like a bug in debbugs SOAP implementation
+		# empty results turn out as "" or " "
+		if result == "" or result == " ":
+			return []
+
 		if isinstance(result.item, list):
 			return [item.value for item in result.item]
 		else:
 			return [result.item.value]
-
-	def get_bugs_status(self, bug_numbers):
-		result = self.server.get_status(bug_numbers)
-		return self.__process_result(result)
 
 	def get_packages_bugs(self, packages):
 		result = self.server.get_bugs('package', packages)
