@@ -1,5 +1,6 @@
 # vim: set sw=4 ts=4 sts=4 noet:
 from django.http import HttpResponse
+
 from amancay.bugs import handle_email
 
 def package_add(request):
@@ -18,11 +19,11 @@ def package_add(request):
 			return HttpResponse(status=500)
 	else:
 		packages = request.session.get('packages', [])
-		if package_name in packages:
-			return HttpResponse(status=500)
-		else:
+		if package_name not in packages:
 			request.session.get('packages', []).append(package_name)
 			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status=500)
 
 def package_remove(request):
 	"""
@@ -62,11 +63,11 @@ def bug_add(request):
 			return HttpResponse(status=500)
 	else:
 		bugs = request.session.get('bugs', [])
-		if bug_number in bugs:
-			return HttpResponse(status=500)
-		else:
+		if bug_number not in bugs:
 			request.session['bugs'].append(bug_number)
 			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status=500)
 
 def bug_remove(request):
 	"""
@@ -103,7 +104,6 @@ def _bug_toggle_subscribe(request, subscribe=True):
 		action = 'unsubscribe'
 
 	if user.is_authenticated():
-		subscribe_email = request.user.email
 		to_address = ['%s-%s@bugs.debian.org' % (bug_number, action)]
 
 		# FIXME: this never tells us if the email left the building
