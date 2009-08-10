@@ -1,3 +1,4 @@
+{% comment %} vim: set sw=4 ts=4 sts=4 noet: {% endcomment %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -7,7 +8,6 @@
     <link rel="icon" type="image/png" href="/static/icon.png"/>
     <link rel="stylesheet" type="text/css" href="/static/amancay.css"/>
 	<script type="text/javascript" src="/static/MochiKit/MochiKit.js"></script>
-	<script type="text/javascript" src="/static/amancay_interface.js"></script>
 	{% block extrajs %} {% endblock %}
     <script type="text/javascript" language="javascript" charset="utf-8">
         function dismiss_notification() {
@@ -63,7 +63,10 @@
 			{% block sidebar %}
 			{% endblock %}
 			<div id="toolbox" class="toolbox">
-			{% block toolbox %}{% endblock %}
+			{% block toolbox %}
+				{% load toolbox %}
+				{% toolbox_widget %}
+			{% endblock %}
 			</div>
 			<!-- Column 2 end -->
 		</div>

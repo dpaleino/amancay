@@ -11,7 +11,6 @@ def bug_tags_selector(context):
 	"""
 	Render tags checkboxes for the current bug.
 	"""
-
 	bug = context.get('bug_status')
 	if bug is None:
 		return None

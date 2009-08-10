@@ -1,34 +1,56 @@
+{% comment %} vim: set sw=4 ts=4 sts=4 noet: {% endcomment %}
+<script type="text/javascript" language="javascript" charset="utf-8">
+function toolbox_add_form_failed_cb(error) {
+	/* toolbox_add_form_failed_cb:
+	 * Catches failure of the AJAX request made in toolbox_add_form_cb().
+	 */
+	alert('The item could not be added');
+	alert(error);
+};
+
+var toolbox_add_form_cb = function (event) {
+	/* toolbox_add_form_cb:
+	 * Prevents form post and instead create an AJAX request to add items to the
+	 * toolbar.
+	 */
+	var url = '/ajax/{{ toolbox.item_type }}/add/';
+
+	event.preventDefault();
+
+	var item_name = MochiKit.DOM.getElement('toolbox_add_item').value;
+	var res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': item_name});
+	res.addErrback(toolbox_add_form_failed_cb);
+}
+
+function toolbox_connect() {
+	/* toolbox_connect:
+	 * Connect the onsubmit event of the toolbox form to our custom callback
+	 */
+	var form = MochiKit.DOM.getElement('toolbox_add_form');
+	if (form)
+		MochiKit.Signal.connect(form, 'onsubmit', toolbox_add_form_cb);
+}
+
+MochiKit.DOM.addLoadEvent(toolbox_connect);
+</script>
+
 <h3 class="toolbox_title">{{ toolbox.title }}</h3>
+
 <div class="toolbox_itemlist">
-<form id="item_selection" method="post" action=".">
-{% if toolbox.item_list %}
-<table id="item_list">
-	{% for item in toolbox.item_list %}
-		<tr>
-			<td class="item_select">
-				<input type="checkbox" name="{{ toolbox.item_type }}_select"
-					   id="item_select" value="{{ item }}" />
-			</td>
-			<td class="item_name">{{ item }}</td>
-		</tr>
-	{% endfor %}
-</table>
-<div class="toolbox_remove">
-		<input class="toolbox_remove" type="submit" value="Remove" />
+	{% if toolbox.item_list %}
+		{% for item in toolbox.item_list %}
+			<span class="toolbox_item">
+				{{ item }} <a href="/ajax/{{ toolbox.item_type }}/remove/?id={{ item }}">[x] remove</a>
+			</span><br/>
+		{% endfor %}
+	{% else %}
+		<div class="toolbox_message">No items selected</div>
+	{% endif %}
 </div>
-{% else %}
-	<div class="toolbox_message">No items selected</div>
-{% endif %}
-</form>
-</div>
-<div class="toolbox_add_item">
-<form id="add_item" method="post" action=".">
-	<div class="toolbox_txt">
-		<input class="toolbox_txt" type="text" name="{{ toolbox.item_type }}" 
-        id="item" value="" />
-	</div>
-	<div class="toolbox_add">
-		<input class="toolbox_add" id="toolbox_add" type="submit" value="Add" />
-	</div>
-</form>
+
+<div>
+	<form id="toolbox_add_form" method="GET" action=".">
+		<input class="toolbox_txt" id="toolbox_add_item" type="text" />
+		<input class="toolbox_add" id="toolbox_add_submit" type="submit" value="Add" />
+	</form>
 </div>

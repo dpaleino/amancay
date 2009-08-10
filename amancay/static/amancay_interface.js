@@ -1,7 +1,6 @@
-
 function reload_current_view(evt) {
 	var view = document.getElementById("current_view").value;
-	load_bugs(evt,"/"+view+"_table/");
+	load_bugs(evt,"/" + view + "_table/");
 }
 
 var items_changed = function(request) {
@@ -37,33 +36,6 @@ var items_changed = function(request) {
 	reload_current_view();
 }
 
-var item_remove_failed = function (err) {
-  alert("The item/s could not be removed");
-  alert(err);
-};
-
-var item_add_failed = function (err) {
-  alert("The item could not be added");
-  alert(err);
-};
-
-var send_item_add = function (ev) {
-	ev.preventDefault();
-	var content = queryString([document.getElementById("item").name],
-	                          [document.getElementById("item").value]);
-	var d = doXHR("/index/?xhr=1", {"method": "post", "sendContent": content});
-	d.addCallbacks(items_changed, item_add_failed);
-	document.getElementById("item").value = "";
-}
-
-var send_item_selected = function (ev) {
-	ev.preventDefault();
-	item_name = document.getElementById("item").name+"_select";
-	table = document.getElementById("item_list");
-	var content = queryString(table);
-	var d = doXHR("/index/?xhr=1", {"method": "post", "sendContent": content});
-	d.addCallbacks(items_changed, item_remove_failed);
-}
 
 function loading_bugs() {
 		new_span = SPAN({'class': 'loading'}, "Loading...");
@@ -107,23 +79,6 @@ var failed_search_results = function(request) {
 	replaceChildNodes(document.getElementById("search_results"), new_span);
 	loading_finished();
 }
-var got_toolbox = function(request) {
-	place = document.getElementById("toolbox");
-	if (strip(request.responseText) != "") {
-		new_div = DIV();
-		new_div.innerHTML = request.responseText;
-		replaceChildNodes(place, new_div);
-		toolboxConnect();
-	} 
-	else {
-		new_span = SPAN({'class': 'error'}, "No toolbox");
-		replaceChildNodes(place, new_span);
-	}
-}
-var failed_toolbox = function(request) {
-	new_span = SPAN({'class': 'error'}, "ERROR: Unable to load toolbox");
-	replaceChildNodes(document.getElementById("toolbox"), new_span);
-}
 
 function load_bugs(evt, url) {
 	loading_bugs();
@@ -137,44 +92,6 @@ function load_search_results(evt, url) {
 	var d = doXHR(url);
 	d.addCallbacks(got_search_results, failed_search_results);
 	evt.preventDefault();
-}
-function load_toolbox(url) {
-	var d = doXHR(url);
-	d.addCallbacks(got_toolbox, failed_toolbox);
-}
-
-function get_submitted_bugs(evt) {
-	load_toolbox("/submitted_bugs_toolbox/");
-	load_bugs(evt,"/submitted_bugs_table/");
-}
-function get_received_bugs(evt) {
-	load_toolbox("/received_bugs_toolbox/");
-	load_bugs(evt,"/received_bugs_table/");
-}
-function get_package_bugs(evt) {
-	load_toolbox("/package_bugs_toolbox/");
-	load_bugs(evt,"/package_bugs_table/");
-}
-function get_selected_bugs(evt) {
-	load_toolbox("/selected_bugs_toolbox/");
-	load_bugs(evt,"/selected_bugs_table/");
-}
-function get_tagged_bugs(evt) {
-	load_toolbox("/tagged_bugs_toolbox/");
-	load_bugs(evt,"/tagged_bugs_table/");
-}
-/*function get_search_form(evt) {
-	load_toolbox("/search_form_toolbox/");
-	load_bugs(evt,"/search_form/");
-}*/
-
-function toolboxConnect() {
-	var item_add = document.getElementById("add_item");
-	if (item_add)
-	    MochiKit.Signal.connect( item_add, 'onsubmit', send_item_add );
-	var item_selection = document.getElementById("item_selection");
-	if (item_selection)
-	    MochiKit.Signal.connect( item_selection, 'onsubmit', send_item_selected );
 }
 
 function send_page(evt) {
@@ -195,7 +112,6 @@ function pagerConnect() {
 
 function myLoadFunction()
 {
-	toolboxConnect();
 	pagerConnect();
 
 	if (buglogConnect)
@@ -224,4 +140,4 @@ function myLoadFunction()
 }
 
 /*connect our event handlers right off*/
-MochiKit.Signal.connect(window, "onload", myLoadFunction);
+MochiKit.DOM.addLoadEvent(myLoadFunction);
