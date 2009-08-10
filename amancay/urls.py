@@ -22,10 +22,12 @@ urlpatterns = patterns('',
 	(r'^package/(?P<package_name>\w+)', 'bts_webui.amancay.views.package',),
 
 	# Small pieces
-	(r'^ajax/package/add/', 'bts_webui.amancay.ajax.add_package',),
-	(r'^ajax/package/remove/', 'bts_webui.amancay.ajax.remove_package',),
+	(r'^ajax/package/add/', 'bts_webui.amancay.ajax.package_add',),
+	(r'^ajax/package/remove/', 'bts_webui.amancay.ajax.package_remove',),
 	(r'^ajax/bug/subscribe/', 'bts_webui.amancay.ajax.bug_subscribe',),
 	(r'^ajax/bug/unsubscribe/', 'bts_webui.amancay.ajax.bug_unsubscribe',),
+	(r'^ajax/bug/add/', 'bts_webui.amancay.ajax.bug_add',),
+	(r'^ajax/bug/remove/', 'bts_webui.amancay.ajax.bug_remove',),
 
 	# Account Settings
 	#   (r'^account_settings', 'bts_webui.amancay.views.account_settings',),

@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from amancay.bugs import handle_email
 
-def add_package(request):
+def package_add(request):
 	"""
 	Add a package to our session watched list.
 	"""
@@ -24,7 +24,7 @@ def add_package(request):
 			request.session['packages'].append(package_name)
 			return HttpResponse(status=200)
 
-def remove_package(request):
+def package_remove(request):
 	"""
 	Remove a package from the watched list.
 	"""
@@ -42,6 +42,50 @@ def remove_package(request):
 		packages = request.session.get('packages', [])
 		if package_name in packages:
 			request.session['packages'].remove(package_name)
+			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status=500)
+
+def bug_add(request):
+	"""
+	Add a bug to the session watched bugs.
+	"""
+	user = request.user
+	bug_number = request.GET['id']
+
+	if user.is_authenticated():
+		bugs = user.bug_set.filter(number=bug_number)[:1]
+		if not bugs:
+			user.bug_set.create(number=bug_number)
+			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status=500)
+	else:
+		bugs = request.session.get('bugs', [])
+		if bug_number in bugs:
+			return HttpResponse(status=500)
+		else:
+			request.session['bugs'].append(bug_number)
+			return HttpResponse(status=200)
+
+def bug_remove(request):
+	"""
+	Remove a bug from the watched list.
+	"""
+	user = request.user
+	bug_number = request.GET['id']
+
+	if user.is_authenticated():
+		bugs = user.bug_set.filter(number=bug_number)[:1]
+		if bugs:
+			bugs[0].delete()
+			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status=500)
+	else:
+		bugs = request.session.get('bugs', [])
+		if bug_number in bugs:
+			request.session['bugs'].remove(bug_number)
 			return HttpResponse(status=200)
 		else:
 			return HttpResponse(status=500)

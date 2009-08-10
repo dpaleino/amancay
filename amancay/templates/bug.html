@@ -31,13 +31,42 @@ function toggle_subscribe(id) {
 	res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
 	res.addCallback(toggle_subscribe_cb, img, newimg, txt, newtxt);
 }
+function toggle_star_cb(img, newimg, xml) {
+	img.src = newimg;
+}
+function toggle_star(id) {
+	var url = '/ajax/bug/';
+	var img = document.getElementById(id + '_star');
+	var newimg = '';
+
+	if (MochiKit.Text.endsWith('star_on.png', img.src))
+	{
+		newimg = '/static/icons/star_off.png';
+		url += 'remove/';
+	}
+	else
+	{
+		newimg = '/static/icons/star_on.png';
+		url += 'add/';
+	}
+
+	res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
+	res.addCallback(toggle_star_cb, img, newimg);
+}
 </script>
 {% endblock %}
 
 {% block main_content %}
 <div class="bug">
 	<div class="bug_information">
-		<span class="bug_number"><a href="/bug/{{ bug_number }}">bug #{{ bug_number }}</a></span>
+		<span class="bug_number">
+		<a href="javascript:toggle_star('{{ bug_number }}')" class="favorite_icon">
+		{% if bug_is_fav %}
+			<img id="{{ bug_number }}_star" src="/static/icons/star_on.png" />
+		{% else %}
+			<img id="{{ bug_number }}_star" src="/static/icons/star_off.png" />
+		{% endif %}
+		</a> <a href="/bug/{{ bug_number }}">bug #{{ bug_number }}</a></span>
 		<span class="bug_modified">Last modified <span class="modified">{{ bug_status.log_modified|tstodatetime|timesince }}</span> ago ({{ bug_status.log_modified|tstodate }})
 	</div>
 	<div class="bug_title">{{ bug_status.subject|escape }} <span class="bug_severity">((icon){{ bug_status.severity }})</span></div>

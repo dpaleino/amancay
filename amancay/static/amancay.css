@@ -193,7 +193,7 @@ span.wishlist {
 	float: left;
 }
 .bug .bug_number a {
-	font-size: smaller;
+	font-size: small;
 	text-decoration: none;
 	border-bottom: 1px dotted blue;
 }
@@ -418,8 +418,13 @@ div.account_form input.submit {
 	border-bottom: 1px dotted white;
 	text-decoration: none;
 }
+.favorite_icon {
+	text-decoration: none;
+	border: 0 !important;
+}
 .favorite_icon img {
     border: 0;
+    vertical-align: middle;
 }
 .action img {
 	border: 0;
