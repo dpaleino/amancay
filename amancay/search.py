@@ -1,27 +1,15 @@
-import datetime
-import math, time
+# vim: set sw=4 ts=4 sts=4 noet:
+import math
+import time
 import threading
 
-# Needed to get_template, prepare context and output Response
-from django.template import Context, loader
-from django.http import HttpResponse, HttpResponseRedirect
-
-# Shortcut for rendering a response
-from django.shortcuts import get_object_or_404, render_to_response
-
-# Model clases
-from django.contrib.auth.models import User
-from bts_webui.amancay.models import Package
+from django.contrib.sessions.models import Session
 from django.contrib.sites.models import Site
-
-# Needed for AJAX
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from django.utils import simplejson
 
-# Manage the sessions myself
-from django.contrib.sessions.models import Session
-
-# Needed for SOAP
-from bts_queries import SoapQueries
+from amancay.bts_queries import SoapQueries
 queries = SoapQueries()
 
 # Bug views

@@ -1,7 +1,8 @@
+# vim: set sw=4 ts=4 sts=4 noet:
 from django import oldforms as forms
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.contrib.auth.forms import UserCreationForm
 
 def register(request):
 	"""

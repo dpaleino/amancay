@@ -1,4 +1,5 @@
 # vim: set sw=4 ts=4 sts=4 noet:
+import SOAPpy
 
 class BtsQueries:
 	"""
@@ -33,8 +34,6 @@ class BtsQueries:
 		pass
 
 # ************************ SOAP Queries *****************************
-
-import SOAPpy
 # Uncomment those to enable debugging
 #server.config.dumpSOAPOut = 1
 #server.config.dumpSOAPIn = 1

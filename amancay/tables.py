@@ -1,26 +1,11 @@
 # vim: set sw=4 ts=4 sts=4 noet:
-import datetime
-
-# Needed to get_template, prepare context and output Response
-from django.template import RequestContext
-from django.http import HttpResponse, HttpResponseRedirect
-
-# Shortcut for rendering a response
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.utils import simplejson
 
-# Model clases
-from django.contrib.auth.models import User
-from bts_webui.amancay.models import Package
-
-# Needed for AJAX
-from django.utils import simplejson 
-
-# Needed for SOAP
-from bts_queries import SoapQueries
+from amancay.bts_queries import SoapQueries
 queries = SoapQueries()
-
-# Toolboxes
-from toolbox import get_toolbox
 
 # Bug renderer.
 def render_bug_table(request, queries, title, bugs, amount, current_view):

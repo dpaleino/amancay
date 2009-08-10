@@ -1,16 +1,10 @@
 # vim: set sw=4 ts=4 sts=4 noet:
-import datetime
-
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render_to_response
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
 
-from django.contrib.auth.models import User
-from bts_webui.amancay.models import Package
-
-# Needed for SOAP
-from bts_queries import SoapQueries
+from amancay.bts_queries import SoapQueries
 
 def index(request):
 	"""

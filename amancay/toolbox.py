@@ -1,19 +1,7 @@
 # vim: set sw=4 ts=4 sts=4 noet:
-import datetime
-
-# Needed to get_template, prepare context and output Response
-from django.template import Context, loader
-from django.http import HttpResponse, HttpResponseRedirect
-
-# Shortcut for rendering a response
-from django.shortcuts import get_object_or_404, render_to_response
-
-# Model clases
-from django.contrib.auth.models import User
-from bts_webui.amancay.models import Package, Bug, SubmitterEmail, MaintainerEmail, UserEmail
-
-# Needed for AJAX
-from django.utils import simplejson 
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.utils import simplejson
 
 def render_toolbox(request):
 	toolbox = get_toolbox(request)

@@ -1,24 +1,14 @@
 # vim: set sw=4 ts=4 sts=4 noet:
-# The bug page uses regular expresions to parse the log
 import re
-# The bug page uses rfc822 to parse emails, dates, etc.
 import email
+from smtplib import SMTPRecipientsRefused
 
-# Needed to get_template, prepare context and output Response
+from django.core.mail import send_mail
+from django.shortcuts import render_to_response
 from django.template import RequestContext, Context, loader
 
-# Shortcut for rendering a response
-from django.shortcuts import render_to_response
-
-# Model clases
-from bts_webui.amancay.models import Pending_Messages
-
-# Needed for SOAP
-from bts_queries import SoapQueries
-
-# Needed for sending emails
-from django.core.mail import send_mail
-from smtplib import SMTPRecipientsRefused
+from amancay.models import Pending_Messages
+from amancay.bts_queries import SoapQueries
 
 def bug(request, bug_number):
 	"""
