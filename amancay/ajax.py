@@ -21,7 +21,7 @@ def package_add(request):
 		if package_name in packages:
 			return HttpResponse(status=500)
 		else:
-			request.session['packages'].append(package_name)
+			request.session.get('packages', []).append(package_name)
 			return HttpResponse(status=200)
 
 def package_remove(request):
@@ -41,7 +41,7 @@ def package_remove(request):
 	else:
 		packages = request.session.get('packages', [])
 		if package_name in packages:
-			request.session['packages'].remove(package_name)
+			request.session.get('packages', []).remove(package_name)
 			return HttpResponse(status=200)
 		else:
 			return HttpResponse(status=500)
