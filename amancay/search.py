@@ -144,7 +144,7 @@ def render_bug_table(request, title, bug_list, page, num_pages, total, current_v
 								   'total_bugs': total,
 								   'current_page': page,
 								   'pages': pages},
-								 )
+								  context_instance=RequestContext(request))
 	else:
 		# We need to render the whole page
 		return render_to_response('search.html',
@@ -155,7 +155,7 @@ def render_bug_table(request, title, bug_list, page, num_pages, total, current_v
 								   'current_user': request.user,
 								   'current_page': page,
 								   'pages': pages},
-								 )
+								  context_instance=RequestContext(request))
 
 class _ReadAhead(threading.Thread):
 	"""
