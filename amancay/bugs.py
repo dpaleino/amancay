@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext, Context, loader
 
 from amancay.models import Pending_Messages
-from amancay.bts_queries import SoapQueries
+from amancay.btsqueries import SoapQueries
 
 def bug(request, bug_number):
 	"""

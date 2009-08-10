@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
 
-from amancay.bts_queries import SoapQueries
+from amancay.btsqueries import SoapQueries
 
 def index(request):
 	"""
