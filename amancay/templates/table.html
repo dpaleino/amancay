@@ -1,5 +1,8 @@
+{% extends "base.html" %}
 {% comment %} vim: set sw=4 ts=4 sts=4 noet: {% endcomment %}
-{% block extrajs %}
+{% load template_filters %}
+
+{% block main_content %}
 <script type="text/javascript" language="javascript" charset="utf-8">
 function toggle_star_cb(img, newimg, xml) {
 	img.src = newimg;
@@ -20,15 +23,13 @@ function toggle_star(id) {
 		url += 'add/';
 	}
 
-	res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
+	var res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
 	res.addCallback(toggle_star_cb, img, newimg);
 }
 </script>
-{% endblock %}
-{% load template_filters %}
 <input id="current_view" type="hidden" value="{{ current_view }}" />
 {% if bug_list %}
-<span class="table_title">{{ table_title }}</span>
+<span class="table_title">{{ title }}</span>
 <div class="pager">
 	{% if pages %}
 	<span class="page_numbers">Pages:
@@ -96,3 +97,4 @@ function toggle_star(id) {
 	{% endfor %}
 </table>
 {% endif %}
+{% endblock %}

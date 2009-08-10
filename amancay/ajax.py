@@ -3,99 +3,173 @@ from django.http import HttpResponse
 
 from amancay.bugs import handle_email
 
+def _add_item(request, item_type, new_item):
+	"""
+	Add the given item to either the session or user set.
+	"""
+	item_set = '%s_set' % item_type
+
+	if request.user.is_authenticated():
+		item_set = getattr(request.user, item_set)
+		items = item_set.filter(**new_item)
+
+		if items:
+			return False
+		else:
+			item_set.create(**new_item)
+			return True
+	else:
+		items = request.session.get(item_set, [])
+		new_item = item_record.values()
+
+		if new_item in items:
+			return False
+		else:
+			items.append(item_value)
+			return True
+
+def _remove_item(request, item_type, remove_item):
+	"""
+	Remove the given item from either the session or user set.
+	"""
+	item_set = '%s_set' % item_type
+
+	if request.user.is_authenticated():
+		item_set = getattr(request.user, item_set)
+		items = item_set.filter(**remove_item)
+
+		if items:
+			items[0].delete()
+	else:
+		items = request.session.get(item_set, [])
+		remove_values = remove_item.values()
+
+		for item in items:
+			if item in remove_values:
+				items.remove(item)
+
+def _get_post_or_get(request, item):
+	item = request.GET.get(item, None)
+
+	if not item:
+		item = request.POST.get(item, None)
+
+	return item
+
 def package_add(request):
 	"""
-	Add a package to our session watched list.
+	Add a package to our watched list.
 	"""
-	user = request.user
-	package_name = request.GET['id']
+	item = _get_post_or_get(request, 'id')
 
-	if user.is_authenticated():
-		packages = user.package_set.filter(package_name=package_name)[:1]
-		if not packages:
-			user.package_set.create(package_name=package_name)
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=500)
+	if _add_item(request, 'package', {'package_name': item}):
+		return HttpResponse(status=200)
 	else:
-		packages = request.session.get('packages', [])
-		if package_name not in packages:
-			request.session.get('packages', []).append(package_name)
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=500)
+		return HttpResponse(status=500)
 
 def package_remove(request):
 	"""
 	Remove a package from the watched list.
 	"""
-	user = request.user
-	package_name = request.GET['id']
+	item = _get_post_or_get(request, 'id')
 
-	if user.is_authenticated():
-		packages = user.package_set.filter(package_name=package_name)[:1]
-		if packages:
-			packages[0].delete()
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=500)
+	if _remove_item(request, 'package', {'package_name': item}):
+		return HttpResponse(status=200)
 	else:
-		packages = request.session.get('packages', [])
-		if package_name in packages:
-			request.session.get('packages', []).remove(package_name)
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=500)
+		return HttpResponse(status=500)
 
 def bug_add(request):
 	"""
-	Add a bug to the session watched bugs.
+	Add a bug to our watched list.
 	"""
-	user = request.user
-	bug_number = request.GET['id']
+	item = _get_post_or_get(request, 'id')
 
-	if user.is_authenticated():
-		bugs = user.bug_set.filter(number=bug_number)[:1]
-		if not bugs:
-			user.bug_set.create(number=bug_number)
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=500)
+	if _add_item(request, 'bug', {'number': item}):
+		return HttpResponse(status=200)
 	else:
-		bugs = request.session.get('bugs', [])
-		if bug_number not in bugs:
-			request.session['bugs'].append(bug_number)
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=500)
+		return HttpResponse(status=500)
 
 def bug_remove(request):
 	"""
 	Remove a bug from the watched list.
 	"""
-	user = request.user
-	bug_number = request.GET['id']
+	item = _get_post_or_get(request, 'id')
 
-	if user.is_authenticated():
-		bugs = user.bug_set.filter(number=bug_number)[:1]
-		if bugs:
-			bugs[0].delete()
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=500)
+	if _remove_item(request, 'bug', {'number': item}):
+		return HttpResponse(status=200)
 	else:
-		bugs = request.session.get('bugs', [])
-		if bug_number in bugs:
-			request.session['bugs'].remove(bug_number)
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=500)
+		return HttpResponse(status=500)
+
+def maintainer_add(request):
+	"""
+	Add a maintainer to our watched list.
+	"""
+	item = _get_post_or_get(request, 'id')
+
+	if _add_item(request, 'maintaineremail', {'address': item}):
+		return HttpResponse(status=200)
+	else:
+		return HttpResponse(status=500)
+
+def maintainer_remove(request):
+	"""
+	Remove a maintainer from our watched list.
+	"""
+	item = _get_post_or_get(request, 'id')
+
+	if _remove_item(request, 'maintaineremail', {'address': item}):
+		return HttpResponse(status=200)
+	else:
+		return HttpResponse(status=500)
+
+def submitter_add(request):
+	"""
+	Add a submitter/user to our watched list.
+	"""
+	item = _get_post_or_get(request, 'id')
+
+	if _add_item(request, 'submitteremail', {'address': item}):
+		return HttpResponse(status=200)
+	else:
+		return HttpResponse(status=500)
+
+def submitter_remove(request):
+	"""
+	Remove a submitter/user from our watched list.
+	"""
+	item = _get_post_or_get(request, 'id')
+
+	if _remove_item(request, 'submitteremail', {'address': item}):
+		return HttpResponse(status=200)
+	else:
+		return HttpResponse(status=500)
+
+def user_add(request):
+	"""
+	Add a submitter/user to our watched list.
+	"""
+	item = _get_post_or_get(request, 'id')
+
+	if _add_item(request, 'useremail', {'address': item}):
+		return HttpResponse(status=200)
+	else:
+		return HttpResponse(status=500)
+
+def user_remove(request):
+	"""
+	Remove a submitter/user from our watched list.
+	"""
+	item = _get_post_or_get(request, 'id')
+
+	if _remove_item(request, 'useremail', {'address': item}):
+		return HttpResponse(status=200)
+	else:
+		return HttpResponse(status=500)
 
 def _bug_toggle_subscribe(request, subscribe=True):
 	"""
-	Toggle subscription to a specific bug report
+	Toggle subscription to a specific bug report.
 	"""
-	user = request.user
 	bug_number = request.GET['id']
 
 	if subscribe:
@@ -103,7 +177,7 @@ def _bug_toggle_subscribe(request, subscribe=True):
 	else:
 		action = 'unsubscribe'
 
-	if user.is_authenticated():
+	if request.user.is_authenticated():
 		to_address = ['%s-%s@bugs.debian.org' % (bug_number, action)]
 
 		# FIXME: this never tells us if the email left the building
@@ -114,12 +188,12 @@ def _bug_toggle_subscribe(request, subscribe=True):
 
 def bug_subscribe(request):
 	"""
-	Subscribe to a specific bug report
+	Subscribe to a specific bug report.
 	"""
 	return _bug_toggle_subscribe(request, subscribe=True)
 
 def bug_unsubscribe(request):
 	"""
-	Unsubscribe to a specific bug report
+	Unsubscribe to a specific bug report.
 	"""
 	return _bug_toggle_subscribe(request, subscribe=False)

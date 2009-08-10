@@ -5,9 +5,6 @@ urlpatterns = patterns('',
 	(r'^$', 'amancay.views.index',),
 	(r'^index', 'amancay.views.index',),
 
-	# Toolboxes
-	(r'toolbox', 'amancay.toolbox.render_toolbox',),
-
 	# Bug pages
 	(r'^package_bugs', 'amancay.tables.package_bugs',),
 	(r'^received_bugs', 'amancay.tables.received_bugs',),
@@ -23,11 +20,19 @@ urlpatterns = patterns('',
 
 	# Small pieces
 	(r'^ajax/package/add/', 'amancay.ajax.package_add',),
+	(r'^ajax/bug/add/', 'amancay.ajax.bug_add',),
+	(r'^ajax/maintainer/add/', 'amancay.ajax.maintainer_add',),
+	(r'^ajax/submitter/add/', 'amancay.ajax.submitter_add',),
+	(r'^ajax/user/add/', 'amancay.ajax.user_add',),
+	
 	(r'^ajax/package/remove/', 'amancay.ajax.package_remove',),
+	(r'^ajax/bug/remove/', 'amancay.ajax.bug_remove',),
+	(r'^ajax/maintainer/remove/', 'amancay.ajax.maintainer_remove',),
+	(r'^ajax/submitter/remove/', 'amancay.ajax.submitter_remove',),
+	(r'^ajax/user/remove/', 'amancay.ajax.user_remove',),
+
 	(r'^ajax/bug/subscribe/', 'amancay.ajax.bug_subscribe',),
 	(r'^ajax/bug/unsubscribe/', 'amancay.ajax.bug_unsubscribe',),
-	(r'^ajax/bug/add/', 'amancay.ajax.bug_add',),
-	(r'^ajax/bug/remove/', 'amancay.ajax.bug_remove',),
 
 	# Account Settings
 	#   (r'^account_settings', 'amancay.views.account_settings',),
