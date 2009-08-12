@@ -89,7 +89,7 @@ def bug_add(request):
 	"""
 	Add a bug to our watched list.
 	"""
-	item = _get_post_or_get(request, 'id')
+	item = int(_get_post_or_get(request, 'id'))
 
 	if _add_item(request, 'bug', {'number': item}):
 		return HttpResponse(status=200)
@@ -100,7 +100,7 @@ def bug_remove(request):
 	"""
 	Remove a bug from the watched list.
 	"""
-	item = _get_post_or_get(request, 'id')
+	item = int(_get_post_or_get(request, 'id'))
 
 	if _remove_item(request, 'bug', {'number': item}):
 		return HttpResponse(status=200)
