@@ -97,7 +97,11 @@ def package_bugs(request):
 	"""
 	Render a table view for our watched packages.
 	"""
-	package_list = [p.package_name for p in request.user.package_set.all()]
+	if request.user.is_authenticated():
+		package_list = [p.package_name for p in request.user.package_set.all()]
+	else:
+		package_list = request.session.get('package_set', [])
+
 	bug_list = _get_bug_list(request, 'package_bugs')
 
 	for bug in bug_list:
