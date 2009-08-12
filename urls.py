@@ -10,13 +10,13 @@ urlpatterns = patterns('',
 	(r'^admin/(.*)', admin.site.root),
 
 	# The amancay app
-	(r'^amancay/', include('bts_webui.amancay.urls')),
+	(r'^amancay/', include('amancay.urls')),
 
 	# The registration app
-	(r'^accounts/profile/', include('bts_webui.amancay.urls')),
-	(r'^accounts/', include('bts_webui.registration.urls')),
+	(r'^accounts/profile/', include('amancay.urls')),
+	(r'^accounts/', include('registration.urls')),
 
 	# amancay is the main site here.
-	(r'^/?', include('bts_webui.amancay.urls')),
+	(r'^/?', include('amancay.urls')),
     
 )
