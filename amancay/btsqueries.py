@@ -43,7 +43,8 @@ class SoapQueries(BtsQueries):
 	SOAP based BtsQueries class.
 	"""
 	def __init__(self):
-		self.url = 'http://bugs.debian.org/cgi-bin/soap.cgi'
+		#self.url = 'http://bugs.debian.org/cgi-bin/soap.cgi'
+		self.url = 'http://bugs-rietz.debian.org/cgi-bin/soap.cgi'
 		#self.url = 'http://bugs.donarmstrong.com/cgi-bin/soap.cgi'
 		self.ns = 'Debbugs/SOAP'
 		self.server = SOAPpy.SOAPProxy(self.url, self.ns)
@@ -77,7 +78,9 @@ class SoapQueries(BtsQueries):
 		# FIXME: Not in BtsQueries
 		pkg = self.server.get_bugs('package', packages)
 		src = self.server.get_bugs('src', packages)
-		result = pkg + src
+		# this gives us only unique elements
+		result = set(pkg + src)
+
 		return list(result)
 
 	def get_bug_log(self, bug):
