@@ -25,28 +25,26 @@ function toggle_star(id) {
 	res.addCallback(toggle_star_cb, img, newimg);
 }
 </script>
-<input id="current_view" type="hidden" value="{{ current_view }}" />
 {% if bug_list %}
 <span class="table_title">{{ title }}</span>
+
 <div class="pager">
-	{% if pages %}
-	<span class="page_numbers">Pages:
-		<ul class="page_numbers" id="pager">
-			{% for number in pages %}
-			{% ifequal number current_page %}
-				<li class="current">{{ number }}</li>
-			{% else %}
-				<li class="normal"><a href="{{ url }}&page={{number}}">{{ number }}</a></li>
-			{% endifequal %}
-			{% endfor %}
-		</ul>
+	<span class="page_numbers">
+	{% if page.has_previous %}
+		<a href="?page={{ contacts.previous_page_number }}">« previous</a>
+	{% endif %}
+
+	<span class="current">
+		Page {{ page.number }} of {{ page.paginator.num_pages }}
 	</span>
+
+	{% if page.has_next %}
+		<a href="?page={{ page.next_page_number }}">next »</a>
 	{% endif %}
-	{% if total_bugs %}
-	<span class="total_bugs">Found {{ total_bugs }} 
-	{% ifequal total_bugs 1 %}bug{% else %}bugs{%endifequal%}</span>
-	{% endif %}
+	</span>
+	<span class="total_bugs">Found {{ page.paginator.count }} bugs</span>
 </div>
+
 <table class="bugs">
 	<tr>
 		<th></th>

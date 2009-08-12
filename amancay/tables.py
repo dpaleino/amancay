@@ -1,11 +1,13 @@
 # vim: set sw=4 ts=4 sts=4 noet:
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
 
 from amancay.btsqueries import SoapQueries
 
+PER_PAGE = 4
 def _get_bug_list(request, view):
 	"""
 	Process the requested bug list corresponding to a given view.
@@ -51,46 +53,64 @@ def _get_bug_list(request, view):
 
 		bugs = queries.get_tagged_bugs(user_emails)
 
+	# We use the django Paginator to divide objects in pages but note that
+	# the actual results are passed to the template as a separate list.
+	# This is because we would be wasting bandwidth in requesting all the
+	# objects again and again, only to feed them to the paginator and use its
+	# object_list property.
+	paginator = Paginator(bugs, PER_PAGE)
+
+	try:
+		page = int(request.GET.get('page', '1'))
+	except ValueError:
+		page = 1
+
+	# If page request (9999) is out of range, deliver last page of results.
+	try:
+		page = paginator.page(page)
+	except (EmptyPage, InvalidPage):
+		page = paginator.page(paginator.num_pages)
+
+	bugs = page.object_list
 	if bugs:
-		bug_list = queries.get_bugs_status(bugs[:15])
+		bug_list = queries.get_bugs_status(bugs)
 		bug_list.sort(key=lambda x: x.package)
 
-	return bug_list
+	return {'bug_list': bug_list,
+			'current_view': view,
+			'page': page}
 
 def received_bugs(request):
 	"""
 	Render a table view for bugs we have received as maintainers.
 	"""
-	bug_list = _get_bug_list(request, 'received_bugs')
+	data_dict = _get_bug_list(request, 'received_bugs')
+	data_dict['title'] = 'Latest received bugs'
 
 	return render_to_response('table.html',
-							  {'title': 'Latest received bugs',
-							   'bug_list': bug_list,
-							   'current_view': 'received_bugs'},
+							  data_dict,
 							  context_instance=RequestContext(request))
 
 def submitted_bugs(request):
 	"""
 	Render a table view for bugs we have submitted ourselves.
 	"""
-	bug_list = _get_bug_list(request, 'submitted_bugs')
+	data_dict = _get_bug_list(request, 'submitted_bugs')
+	data_dict['title'] = 'Latest submitted bugs'
 
 	return render_to_response('table.html',
-							  {'title': 'Latest submitted bugs',
-							   'bug_list': bug_list,
-							   'current_view': 'submitted_bugs'},
+							  data_dict,
 							  context_instance=RequestContext(request))
 
 def selected_bugs(request):
 	"""
 	Render a table view for bugs we are watching.
 	"""
-	bug_list = _get_bug_list(request, 'selected_bugs')
+	data_dict = _get_bug_list(request, 'selected_bugs')
+	data_dict['title'] = 'Latest selected bugs'
 
 	return render_to_response('table.html',
-							  {'title': 'Latest selected bugs',
-							   'bug_list': bug_list,
-							   'current_view': 'selected_bugs'},
+							  data_dict,
 							  context_instance=RequestContext(request))
 
 def package_bugs(request):
@@ -102,30 +122,28 @@ def package_bugs(request):
 	else:
 		package_list = request.session.get('package_set', [])
 
-	bug_list = _get_bug_list(request, 'package_bugs')
+	data_dict = _get_bug_list(request, 'package_bugs')
+	data_dict['title'] = 'Latest bugs on selected packages'
 
-	for bug in bug_list:
+	for bug in data_dict['bug_list']:
 		if bug.package in package_list:
 			bug.pkg_fav = True
 		else:
 			bug.pkg_fav = False
 
 	return render_to_response('table.html',
-							  {'title': 'Latest bugs on selected packages',
-							   'bug_list': bug_list,
-							   'current_view': 'package_bugs'},
+							  data_dict,
 							  context_instance=RequestContext(request))
 
 def tagged_bugs(request):
 	"""
 	Render a table view for bugs we have tagged.
 	"""
-	bug_list = _get_bug_list(request, 'tagged_bugs')
+	data_dict = _get_bug_list(request, 'tagged_bugs')
+	data_dict['title'] = 'Latest tagged bugs'
 
 	# TODO: fix this, bugs is a dict where every value is a dict of tags and
 	# bugs associated to one mail
 	return render_to_response('table.html',
-							  {'title': 'Latest received bugs',
-							   'bug_list': bug_list,
-							   'current_view': 'tagged_bugs'},
+							  data_dict,
 							  context_instance=RequestContext(request))
