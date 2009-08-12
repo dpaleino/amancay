@@ -26,4 +26,3 @@ def package(request, package_name):
 								   'bug_list': bug_list, 
 								   'current_user': user},
 								  context_instance=RequestContext(request))
-
