@@ -1,11 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}Amancay BTS interface{% endblock %}
-
 {% block toolbox %}
 {% endblock %}
-
-
 {% block main_content %}
 <div id="main_content">
 	{% block search_form %}
@@ -14,7 +10,7 @@
 	<div id="search_results">
 		{% if bug_list %}
 			{% block bug_list %}
-			{% include "table.html" %}
+			{% include "table_widget.html" %}
 			{% endblock %}
 		{% endif %}
 	</div>

@@ -7,6 +7,7 @@ from django.contrib.sessions.models import Session
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.utils import simplejson
 
 from amancay.btsqueries import SoapQueries
@@ -137,7 +138,7 @@ def render_bug_table(request, title, bug_list, page, num_pages, total, current_v
 							mimetype='application/javascript')
 	elif request.path.find('table') != -1:
 		# We only need to render the table
-		return render_to_response('table.html',
+		return render_to_response('table_widget.html',
 								  {'bug_list': bug_list,
 								   'current_view': current_view,
 								   'url': url,
