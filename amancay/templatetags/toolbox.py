@@ -13,7 +13,7 @@ def toolbox_widget(context):
 	request = context.get('request', None)
 
 	# Fill the info according to the type of toolbox needed
-	if request.path.find('submitted_bugs') != -1:
+	if request.path.find('bugs/submitted') != -1:
 		title = 'Submitter emails'
 		item_type = 'submitter'
 
@@ -24,7 +24,7 @@ def toolbox_widget(context):
 			item_list = request.session.get('submitteremail_set')
 	
 	# Received bugs
-	elif request.path.find('received_bugs') != -1:
+	elif request.path.find('bugs/received') != -1:
 		title = 'Maintainer emails'
 		item_type = 'maintainer'
 
@@ -35,7 +35,7 @@ def toolbox_widget(context):
 			item_list = request.session.get('maintaineremail_set')
 	
 	# Selected Packages
-	elif request.path.find('package_bugs') != -1:
+	elif request.path.find('bugs/packages') != -1:
 		title = 'Selected Packages'
 		item_type = 'package'
 
@@ -46,7 +46,7 @@ def toolbox_widget(context):
 			item_list = request.session.get('package_set')
 
 	# Selected bugs
-	elif request.path.find('selected_bugs') != -1:
+	elif request.path.find('bugs/selected') != -1:
 		title = 'Selected Bugs'
 		item_type = 'bug'
 
@@ -57,7 +57,7 @@ def toolbox_widget(context):
 			item_list = request.session.get('bug_set')
 	
 	# Tagged bugs
-	elif request.path.find('tagged_bugs') != -1:
+	elif request.path.find('bugs/tagged') != -1:
 		title = 'User emails'
 		item_type = 'user'
 
@@ -72,7 +72,7 @@ def toolbox_widget(context):
 	toolbox['item_list'] = item_list
 
 	return {
-		'toolbox':		toolbox,
+		'toolbox':	toolbox,
 		}
 
 register.inclusion_tag('toolbox.html',
