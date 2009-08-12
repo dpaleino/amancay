@@ -437,3 +437,8 @@ div.account_form input.submit {
 #subscribe {
 	text-align: right;
 }
+.toolbox_remove_link {
+	font-size: smaller;
+	color: #f66;
+	text-decoration: none;
+}

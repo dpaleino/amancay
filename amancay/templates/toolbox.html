@@ -40,7 +40,7 @@ MochiKit.DOM.addLoadEvent(toolbox_connect);
 	{% if toolbox.item_list %}
 		{% for item in toolbox.item_list %}
 			<span class="toolbox_item">
-				{{ item }} <a href="/ajax/{{ toolbox.item_type }}/remove/?id={{ item }}">[x] remove</a>
+				{{ item }} <a href="/ajax/{{ toolbox.item_type }}/remove/?id={{ item }}" class="toolbox_remove_link">[x]</a>
 			</span><br/>
 		{% endfor %}
 	{% else %}
