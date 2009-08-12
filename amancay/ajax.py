@@ -20,12 +20,13 @@ def _add_item(request, item_type, new_item):
 			return True
 	else:
 		items = request.session.get(item_set, [])
-		new_item = item_record.values()
+		new_item = new_item.values()[0]
 
 		if new_item in items:
 			return False
 		else:
-			items.append(item_value)
+			items.append(new_item)
+			request.session[item_set] = items
 			return True
 
 def _remove_item(request, item_type, remove_item):
@@ -40,13 +41,19 @@ def _remove_item(request, item_type, remove_item):
 
 		if items:
 			items[0].delete()
+			return True
+		else:
+			return False
 	else:
 		items = request.session.get(item_set, [])
-		remove_values = remove_item.values()
+		remove_value = remove_item.values()[0]
 
-		for item in items:
-			if item in remove_values:
-				items.remove(item)
+		if remove_value in items:
+			items.remove(remove_value)
+			request.session[item_set] = items
+			return True
+		else:
+			return False
 
 def _get_post_or_get(request, item):
 	item = request.GET.get(item, None)

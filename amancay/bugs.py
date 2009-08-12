@@ -27,8 +27,12 @@ def bug(request, bug_number):
 	bug_status = queries.get_bugs_status(bug_number)[0]
 	bug_originator = email.Utils.parseaddr(bug_status['originator'])
 	bug_log = queries.get_bug_log(bug_number)
+
 	# having as a selected bug is not the same as subscribing
-	bug_is_fav = bool(request.user.bug_set.filter(number=bug_number)[:1])
+	if request.user.is_authenticated():
+		bug_is_fav = bool(request.user.bug_set.filter(number=bug_number)[:1])
+	else:
+		bug_is_fav = bug_number in request.session.get('bug_set', [])
 
 	# Regular expressions to parse the mails
 	from_re = re.compile('^From: ?(.+)$', re.MULTILINE)
