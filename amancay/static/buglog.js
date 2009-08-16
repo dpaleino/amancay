@@ -76,3 +76,5 @@ function buglogConnect() {
 	if (select)
 		MochiKit.Signal.connect(select, 'onchange', show_more_actions);
 }
+
+MochiKit.DOM.addLoadEvent(buglogConnect);
