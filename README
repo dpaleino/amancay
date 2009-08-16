@@ -20,21 +20,6 @@ First time setup
 To get the necessary databases created you need to run (in the checkout dir):
     $ python manage.py syncdb
 
-    Note:
-    ----
-    If your checkout dir is not named bts_webui, manage.py won't be able to
-    find some files. You can either edit settings.py and replace 'bts_webui'
-    with the name of your checkout dir or just rename your checkout dir to
-    bts_webui:
-        (...)
-        ROOT_URLCONF = '<checkout-dir-name>.urls'
-        INSTALLED_APPS = (
-            (...)
-            '<checkout-dir-name>.amancay',
-            '<checkout-dir-name>.registration',
-            (...)
-
-
 Running the server
 -----------------
 After creating the databases, you can use the "runserver.sh" script to

@@ -74,7 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
 )
 
-ROOT_URLCONF = 'bts_webui.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates".
@@ -89,6 +89,6 @@ INSTALLED_APPS = (
 	'django.contrib.humanize',
 	'django.contrib.admin',
 	'django.contrib.sites',
-	'registration'
-	'bts_webui.amancay',
+	'registration',
+	'amancay',
 )
