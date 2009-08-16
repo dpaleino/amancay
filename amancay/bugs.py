@@ -21,6 +21,8 @@ def bug(request, bug_number):
 	# Process post
 	info = process_bug_post(request, bug_number)
 
+	bug_number = int(bug_number)
+
 	# FIXME: we need API
 	request.user.subscribed = False
 	queries = SoapQueries()
