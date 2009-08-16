@@ -7,7 +7,7 @@ from django.utils import simplejson
 
 from amancay.btsqueries import SoapQueries
 
-PER_PAGE = 4
+PER_PAGE = 10
 def _get_bug_list(request, view):
 	"""
 	Process the requested bug list corresponding to a given view.
@@ -21,7 +21,7 @@ def _get_bug_list(request, view):
 		else:
 			user_emails = request.session.get('maintaineremail_set')
 
-		bugs = queries.get_tagged_bugs(user_emails)
+		bugs = queries.get_maintainers_bugs(user_emails)
 
 	elif view == 'submitted_bugs':
 		if request.user.is_authenticated():
