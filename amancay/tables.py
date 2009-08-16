@@ -19,7 +19,7 @@ def _get_bug_list(request, view):
 		if request.user.is_authenticated():
 			user_emails = [e.address for e in request.user.useremail_set.all()]
 		else:
-			user_emails = request.session.get('maintaineremail_set')
+			user_emails = request.session.get('maintaineremail_set', [])
 
 		bugs = queries.get_maintainers_bugs(user_emails)
 
@@ -27,7 +27,7 @@ def _get_bug_list(request, view):
 		if request.user.is_authenticated():
 			submitter_emails = [e.address for e in request.user.submitteremail_set.all()]
 		else:
-			submitter_emails = request.session.get('submitteremail_set')
+			submitter_emails = request.session.get('submitteremail_set', [])
 
 		bugs = queries.get_submitters_bugs(submitter_emails)
 
@@ -35,13 +35,13 @@ def _get_bug_list(request, view):
 		if request.user.is_authenticated():
 			bugs = [b.number for b in request.user.bug_set.all()]
 		else:
-			bugs = request.session.get('bug_set')
+			bugs = request.session.get('bug_set', [])
 
 	elif view == 'package_bugs':
 		if request.user.is_authenticated():
 			package_list = [p.package_name for p in request.user.package_set.all()]
 		else:
-			package_list = request.session.get('package_set')
+			package_list = request.session.get('package_set', [])
 
 		bugs = queries.get_packages_bugs(package_list)
 
@@ -49,7 +49,7 @@ def _get_bug_list(request, view):
 		if request.user.is_authenticated():
 			user_emails = [e.address for e in request.user.useremail_set.all()]
 		else:
-			user_emails = request.session.get('useremail_set')
+			user_emails = request.session.get('useremail_set', [])
 
 		bugs = queries.get_tagged_bugs(user_emails)
 
