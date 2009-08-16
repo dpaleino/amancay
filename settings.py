@@ -77,10 +77,9 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'bts_webui.urls'
 
 TEMPLATE_DIRS = (
-	"amancay/templates/",
-	"registration/templates/"
     # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
+	'amancay/templates/',
 )
 
 INSTALLED_APPS = (
@@ -90,6 +89,6 @@ INSTALLED_APPS = (
 	'django.contrib.humanize',
 	'django.contrib.admin',
 	'django.contrib.sites',
+	'registration'
 	'bts_webui.amancay',
-	'bts_webui.registration'
 )
