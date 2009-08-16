@@ -15,7 +15,7 @@
 			<li><label for="subject">Subject:</label>
 			<input size="80" name="subject" maxlength="255"/></li>
 			<li><label for="comment">Comment:</label>
-			<textarea cols="80" rows="10" name="comment" /></textarea></li>
+			<textarea cols="80" rows="10" name="comment"></textarea></li>
 			<li><input type="submit" class="submit" value="Submit" /></li>
 		</ul>
 		</fieldset>
@@ -40,7 +40,7 @@
 			<li><label for="reassign_version">Version:</label>
 			<input size="80" name="reassign_version" maxlength="255"/></li>
 			<li><label for="reassign_comment">Comment:</label>
-			<textarea cols="80" rows="5" name="reassign_comment" /></textarea></li>
+			<textarea cols="80" rows="5" name="reassign_comment"></textarea></li>
 			<li><input type="submit" class="submit" value="Submit" /></li>
 		</ul>
 		</fieldset>
@@ -63,7 +63,7 @@
 		<li><label for="retitle_to">Retitle to:</label>
 		<input size="80" name="retitle_to" maxlength="255"/></li>
 		<li><label for="retitle_comment">Comment:</label>
-		<textarea cols="80" rows="5" name="retitle_comment" /></textarea></li>
+		<textarea cols="80" rows="5" name="retitle_comment"></textarea></li>
 		<li><input type="submit" class="submit" value="Submit" /></li>
 		</ul>
 		</fieldset>
@@ -86,7 +86,7 @@
 			<li><label for="close_version">Fixed Version:</label>
 			<input size="80" name="close_version" maxlength="255"/></li>
 			<li><label for="close_comment">Comment:</label>
-			<textarea cols="80" rows="5" name="close_comment" /></textarea></li>
+			<textarea cols="80" rows="5" name="close_comment"></textarea></li>
 			<li><input type="submit" class="submit" value="Submit" /></li>
 		</ul>
 		</fieldset>
@@ -117,7 +117,7 @@
 				<option value="wishlist">Wishlist</option>
 			</select></li>
 			<li><label for="severity_comment">Comment:</label>
-			<textarea cols="80" rows="5" name="severity_comment" /></textarea></li>
+			<textarea cols="80" rows="5" name="severity_comment"></textarea></li>
 			<li><input type="submit" class="submit" value="Submit" /></li>
 		</ul>
 		</fieldset>
@@ -143,8 +143,8 @@
 				<input size="80" name="subscribe_email" maxlength="255" /></li>
 			{% endif %}
 			<br/>
-			Remember that some bug reports might produce high traffic.</li>
-			<li><input type="submit" class="submit" value="Confirm" /></li>
+			<li>Remember that some bug reports might produce high traffic.
+			<input type="submit" class="submit" value="Confirm" /></li>
 		</ul>
 		</fieldset>
 	</form>
