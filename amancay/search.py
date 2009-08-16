@@ -17,6 +17,7 @@ def search(request):
 	package = request.GET.get('query')
 	bug_list = []
 	page = None
+	info = None
 
 	if package:
 		queries = SoapQueries()
@@ -43,9 +44,16 @@ def search(request):
 
 		bug_list = queries.get_bugs_status(page.object_list)
 
+		if not bug_list:
+			info = 'No results found for your search, try again'
+	else:
+		info = 'Enter a package name to search for (will connect to full text'\
+				' search soon)'
+
 	return render_to_response('search.html',
 							  {'bug_list': bug_list,
 							   'query': package,
+							   'info_to_user': info,
 							   'page': page,
 							   'title': 'Latest bugs in %s' % package},
 							  context_instance=RequestContext(request))
