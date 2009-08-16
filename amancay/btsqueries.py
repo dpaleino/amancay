@@ -91,7 +91,7 @@ class SoapQueries(BtsQueries):
 	def get_tagged_bugs(self, users):
 		# FIXME: Not in BtsQueries
 		# TODO: ask Don to allow many users at the same time
-		result = {}
+		result = []
 		for user in users:
-			result[user] = self.server.get_usertag(user)
+			result = result + self.server.get_usertag(user)
 		return result
