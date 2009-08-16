@@ -76,7 +76,6 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'bts_webui.urls'
 
-
 TEMPLATE_DIRS = (
 	"amancay/templates/",
 	"registration/templates/"

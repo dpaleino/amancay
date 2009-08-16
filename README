@@ -1,4 +1,3 @@
-
 This is an interactive web interface for Debian's BTS.
 
 It uses Django as the server-side framework, and MochiKit as the javascript
@@ -10,31 +9,53 @@ with django-1.0
 INSTALLATION AND SETUP
 ======================
 
-  Packages to install
-  -------------------
+Packages to install
+-------------------
 
-    apt-get install python python-django python-pysqlite2 python-soappy
+In Debian (lenny, squeeze, sid):
+    # apt-get install python python-django python-pysqlite2 python-soappy
 
-  First time setup
-  ----------------
+First time setup
+----------------
+To get the necessary databases created you need to run (in the checkout dir):
+    $ python manage.py syncdb
 
-  To get the necessary databases created you need to run:
-
-     python manage.py syncdb
-
-  From the main directory (bts_webui)
-
-  Running the server
-  -----------------
-
-  After creating the databases, you can use the "runserver.sh" script to
-  have a local webserver, that will start running on the 8000 port by
-  default.  Change the script if you need to use a different port.
-
-  To set the domain name, you should go to:
-  http://yourhost:8000/admin
-
-  Using the admin user in the Amancay interface does not currently work.
-
+    Note:
+    ----
+    If your checkout dir is not named bts_webui, manage.py won't be able to
+    find some files. You can either edit settings.py and replace 'bts_webui'
+    with the name of your checkout dir or just rename your checkout dir to
+    bts_webui:
+        (...)
+        ROOT_URLCONF = '<checkout-dir-name>.urls'
+        INSTALLED_APPS = (
+            (...)
+            '<checkout-dir-name>.amancay',
+            '<checkout-dir-name>.registration',
+            (...)
 
 
+Running the server
+-----------------
+After creating the databases, you can use the "runserver.sh" script to
+have a local webserver, that will start running on the 8000 port by
+default.
+    $ ./runserver.sh
+
+Most operations require a running mail server (MTA). You can use the bundled
+dummy server:
+    $ ./mailserver.sh
+
+If you want to use your system's MTA you should edit settings.py and look for
+EMAIL_HOST AND EMAIL_PORT options:
+    (...)
+    EMAIL_HOST = 'localhost'
+    EMAIL_PORT = '25'
+    (...)
+
+Change the script if you need to use a different port.
+
+To set the domain name, you should go to:
+    http://0.0.0.0:8000/admin
+
+Using the admin user in the Amancay interface does not currently work.
