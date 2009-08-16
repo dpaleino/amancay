@@ -5,68 +5,54 @@ import threading
 
 from django.contrib.sessions.models import Session
 from django.contrib.sites.models import Site
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
 
 from amancay.btsqueries import SoapQueries
-queries = SoapQueries()
 
-# Bug views
+PER_PAGE = 20
 def search(request):
 	"""
 	View: render the bug table resulting from the current search.
 	"""
-	user = request.user
-	amount = 20 # TODO: get this amount from user prefs
+	package = request.GET.get('query')
+	bug_list = []
+	page = None
 
-	# Get the page
-	page = request.GET.get('page')
-	try:
-		page = int(page)
-		page -= 1
-	except:
-		page = 0
-
-	# Perform the query
-	package = request.GET.get('package_search')
 	if package:
-		search_id = 'package:%s' % package
-		bug_list = retrieve_search(request, search_id, amount, page)
+		queries = SoapQueries()
+		bugs = queries.get_all_packages_bugs(package)
+		bugs.sort(reverse=True)
 
-		if bug_list is None:
-			bugs = queries.get_all_packages_bugs(package)
-			bugs.sort(reverse=True)
-			bug_list = get_bugs_status(request, search_id, bugs, amount, page)
-			total = len(bugs)
-		else:
-			total = request.session['searches'][search_id]['total']
+		# We use the django Paginator to divide objects in pages but note that
+		# the actual results are passed to the template as a separate list.
+		# This is because we would be wasting bandwidth in requesting all the
+		# objects again and again, only to feed them to the paginator and use its
+		# object_list property.
+		paginator = Paginator(bugs, PER_PAGE)
 
-		pages = int(math.ceil(total/(amount*1.0)))
+		try:
+			page = int(request.GET.get('page', '1'))
+		except ValueError:
+			page = 1
 
-		return render_bug_table(request, 'Latest bugs for %s' % package,
-			bug_list, page+1, pages, total, 'package_search')
-	else:
-		return render_bug_table(request, '', None, 0, 0, 0, 'search')
+		# If page request (9999) is out of range, deliver last page of results.
+		try:
+			page = paginator.page(page)
+		except (EmptyPage, InvalidPage):
+			page = paginator.page(paginator.num_pages)
 
-def get_bugs_status(request, search_id, bugs, amount, page):
-	"""
-	Gets the status for the bugs in the provided list, returns such list.
-	"""
-	if bugs:
-		start = page * amount
-		bug_list = queries.get_bugs_status(bugs[start:start+amount])
-		store_search(request, search_id, bug_list, total=len(bugs))
-		bug_list.sort(key=lambda x: x.log_modified, reverse=True)
+		bug_list = queries.get_bugs_status(page.object_list)
 
-		# Start the read-ahead thread
-		reader = _ReadAhead(request, search_id, bugs, amount)
-		reader.start()
-	else:
-		bug_list = None
-
-	return bug_list
+	return render_to_response('search.html',
+							  {'bug_list': bug_list,
+							   'query': package,
+							   'page': page,
+							   'title': 'Latest bugs in %s' % package},
+							  context_instance=RequestContext(request))
 
 def store_search(request, search_id, bug_list, append=False, last_page=0, total=0):
 	"""
@@ -110,53 +96,6 @@ def retrieve_search(request, search_id, amount, page=0):
 
 	return None
 
-def render_bug_table(request, title, bug_list, page, num_pages, total, current_view):
-	"""
-	Render an individual bug table.
-	"""
-	# Calculate the pages
-	start = page - 5
-
-	# FIXME: use django pager here
-	if start < 1:
-		start = 1
-	end = page + 5
-
-	if end > num_pages:
-		end = num_pages
-
-	pages = range(start, end+1)
-
-	# URL for future searches
-	url = 'http://%s/search/?%s=%s' % (Site.objects.get_current().domain,
-									   current_view,
-									   request.GET.get(current_view))
-
-	if request.GET.has_key('xhr'):
-		# We only need to list the data.
-		return HttpResponse(simplejson.dumps(bug_list),
-							mimetype='application/javascript')
-	elif request.path.find('table') != -1:
-		# We only need to render the table
-		return render_to_response('table_widget.html',
-								  {'bug_list': bug_list,
-								   'current_view': current_view,
-								   'url': url,
-								   'total_bugs': total,
-								   'current_page': page,
-								   'pages': pages},
-								  context_instance=RequestContext(request))
-	else:
-		# We need to render the whole page
-		return render_to_response('search.html',
-								  {'bug_list': bug_list,
-								   'current_view': current_view,
-								   'url': url,
-								   'total_bugs': total,
-								   'current_user': request.user,
-								   'current_page': page,
-								   'pages': pages},
-								  context_instance=RequestContext(request))
 
 class _ReadAhead(threading.Thread):
 	"""
