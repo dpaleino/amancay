@@ -31,7 +31,7 @@ function toggle_star(id) {
 <div class="pager">
 	<span class="page_numbers">
 	{% if page.has_previous %}
-		<a href="?page={{ contacts.previous_page_number }}">« previous</a>
+		<a href="?{% if query %}query={{ query }}&amp;{% endif %}page={{ contacts.previous_page_number }}">« previous</a>
 	{% endif %}
 
 	<span class="current">
@@ -39,7 +39,7 @@ function toggle_star(id) {
 	</span>
 
 	{% if page.has_next %}
-		<a href="?page={{ page.next_page_number }}">next »</a>
+		<a href="?{% if query %}query={{ query }}&amp;{% endif %}page={{ page.next_page_number }}">next »</a>
 	{% endif %}
 	</span>
 	<span class="total_bugs">Found {{ page.paginator.count }} bugs</span>

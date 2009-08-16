@@ -4,8 +4,7 @@
 		<fieldset class="search_form">
 		<legend class="search_title">Search Bugs</legend>
 		<label for="package_search">Enter a package name:</label>
-		<input class="search_field" type="text" id="package_search" 
-			name="package_search" value="" /></li>
+		<input class="search_field" type="text" name="query" value="{% if query %}{{ query }}{% endif %}" />
 		<input class="submit_search" type="submit" value="Search" />
 		</fieldset>
 	</form>
