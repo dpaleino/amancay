@@ -57,23 +57,25 @@ function remove_item(item_name) {
 MochiKit.DOM.addLoadEvent(toolbox_connect);
 </script>
 
-<h3 class="toolbox_title">{{ toolbox.title }}</h3>
+{% if toolbox.title %}
+	<h3 class="toolbox_title">{{ toolbox.title }}</h3>
 
-<div id="toolbox_itemlist">
-	{% if toolbox.item_list %}
-		{% for item in toolbox.item_list %}
-			<span class="toolbox_item" id="remove_link_{{ item }}">
-				{{ item }} <a href="javascript:remove_item('{{ item }}')" class="toolbox_remove_link">[x]</a><br/>
-			</span>
-		{% endfor %}
-	{% else %}
-		<div class="toolbox_message">No items selected</div>
-	{% endif %}
-</div>
+	<div id="toolbox_itemlist">
+		{% if toolbox.item_list %}
+			{% for item in toolbox.item_list %}
+				<span class="toolbox_item" id="remove_link_{{ item }}">
+					{{ item }} <a href="javascript:remove_item('{{ item }}')" class="toolbox_remove_link">[x]</a><br/>
+				</span>
+			{% endfor %}
+		{% else %}
+			<div class="toolbox_message">No items selected</div>
+		{% endif %}
+	</div>
 
-<div>
-	<form id="toolbox_add_form" method="GET" action=".">
-		<input class="toolbox_txt" id="toolbox_add_item" type="text" />
-		<input class="toolbox_add" id="toolbox_add_submit" type="submit" value="Add" />
-	</form>
-</div>
+	<div>
+		<form id="toolbox_add_form" method="GET" action=".">
+			<input class="toolbox_txt" id="toolbox_add_item" type="text" />
+			<input class="toolbox_add" id="toolbox_add_submit" type="submit" value="Add" />
+		</form>
+	</div>
+{% endif %}
