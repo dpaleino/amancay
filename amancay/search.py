@@ -1,15 +1,11 @@
 # vim: set sw=4 ts=4 sts=4 noet:
-import math
 import time
 import threading
 
 from django.contrib.sessions.models import Session
-from django.contrib.sites.models import Site
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils import simplejson
 
 from amancay.btsqueries import SoapQueries
 

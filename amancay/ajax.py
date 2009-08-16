@@ -56,6 +56,9 @@ def _remove_item(request, item_type, remove_item):
 			return False
 
 def _get_post_or_get(request, item):
+	"""
+	Return a POST/GET var, wherever we find it.
+	"""
 	item = request.GET.get(item, None)
 
 	if not item:

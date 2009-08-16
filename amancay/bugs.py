@@ -113,8 +113,6 @@ def process_bug_post(request, bug_number):
 		return close(request, bug_number)
 	elif form_type == 'severity':
 		return severity(request, bug_number)
-	elif form_type == 'subscribe':
-		return subscribe(request, bug_number)
 	elif form_type == 'owner':
 		return change_owner(request, bug_number)
 	else:
