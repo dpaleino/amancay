@@ -1,12 +1,17 @@
 {% comment %} vim: set sw=4 ts=4 sts=4 noet: {% endcomment %}
 <script type="text/javascript" language="javascript" charset="utf-8">
-function toolbox_add_form_failed_cb(error) {
+function toolbox_failed_cb(error) {
 	/* toolbox_add_form_failed_cb:
 	 * Catches failure of the AJAX request made in toolbox_add_form_cb().
 	 */
 	alert('The item could not be added');
 	alert(error);
-};
+}
+function toolbox_added_cb(res) {
+	/* toolbox_added_cb:
+	 * FIXME: reload the page, but should reload contents silently.
+	 */
+}
 
 var toolbox_add_form_cb = function (event) {
 	/* toolbox_add_form_cb:
@@ -19,16 +24,34 @@ var toolbox_add_form_cb = function (event) {
 
 	var item_name = MochiKit.DOM.getElement('toolbox_add_item').value;
 	var res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': item_name});
-	res.addErrback(toolbox_add_form_failed_cb);
+	res.addCallback(toolbox_added_cb);
+	res.addErrback(toolbox_failed_cb);
 }
 
 function toolbox_connect() {
 	/* toolbox_connect:
-	 * Connect the onsubmit event of the toolbox form to our custom callback
+	 * Connect the onsubmit event of the toolbox form to our custom callback.
 	 */
 	var form = MochiKit.DOM.getElement('toolbox_add_form');
 	if (form)
 		MochiKit.Signal.connect(form, 'onsubmit', toolbox_add_form_cb);
+}
+function toolbox_remove_ok_cb(item_name, res) {
+	/* toolbox_remove_ok_cb:
+	 * Fade out removed elements after clicking on them.
+	 */
+	var link = MochiKit.DOM.getElement('remove_link_' + item_name);
+	fade(link);
+}
+function remove_item(item_name) {
+	/* remove_item:
+	 * Remove an item from the watched list, using ajax.
+	 */
+	var url = '/ajax/{{ toolbox.item_type }}/remove/';
+
+	var res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': item_name});
+	res.addErrback(toolbox_failed_cb);
+	res.addCallback(toolbox_remove_ok_cb, item_name);
 }
 
 MochiKit.DOM.addLoadEvent(toolbox_connect);
@@ -36,11 +59,11 @@ MochiKit.DOM.addLoadEvent(toolbox_connect);
 
 <h3 class="toolbox_title">{{ toolbox.title }}</h3>
 
-<div class="toolbox_itemlist">
+<div id="toolbox_itemlist">
 	{% if toolbox.item_list %}
 		{% for item in toolbox.item_list %}
-			<span class="toolbox_item">
-				{{ item }} <a href="/ajax/{{ toolbox.item_type }}/remove/?id={{ item }}" class="toolbox_remove_link">[x]</a>
+			<span class="toolbox_item" id="remove_link_{{ item }}">
+				{{ item }} <a href="javascript:remove_item('{{ item }}')" class="toolbox_remove_link">[x]</a>
 			</span><br/>
 		{% endfor %}
 	{% else %}
