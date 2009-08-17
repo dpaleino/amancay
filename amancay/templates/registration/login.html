@@ -2,25 +2,58 @@
 
 {% block title %}Log in{% endblock %}
 
-{% block main_content %}
-
-<div class="info">If you don't have an account, you can <a
-href="/accounts/register/">sign up</a> for one.<br/>
-It's free, and you'll get access to a bunch of nifty features.</div>
-
-{% if form.errors %}
-<p class="error">Please correct the errors below:</p>
+{% block info_to_user %}
+{% if not form.errors %}
+    <div id="notification" class="info">
+        If you don't have an account, you can
+        <a href="/accounts/register/">sign up</a> for one.<br/>
+        It's free, and you'll get access to a bunch of nifty features
+    </div>
 {% endif %}
+{% endblock %}
+
+{% block main_content %}
+{% if form.errors and not form.errors.username and not form.errors.password %}
+    <span class="error" style="margin: 0.4em; padding: 0.1em;">
+    <img src="/static/icons/error.png"/>
+    Forgot? perhaps you will like the <a href="#">restore password page</a>.
+    Or maybe you want to <a href="/accounts/register/" title="it's free and
+    awesome!">sign up for an account</a>.
+    </span>
+{% endif %}
+
 <div class="account_form">
     <form method="post" action="{% url django.contrib.auth.views.login %}">
     <table>
     <tr>
         <td><label for="id_username">Username:</label></td>
-        <td>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %} {{ form.username }}</td>
+        <td>{{ form.username }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+        {% if form.username.errors %}
+        <span class="error">
+            <img src="/static/icons/error.png"/>
+            {{ form.username.errors|join:", " }}</span>
+        {% endif %}
+        </td>
     </tr>
     <tr>
         <td><label for="id_password">Password:</label></td>
-        <td>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %} {{ form.password }}</td>
+        <td>{{ form.password }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+        {% if form.password.errors %}
+        <span class="error">
+            <img src="/static/icons/error.png"/>
+            {{ form.password.errors|join:", " }}<br/>
+            Forgot? perhaps you will like the
+            <a href="#">restore password page</a>.</span>
+        {% endif %}
+        </td>
     </tr>
     <tr>
         <td colspan="2" class="button_box"><input class="submit" type="submit" value="Log in" /></td>

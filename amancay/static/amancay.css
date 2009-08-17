@@ -375,16 +375,16 @@ ul.page_numbers li {
 	margin-right: 2em;
 	margin-top: 2em;
 }
-.account_form span.info span {
+span.info img,
+span.error img {
+    vertical-align: middle;
+}
+span.info span {
     color: #777;
     font-size: small;
     font-style: italic;
 }
-.account_form span.info img,
-.account_form span.error img {
-    vertical-align: middle;
-}
-.account_form span.error {
+span.error {
 	color: #cc0a34;
     font-size: small;
     font-style: italic;
