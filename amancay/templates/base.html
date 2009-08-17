@@ -52,7 +52,6 @@
 			{% endif %}
 			{% endblock %}
 			{% block main_content %}{% endblock %}
-			<div class="loading" id="loading"></div>
 			<!-- Column 1 end -->
 		</div>
 		<div class="col2">
@@ -65,8 +64,6 @@
 			• <a id="received_bugs_link" href="/bugs/received">Latest Received</a><br/>
 			• <a id="package_bugs_link" href="/bugs/packages">Selected Packages</a><br/>
 
-			{% block sidebar %}
-			{% endblock %}
 			<div id="toolbox" class="toolbox">
 			{% block toolbox %}
 				{% load toolbox %}
@@ -79,7 +76,7 @@
 </div>
 
 <div id="footer">
-    <p>Copyright © 2009 - The Amancay authors.<br/>
+    <p>Copyright © 2009 - The Amancay authors.</p>
 </div>
 
 </body>
