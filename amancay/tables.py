@@ -5,6 +5,22 @@ from django.template import RequestContext
 
 from amancay.btsqueries import SoapQueries
 
+def _set_fav_pkgs(request, bug_list):
+	"""
+	In a bug list, set if the packages are considered favourites (in place).
+	"""
+	if request.user.is_authenticated():
+		package_list = [p.package_name for p in request.user.package_set.all()]
+	else:
+		package_list = request.session.get('package_set', [])
+
+	for bug in bug_list:
+		if bug.package in package_list:
+			bug.pkg_fav = True
+		else:
+			bug.pkg_fav = False
+
+# FIXME: must be taken from prefs
 PER_PAGE = 10
 def _get_bug_list(request, view):
 	"""
@@ -96,6 +112,8 @@ def submitted_bugs(request):
 	data_dict = _get_bug_list(request, 'submitted_bugs')
 	data_dict['title'] = 'Latest submitted bugs'
 
+	_set_fav_pkgs(request, data_dict['bug_list'])
+
 	return render_to_response('table.html',
 							  data_dict,
 							  context_instance=RequestContext(request))
@@ -107,6 +125,8 @@ def selected_bugs(request):
 	data_dict = _get_bug_list(request, 'selected_bugs')
 	data_dict['title'] = 'Latest selected bugs'
 
+	_set_fav_pkgs(request, data_dict['bug_list'])
+
 	return render_to_response('table.html',
 							  data_dict,
 							  context_instance=RequestContext(request))
@@ -115,19 +135,10 @@ def package_bugs(request):
 	"""
 	Render a table view for our watched packages.
 	"""
-	if request.user.is_authenticated():
-		package_list = [p.package_name for p in request.user.package_set.all()]
-	else:
-		package_list = request.session.get('package_set', [])
-
 	data_dict = _get_bug_list(request, 'package_bugs')
 	data_dict['title'] = 'Latest bugs on selected packages'
 
-	for bug in data_dict['bug_list']:
-		if bug.package in package_list:
-			bug.pkg_fav = True
-		else:
-			bug.pkg_fav = False
+	_set_fav_pkgs(request, data_dict['bug_list'])
 
 	return render_to_response('table.html',
 							  data_dict,

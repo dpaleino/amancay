@@ -8,6 +8,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from amancay.btsqueries import SoapQueries
+from amancay.tables import _set_fav_pkgs
 
 PER_PAGE = 20
 def search(request):
@@ -43,6 +44,7 @@ def search(request):
 			page = paginator.page(paginator.num_pages)
 
 		bug_list = queries.get_bugs_status(page.object_list)
+		_set_fav_pkgs(request, bug_list)
 
 		if not bug_list:
 			info = 'No results found for your search, try again'

@@ -1,3 +1,4 @@
+# vim: set sw=4 ts=4 sts=4 noet:
 from datetime import datetime
 from django import template
 
