@@ -8,4 +8,13 @@ except ImportError:
     sys.exit(1)
 
 if __name__ == "__main__":
+    # This is a hack to avoid the ambiguity of checkout dirs being named
+    # amancay and the settings file trying to -hence- be imported as
+    # 'amancay.settings', but that clashes with the amancay app dir.
+    # In other words: git clone; cd amancay/; ./manage.py; fails without this.
+    # You would have to rename the checkout dir to something different from
+    # amancay.
+    import sys
+    if len(sys.argv) > 1:
+        sys.argv.append('--settings=settings')
     execute_manager(settings)
