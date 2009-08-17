@@ -43,9 +43,14 @@
 			        <a href="/join">rel tasks</a>
 			    </span>
 			</div>
+			{% block info_to_user %}
 			{% if info_to_user %}
-				<div id="notification" class="info"><a href="javascript:dismiss_notification()">[x]</a> {{ info_to_user }}</div>
+			<div id="notification" class="info">
+				<a href="javascript:dismiss_notification()">[x]</a>
+					{{ info_to_user }}
+			</div>
 			{% endif %}
+			{% endblock %}
 			{% block main_content %}{% endblock %}
 			<div class="loading" id="loading"></div>
 			<!-- Column 1 end -->

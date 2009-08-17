@@ -349,33 +349,46 @@ ul.page_numbers li {
 }
 
 /* Registration */
-div.account_form input {
+.account_form input {
     display: block;
 }
-ol.account_form {
+.account_form {
 	list-style: none; 
-    width: 80%;
+    width: 85%;
 }
-ol.account_form li {
+.account_form li {
 	padding-bottom: 0.4em;
 	padding-top: 0.4em;
 }
-ol.account_form dd {
+.account_form dd {
     padding-top: 0.3em;
     padding-bottom: 0.3em;
 }
-ol.account_form dt {
+.account_form dt {
     font-weight: normal;
     font-size: large;
 }
-div.account_comment {
+.account_comment {
 	width: 15em;
 	float: left;
 	margin-left: 2em;
 	margin-right: 2em;
 	margin-top: 2em;
 }
-
+.account_form span.info span {
+    color: #777;
+    font-size: small;
+    font-style: italic;
+}
+.account_form span.info img,
+.account_form span.error img {
+    vertical-align: middle;
+}
+.account_form span.error {
+	color: #cc0a34;
+    font-size: small;
+    font-style: italic;
+}
 #id_password,
 #id_password1,
 #id_password2,
@@ -388,16 +401,16 @@ div.account_comment {
     border: 1px solid #ddd;
 }
 #id_username {
-    background-image: url('/images/stock_person.png');
+    background-image: url('/static/icons/stock_person.png');
 }
 #id_email {
-    background-image: url('/images/stock_email.png');
+    background-image: url('/static/icons/stock_email.png');
 }
 #id_password,
 #id_password1,
 #id_password2
 {
-    background-image: url('/images/stock_keyring.png');
+    background-image: url('/static/icons/stock_keyring.png');
 }
 .button_box {
     display: block;
@@ -411,11 +424,6 @@ div.info {
 }
 div.info a {
 	color: black;
-}
-span.info {
-    color: #777;
-    font-size: small;
-    font-style: italic;
 }
 #notification a {
 	color: white;
