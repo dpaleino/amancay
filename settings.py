@@ -9,6 +9,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 SESSION_SAVE_EVERY_REQUEST = True
 ADMINS = (
      ('Federico Ceratto', 'federico.ceratto@gmail.com'),
+     ('David Paleino', 'd.paleino@gmail.com'),
 )
 
 EMAIL_HOST = 'localhost'
@@ -25,7 +26,7 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 
 # Local time zone for this installation. All choices can be found here:
 # http://www.postgresql.org/docs/current/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
-TIME_ZONE = 'America/Argentina/Buenos_Aires'
+TIME_ZONE = 'Europe/Rome'
 
 # Language code for this installation. All choices can be found here:
 # http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
