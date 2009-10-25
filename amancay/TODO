@@ -1,8 +1,6 @@
 Bugs
 ----
 - Fix display for 273318, 31311, 146804
-? Fix display for bug status: "pending" should be "open", "pending-fixed"
-  should be "pending", "done" should be "closed".
 
 Features
 --------

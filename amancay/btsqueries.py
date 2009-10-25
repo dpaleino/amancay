@@ -55,12 +55,23 @@ class SoapQueries(BtsQueries):
         # FIXME: looks like a bug in debbugs SOAP implementation
         # empty results turn out as "" or " "
         if result == "" or result == " ":
-            return []
+            ret = []
 
         if isinstance(result.item, list):
-            return [item.value for item in result.item]
+            ret = [item.value for item in result.item]
         else:
-            return [result.item.value]
+            ret = [result.item.value]
+
+        # Fix statuses given by SOAP
+        for item in ret:
+            if item.pending == "pending":
+                item.pending = "open"
+            elif item.pending == "pending-fixed":
+                item.pending = "pending"
+            elif item.pending == "done":
+                item.pending = "closed"
+
+        return ret
 
     def get_packages_bugs(self, packages):
         result = self.server.get_bugs('package', packages)
