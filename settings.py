@@ -9,6 +9,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 SESSION_SAVE_EVERY_REQUEST = True
 ADMINS = (
      ('Federico Ceratto', 'federico.ceratto@gmail.com'),
+     ('David Paleino', 'd.paleino@gmail.com'),
 )
 
 EMAIL_HOST = 'localhost'
