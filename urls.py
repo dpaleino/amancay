@@ -6,17 +6,17 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-	# The admin interface
-	(r'^admin/(.*)', admin.site.root),
+    # The admin interface
+    (r'^admin/(.*)', admin.site.root),
 
-	# The amancay app
-	(r'^amancay/', include('amancay.urls')),
+    # The amancay app
+    (r'^amancay/', include('amancay.urls')),
 
-	# The registration app
-	(r'^accounts/profile/', include('amancay.urls')),
-	(r'^accounts/', include('registration.urls')),
+    # The registration app
+    (r'^accounts/profile/', include('amancay.urls')),
+    (r'^accounts/', include('registration.urls')),
 
-	# amancay is the main site here.
-	(r'^/?', include('amancay.urls')),
+    # amancay is the main site here.
+    (r'^/?', include('amancay.urls')),
     
 )
