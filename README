@@ -13,7 +13,7 @@ Packages to install
 -------------------
 
 In Debian (lenny, squeeze, sid):
-    # apt-get install python python-django python-pysqlite2 python-soappy
+    # apt-get install python python-django python-pysqlite2 python-soappy python-django-registration
 
 First time setup
 ----------------
