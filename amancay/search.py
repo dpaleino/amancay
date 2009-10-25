@@ -70,7 +70,7 @@ def store_search(request, search_id, bug_list, append=False, last_page=0, total=
         request.session['searches'] = {}
         searches = request.session['searches']
 
-    if not searches.has_key(search_id):
+    if search_id not in searches:
         searches[search_id] = {}
     searches[search_id]['stamp'] = time.time()
     searches[search_id]['last_page'] = last_page

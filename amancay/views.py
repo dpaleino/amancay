@@ -26,7 +26,7 @@ def package(request, package_name):
     bug_list = queries.get_bugs_status(bugs)
 
     # Check if it's AJAX or HTML
-    if request.GET.has_key('xhr'):
+    if 'xhr' in request.GET:
         return HttpResponse(simplejson.dumps({"package": package_name,
                                               "bug_list": bug_list}),
                             mimetype='application/javascript')
