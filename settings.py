@@ -4,11 +4,11 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # Specific settings for Amancay
-DEFAULT_FROM_EMAIL = 'webmaster@marga.com.ar'
+DEFAULT_FROM_EMAIL = 'amancay-fred@amancay.debian-it.it'
 ACCOUNT_ACTIVATION_DAYS = 7
 SESSION_SAVE_EVERY_REQUEST = True
 ADMINS = (
-     ('Margarita Manterola', 'marga@debian.org'),
+     ('Federico Ceratto', 'federico.ceratto@gmail.com'),
 )
 
 EMAIL_HOST = 'localhost'
@@ -62,9 +62,9 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-	'django.core.context_processors.auth',
-	'django.core.context_processors.debug',
-	'django.core.context_processors.request',
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.request',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,16 +79,16 @@ ROOT_URLCONF = 'urls'
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
-	'amancay/templates/',
+    'amancay/templates/',
 )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-	'django.contrib.humanize',
-	'django.contrib.admin',
-	'django.contrib.sites',
-	'registration',
-	'amancay',
+    'django.contrib.humanize',
+    'django.contrib.admin',
+    'django.contrib.sites',
+    'registration',
+    'amancay',
 )

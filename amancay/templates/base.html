@@ -7,8 +7,7 @@
     <title>amancay 0.2.0</title>
     <link rel="icon" type="image/png" href="/static/icon.png"/>
     <link rel="stylesheet" type="text/css" href="/static/amancay.css"/>
-	<script type="text/javascript" src="/static/MochiKit/MochiKit.js"></script>
-	{% block extrajs %} {% endblock %}
+    {% block extrajs %} {% endblock %}
     <script type="text/javascript" language="javascript" charset="utf-8">
         function dismiss_notification() {
             fade(document.getElementById('notification'));
@@ -24,55 +23,55 @@
     <h1 id="main_title"><a href="/"><img src="/static/spiral.png"/>Amancay!</a></h1>
 </div>
 <div class="colmask leftmenu">
-	<div class="colleft">
-		<div class="col1">
-			<!-- Column 1 start -->
-			<div id="navbar">
-			    {% block navbar %}
-			    <a href="/">Home</a> • 
-			    {% if user.is_authenticated %}
-			        <a href="/accounts/settings">Settings</a> • 
-			        <a href="/accounts/logout">Logout</a> •
-			    {% else %}
-			        <a href="/accounts/login">Login</a> •
-			    {% endif %}
-			    <a href="/accounts/settings">Help</a> •
-			    {% endblock %}
-			    <!-- <br/> -->
-			    <span style="font-size: smaller;">
-			        <a href="/join">rel tasks</a>
-			    </span>
-			</div>
-			{% block info_to_user %}
-			{% if info_to_user %}
-			<div id="notification" class="info">
-				<a href="javascript:dismiss_notification()">[x]</a>
-					{{ info_to_user }}
-			</div>
-			{% endif %}
-			{% endblock %}
-			{% block main_content %}{% endblock %}
-			<!-- Column 1 end -->
-		</div>
-		<div class="col2">
-			<!-- Column 2 start -->
-			<h3 class="sidebar_title">Bugs</h3>
-			• <a id="search_link" href="/search">Search</a><br/>
-			• <a id="selected_bugs_link" href="/bugs/selected">Selected</a><br/>
-			• <a id="tagged_bugs_link" href="/bugs/tagged">Tagged</a><br/>
-			• <a id="submitted_bugs_link" href="/bugs/submitted">Latest Submitted</a><br/>
-			• <a id="received_bugs_link" href="/bugs/received">Latest Received</a><br/>
-			• <a id="package_bugs_link" href="/bugs/packages">Selected Packages</a><br/>
+    <div class="colleft">
+        <div class="col1">
+            <!-- Column 1 start -->
+            <div id="navbar">
+                {% block navbar %}
+                <a href="/">Home</a> • 
+                {% if user.is_authenticated %}
+                    <a href="/accounts/settings">Settings</a> • 
+                    <a href="/accounts/logout">Logout</a> •
+                {% else %}
+                    <a href="/accounts/login">Login</a> •
+                {% endif %}
+                <a href="/accounts/settings">Help</a> •
+                {% endblock %}
+                <!-- <br/> -->
+                <span style="font-size: smaller;">
+                    <a href="/join">rel tasks</a>
+                </span>
+            </div>
+            {% block info_to_user %}
+            {% if info_to_user %}
+            <div id="notification" class="info">
+                <a href="javascript:dismiss_notification()">[x]</a>
+                    {{ info_to_user }}
+            </div>
+            {% endif %}
+            {% endblock %}
+            {% block main_content %}{% endblock %}
+            <!-- Column 1 end -->
+        </div>
+        <div class="col2">
+            <!-- Column 2 start -->
+            <h3 class="sidebar_title">Bugs</h3>
+            • <a id="search_link" href="/search">Search</a><br/>
+            • <a id="selected_bugs_link" href="/bugs/selected">Selected</a><br/>
+            • <a id="tagged_bugs_link" href="/bugs/tagged">Tagged</a><br/>
+            • <a id="submitted_bugs_link" href="/bugs/submitted">Latest Submitted</a><br/>
+            • <a id="received_bugs_link" href="/bugs/received">Latest Received</a><br/>
+            • <a id="package_bugs_link" href="/bugs/packages">Selected Packages</a><br/>
 
-			<div id="toolbox" class="toolbox">
-			{% block toolbox %}
-				{% load toolbox %}
-				{% toolbox_widget %}
-			{% endblock %}
-			</div>
-			<!-- Column 2 end -->
-		</div>
-	</div>
+            <div id="toolbox" class="toolbox">
+            {% block toolbox %}
+                {% load toolbox %}
+                {% toolbox_widget %}
+            {% endblock %}
+            </div>
+            <!-- Column 2 end -->
+        </div>
+    </div>
 </div>
 
 <div id="footer">
@@ -80,4 +79,5 @@
 </div>
 
 </body>
+<script type="text/javascript" src="/static/MochiKit/MochiKit.js"></script>
 </html>
