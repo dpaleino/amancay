@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     # Inside pages
     (r'^(?P<bug_number>\d+)/?$',        'amancay.bugs.bug',),
     (r'^bug/(?P<bug_number>\d+)',       'amancay.bugs.bug',),
-    (r'^package/(?P<package_name>\w+)', 'amancay.views.package',),
+    (r'^package/(?P<package_name>[\w-]+)', 'amancay.views.package',),
 
     # Small pieces for AJAX
     (r'^ajax/package/add/',     'amancay.ajax.package_add',),
