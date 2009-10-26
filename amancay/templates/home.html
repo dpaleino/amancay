@@ -7,12 +7,32 @@
 {% endblock %}
 
 {% block main_content %}
-Welcome to Amancay!
-<br/><br/>
-Search for bugs!
-<br/><br/>
-Latest bugs
-<br/><br/>
-Your watched packages activity
+
+<div class="search_form" id="search_form">
+	<form method="GET" action="/search/" class="search_form">
+		<fieldset class="search_form">
+		<legend class="search_title">Search Bugs</legend>
+		<label for="package_search">Enter a package name:</label>
+		<input class="search_field" type="text" name="query" value="" />
+		<input class="submit_search" type="submit" value="Search" />
+
+		</fieldset>
+	</form>
+</div>
+
+<div class="search_form" id="bugnumber_form">
+	<form method="GET" action="/bug" class="search_form">
+		<fieldset class="search_form">
+		<legend class="search_title">Search Bugs</legend>
+		<label for="package_search">Enter a bug number:</label>
+		<input class="search_field" type="text" name="bug_number" value="" />
+		<input class="submit_search" type="submit" value="Search" />
+
+		</fieldset>
+	</form>
+</div>
+
+
+
 {% endblock %}
 

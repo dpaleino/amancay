@@ -10,7 +10,7 @@ from django.template import RequestContext, Context, loader
 from amancay.models import Pending_Messages
 from amancay.btsqueries import SoapQueries
 
-def bug(request, bug_number):
+def bug(request, bug_number=None):
     """
     Renders a bug page.
 
@@ -18,6 +18,10 @@ def bug(request, bug_number):
     data sent will be processed by process_bug_post and the bug will be
     rendered after that to the user.
     """
+    # Process get
+    if request.method == 'GET' and not bug_number:
+        bug_number = request.GET['bug_number'].strip()
+
     # Process post
     info = process_bug_post(request, bug_number)
 

@@ -7,137 +7,137 @@
 <script type="text/javascript" src="/static/buglog.js"></script>
 <script type="text/javascript" language="javascript" charset="utf-8">
 function toggle_subscribe_cb(img, newimg, txt, newtxt, xml) {
-	img.src = newimg;
-	txt.innerHTML = newtxt;
+    img.src = newimg;
+    txt.innerHTML = newtxt;
 }
 function toggle_subscribe(id) {
-	var url = '/ajax/bug/';
-	var img = document.getElementById('subscribe_img');
-	var txt = document.getElementById('subscribe_text');
-	var newimg = '';
+    var url = '/ajax/bug/';
+    var img = document.getElementById('subscribe_img');
+    var txt = document.getElementById('subscribe_text');
+    var newimg = '';
 
-	if (MochiKit.Text.endsWith('list-remove.png', img.src))
-	{
-		newimg = '/static/icons/list-add.png';
-		newtxt = 'Subscribe to this report';
-		url += 'unsubscribe/';
-	}
-	else
-	{
-		newimg = '/static/icons/list-remove.png';
-		newtxt = 'Unsubscribe from this report';
-		url += 'subscribe/';
-	}
+    if (MochiKit.Text.endsWith('list-remove.png', img.src))
+    {
+        newimg = '/static/icons/list-add.png';
+        newtxt = 'Subscribe to this report';
+        url += 'unsubscribe/';
+    }
+    else
+    {
+        newimg = '/static/icons/list-remove.png';
+        newtxt = 'Unsubscribe from this report';
+        url += 'subscribe/';
+    }
 
-	res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
-	res.addCallback(toggle_subscribe_cb, img, newimg, txt, newtxt);
+    res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
+    res.addCallback(toggle_subscribe_cb, img, newimg, txt, newtxt);
 }
 function toggle_star_cb(img, newimg, xml) {
-	img.src = newimg;
+    img.src = newimg;
 }
 function toggle_star(id) {
-	var url = '/ajax/bug/';
-	var img = document.getElementById(id + '_star');
-	var newimg = '';
+    var url = '/ajax/bug/';
+    var img = document.getElementById(id + '_star');
+    var newimg = '';
 
-	if (MochiKit.Text.endsWith('star_on.png', img.src))
-	{
-		newimg = '/static/icons/star_off.png';
-		url += 'remove/';
-	}
-	else
-	{
-		newimg = '/static/icons/star_on.png';
-		url += 'add/';
-	}
+    if (MochiKit.Text.endsWith('star_on.png', img.src))
+    {
+        newimg = '/static/icons/star_off.png';
+        url += 'remove/';
+    }
+    else
+    {
+        newimg = '/static/icons/star_on.png';
+        url += 'add/';
+    }
 
-	res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
-	res.addCallback(toggle_star_cb, img, newimg);
+    res = MochiKit.Async.doSimpleXMLHttpRequest(url, {'id': id});
+    res.addCallback(toggle_star_cb, img, newimg);
 }
 </script>
 {% endblock %}
 
 {% block main_content %}
 <div class="bug">
-	<div class="bug_information">
-		<span class="bug_number">
-		<a href="javascript:toggle_star('{{ bug_number }}')" class="favorite_icon">
-		{% if bug_is_fav %}
-			<img id="{{ bug_number }}_star" src="/static/icons/star_on.png" />
-		{% else %}
-			<img id="{{ bug_number }}_star" src="/static/icons/star_off.png" />
-		{% endif %}
-		</a> <a href="/bug/{{ bug_number }}">bug #{{ bug_number }}</a></span>
-		<span class="bug_modified">Last modified <span class="modified">{{ bug_status.log_modified|tstodatetime|timesince }}</span> ago ({{ bug_status.log_modified|tstodate }})
-	</div>
-	<div class="bug_title">{{ bug_status.subject|escape }} <span class="bug_severity">((icon){{ bug_status.severity }})</span></div>
-	<div class="bug_extra_information">
-		(Package: <a href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a>)<br/>
-		{% if bug_status.found_versions|length %}
-			Found in: {{ bug_status.found_versions|join:", " }}
-		{% endif %}
-	</div>
-	<div id="subscribe">
-	{% if user.is_authenticated %}
-		<a href="#http://bugs.debian.org/cgi-bin/bugspam.cgi?bug={{ bug_number }}" class="action" id="report_spam">
-		<img id="spam_img" src="/static/icons/mail-mark-junk.png" /> <span id="spam_text">This report contains spam</span>
-		</a>
-		<script type="text/javascript" language="javascript" charset="utf-8">
-		connect('report_spam', 'onclick', function (event) {
-											alert('notify spam still needs SOAP api.');
-											});
-		</script>
+    <div class="bug_information">
+        <span class="bug_number">
+        <a href="javascript:toggle_star('{{ bug_number }}')" class="favorite_icon">
+        {% if bug_is_fav %}
+            <img id="{{ bug_number }}_star" src="/static/icons/star_on.png" />
+        {% else %}
+            <img id="{{ bug_number }}_star" src="/static/icons/star_off.png" />
+        {% endif %}
+        </a> <a href="/bug/{{ bug_number }}">bug #{{ bug_number }}</a></span>
+        <span class="bug_modified">Last modified <span class="modified">{{ bug_status.log_modified|tstodatetime|timesince }}</span> ago ({{ bug_status.log_modified|tstodate }})
+    </div>
+    <div class="bug_title">{{ bug_status.subject|escape }} <span class="bug_severity">((icon){{ bug_status.severity }})</span></div>
+    <div class="bug_extra_information">
+        (Package: <a href="/package/{{ bug_status.package }}">{{ bug_status.package }}</a>)<br/>
+        {% if bug_status.found_versions|length %}
+            Found in: {{ bug_status.found_versions|join:", " }}
+        {% endif %}
+    </div>
+    <div id="subscribe">
+    {% if user.is_authenticated %}
+        <a href="#http://bugs.debian.org/cgi-bin/bugspam.cgi?bug={{ bug_number }}" class="action" id="report_spam">
+        <img id="spam_img" src="/static/icons/mail-mark-junk.png" /> <span id="spam_text">This report contains spam</span>
+        </a>
+        <script type="text/javascript" language="javascript" charset="utf-8">
+        connect('report_spam', 'onclick', function (event) {
+                                            alert('notify spam still needs SOAP api.');
+                                            });
+        </script>
 
-		<a href="javascript:toggle_subscribe({{ bug_number }})" class="action">
-		{% if user.subscribed %}
-		<img id="subscribe_img" src="/static/icons/list-remove.png" /> <span id="subscribe_text">Unsubscribe from this report</span>
-		{% else %}
-		<img id="subscribe_img" src="/static/icons/list-add.png" /> <span id="subscribe_text">Subscribe to this report</span>
-		{% endif %}
-		</a>
-	{% else %}
-	Log in to be able to subscribe to reports.
-	{% endif %}
-	</div>
+        <a href="javascript:toggle_subscribe({{ bug_number }})" class="action">
+        {% if user.subscribed %}
+        <img id="subscribe_img" src="/static/icons/list-remove.png" /> <span id="subscribe_text">Unsubscribe from this report</span>
+        {% else %}
+        <img id="subscribe_img" src="/static/icons/list-add.png" /> <span id="subscribe_text">Subscribe to this report</span>
+        {% endif %}
+        </a>
+    {% else %}
+    Log in to be able to subscribe to reports.
+    {% endif %}
+    </div>
 
 {% if bug_messages %}
-	{% for message in bug_messages %}
-		{% if forloop.first %}
-		<div class="bug_log_item bug_log_item_reporter">
-			<div class="bug_log_header">
-				{% if message.from.0 %}
-				<span class="bug_log_from">Reported by <a href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
-				<span class="bug_log_date">{{ message.date|tstodatetime|timesince }} ago ({{ message.date|tstodate }})</span>
-				{% endif %}
-			</div>
+    {% for message in bug_messages %}
+        {% if forloop.first %}
+        <div class="bug_log_item bug_log_item_reporter">
+            <div class="bug_log_header">
+                {% if message.from.0 %}
+                <span class="bug_log_from">Reported by <a href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
+                <span class="bug_log_date">{{ message.date|tstodatetime|timesince }} ago ({{ message.date|tstodate }})</span>
+                {% endif %}
+            </div>
 
-			<div class="bug_log_body">
-				<pre>{{ message.body|escape }}</pre>
-			</div>
-		</div>
-		{% else %}
-		<div class="bug_log_item {% cycle 'bug_log_item_even' 'bug_log_item_odd' %}">
-			<div class="bug_log_header">
-				{% if message.from.0 %}
-				<span class="bug_log_from"><a href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
-				<span class="bug_log_date">said on {{ message.date|tstodate }}:<br/></span>
-				{% endif %}
-				<span class="bug_log_subject">{{ message.subject|escape }}</span>
-			</div>
+            <div class="bug_log_body">
+                <pre>{{ message.body|escape }}</pre>
+            </div>
+        </div>
+        {% else %}
+        <div class="bug_log_item {% cycle 'bug_log_item_even' 'bug_log_item_odd' %}">
+            <div class="bug_log_header">
+                {% if message.from.0 %}
+                <span class="bug_log_from"><a href="mailto:{{ message.from.1 }}">{{ message.from.0 }}</a></span>
+                <span class="bug_log_date">said on {{ message.date|tstodate }}:<br/></span>
+                {% endif %}
+                <span class="bug_log_subject">{{ message.subject|escape }}</span>
+            </div>
 
-			<div class="bug_log_body">
-				<pre>{{ message.body|escape }}</pre>
-			</div>
-		</div>
-		{% endif %}
-	{% endfor %}
+            <div class="bug_log_body">
+                <pre>{{ message.body|escape }}</pre>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
 
-	{% load bug_tags %}
-	{% bug_tags_selector %}
-	<br/>
+    {% load bug_tags %}
+    {% bug_tags_selector %}
+    <br/>
 
-	{% include "bug_actions.html" %}
-	{% include "bug_forms.html" %}
+    {% include "bug_actions.html" %}
+    {% include "bug_forms.html" %}
 {% endif %}
 </div>
 {% endblock %}

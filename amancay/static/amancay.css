@@ -30,6 +30,29 @@ body {
     text-align: right;
     font-size: 80%;
 }
+#header div#bugnumber_miniform {
+    font-size: 60%;
+    width: 100px;
+    position: absolute;
+    top: 0.7em;
+    right: 1.5em;
+}
+#header div#bugnumber_miniform form {
+    width: 22em;
+}
+#header div#bugnumber_miniform form fieldset.search_form{
+    border: none;
+}
+
+#header div#bugnumber_miniform form input {
+    color: #781351;
+    background: #fefefe;
+    border: 1px solid #888888;
+    width: 8em;
+    height: 1.1em;
+    font-size: 110%;
+}
+
 #main_title {
     padding: 0;
     margin: 0;
@@ -52,8 +75,8 @@ body {
     margin-bottom: 0.5em;
 }
 #footer {
-    color: #fff;
-    background-color: black;
+    color: #fefefe;
+    background-color: #222;
     clear:both;
     float:left;
     width:100%;
@@ -195,6 +218,7 @@ span.wishlist {
 /* bug */
 .bug .bug_number {
     float: left;
+    margin-bottom: 2px;
 }
 .bug .bug_number a {
     font-size: small;
@@ -271,7 +295,7 @@ div.bug_actions {
 #tags_selected {
     padding: 0.5em;
     margin: 0.7em;
-    border: 3px dashed #bf1238;
+    border: 2px dotted #bf1238;
 }
 .tag_draggable a {
     text-decoration: none;
