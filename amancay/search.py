@@ -47,7 +47,7 @@ def search(request):
         _set_fav_pkgs(request, bug_list)
 
         if not bug_list:
-            info = 'No results found for your search, try again'
+            info = 'No results found for your search, please try again'
     else:
         info = 'Enter a package name to search for (will connect to full text'\
                 ' search soon)'

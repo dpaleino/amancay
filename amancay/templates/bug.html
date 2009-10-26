@@ -16,7 +16,7 @@ function toggle_subscribe(id) {
     var txt = document.getElementById('subscribe_text');
     var newimg = '';
 
-    if (MochiKit.Text.endsWith('list-remove.png', img.src))
+    if (txt.innerHTML == 'Unsubscribe from this report')
     {
         newimg = '/static/icons/list-add.png';
         newtxt = 'Subscribe to this report';
@@ -39,8 +39,10 @@ function toggle_star(id) {
     var url = '/ajax/bug/';
     var img = document.getElementById(id + '_star');
     var newimg = '';
+    l = img.src.length;
+    ss = img.src.substring(l-11);
 
-    if (MochiKit.Text.endsWith('star_on.png', img.src))
+    if (ss == 'star_on.png')
     {
         newimg = '/static/icons/star_off.png';
         url += 'remove/';

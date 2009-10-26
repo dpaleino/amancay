@@ -20,7 +20,7 @@ def bug(request, bug_number=None):
     """
     # Process get
     if request.method == 'GET' and not bug_number:
-        bug_number = request.GET['n'].strip()
+        bug_number = request.GET['id'].strip()
 
     # Process post
     info = process_bug_post(request, bug_number)
@@ -52,7 +52,7 @@ def bug(request, bug_number=None):
         from_value = from_re.findall(item['header'])
         subject_value = subject_re.findall(item['header'])
         date_value = date_re.findall(item['header'])
-        # Filter the values
+        # Filter the value
         if from_value:
             e_from = email.Utils.parseaddr(from_value[0])
             d_from = email.Header.decode_header(e_from[0])
