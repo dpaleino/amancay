@@ -20,7 +20,7 @@ def bug(request, bug_number=None):
     """
     # Process get
     if request.method == 'GET' and not bug_number:
-        bug_number = request.GET['bug_number'].strip()
+        bug_number = request.GET['n'].strip()
 
     # Process post
     info = process_bug_post(request, bug_number)
