@@ -218,7 +218,7 @@ span.wishlist {
 /* bug */
 .bug .bug_number {
     float: left;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
 .bug .bug_number a {
     font-size: small;

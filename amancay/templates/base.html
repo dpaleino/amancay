@@ -24,11 +24,11 @@
     <h1 id="main_title"><a href="/"><img src="/static/spiral.png"/>Amancay!</a></h1>
     
     <div id="bugnumber_miniform">
-        <form method="GET" action="/bug">
+        <form method="GET" action="/bug" onSubmit="fade(document.getElementById('bninp'))">
             <fieldset class="search_form">
             <label for="package_search">Bug #</label>
-            <input class="search_field" type="text" name="bug_number" value="" />
-    
+            <input class="search_field" type="text" id="bninp" 
+            name="bug_number" value="" />
             </fieldset>
         </form>
     </div>
