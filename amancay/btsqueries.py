@@ -55,7 +55,7 @@ class SoapQueries(BtsQueries):
         # FIXME: looks like a bug in debbugs SOAP implementation
         # empty results turn out as "" or " "
         if result == "" or result == " ":
-            ret = []
+            return []
 
         if isinstance(result.item, list):
             ret = [item.value for item in result.item]
