@@ -1,5 +1,6 @@
 # vim: set sw=4 ts=4 sts=4 noet:
 import SOAPpy
+from time import time
 
 class BtsQueries:
     """
@@ -34,9 +35,6 @@ class BtsQueries:
         pass
 
 # ************************ SOAP Queries *****************************
-# Uncomment those to enable debugging
-#server.config.dumpSOAPOut = 1
-#server.config.dumpSOAPIn = 1
 
 class SoapQueries(BtsQueries):
     """
@@ -48,9 +46,13 @@ class SoapQueries(BtsQueries):
         #self.url = 'http://bugs.donarmstrong.com/cgi-bin/soap.cgi'
         self.ns = 'Debbugs/SOAP'
         self.server = SOAPpy.SOAPProxy(self.url, self.ns)
+        #self.server.config.dumpSOAPOut = 1  # Uncomment those to enable debugging
+        #self.server.config.dumpSOAPIn = 1
 
     def get_bugs_status(self, bug_numbers):
+        t = time()
         result = self.server.get_status(bug_numbers)
+        print "BTS query time: ", time() - t
 
         # FIXME: looks like a bug in debbugs SOAP implementation
         # empty results turn out as "" or " "
