@@ -21,6 +21,9 @@
 <body>
 <div id="header">
     <h1 id="main_title"><a href="/"><img src="/static/spiral.png"/>Amancay!</a></h1>
+    {% if user.is_authenticated %}
+        <div id="wu">Welcome, {{ user.username }}.</div>
+    {% endif %}
 </div>
 <div class="colmask leftmenu">
     <div class="colleft">
