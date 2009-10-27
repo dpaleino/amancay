@@ -25,12 +25,22 @@ def bug(request, bug_number=None):
     # Process post
     info = process_bug_post(request, bug_number)
 
-    bug_number = int(bug_number)
-
     # FIXME: we need API
     request.user.subscribed = False
     queries = SoapQueries()
-    bug_status = queries.get_bugs_status(bug_number)[0]
+    try:
+        b = re.sub('[a-zA-Z#]','', bug_number)
+        bug_number = int(b)
+        bug_status = queries.get_bugs_status(bug_number)[0]
+    except (IndexError, ValueError):
+            return render_to_response('search.html',
+                              {'bug_number': bug_number,
+                               'info_to_user': 'There is no bug with such number, please try again',
+                               'bug_originator': '',
+                               'bug_status': '',
+                               'bug_messages': '',
+                               'bug_is_fav': ''},
+                              context_instance=RequestContext(request))
     bug_originator = email.Utils.parseaddr(bug_status['originator'])
     bug_log = queries.get_bug_log(bug_number)
 
