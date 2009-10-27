@@ -46,16 +46,16 @@
                 <a href="/">Home</a> • 
                 {% if user.is_authenticated %}
                     <a href="/accounts/settings">Settings</a> • 
-                    <a href="/accounts/logout">Logout</a> •
+                    <a href="/accounts/logout">Logout</a>
                 {% else %}
-                    <a href="/accounts/login">Login</a> •
+                    <a href="/accounts/login">Login</a>
                 {% endif %}
-                <a href="/accounts/settings">Help</a> •
-                {% endblock %}
+<!--                  • <a href="/accounts/settings">Help</a> •
+     -->            {% endblock %}
                 <!-- <br/> -->
-                <span style="font-size: smaller;">
+<!--                 <span style="font-size: smaller;">
                     <a href="/join">rel tasks</a>
-                </span>
+                </span> -->
             </div>
             {% block info_to_user %}
             {% if info_to_user %}
