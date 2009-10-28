@@ -10,6 +10,16 @@ from django.template import RequestContext
 from amancay.btsqueries import SoapQueries
 from amancay.tables import _set_fav_pkgs
 
+severities = {
+    'critical': 7, 
+    'grave': 6, 
+    'serious': 5, 
+    'important': 4, 
+    'normal': 3, 
+    'minor': 2, 
+    'wishlist': 1
+}
+
 PER_PAGE = 20
 def search(request):
     """
@@ -44,6 +54,15 @@ def search(request):
             page = paginator.page(paginator.num_pages)
 
         bug_list = queries.get_bugs_status(page.object_list)
+        
+        def severitysort(a, b):
+            """Sort by severity and then by modify date"""
+            d = severities[b['severity']] - severities[a['severity']]
+            if d:
+                return d
+            return b['last_modified'] - a['last_modified']
+        bug_list.sort(severitysort) 
+
         _set_fav_pkgs(request, bug_list)
 
         if not bug_list:
