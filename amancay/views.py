@@ -21,7 +21,7 @@ def index(request):
     Our pretty useless index page.
     """
 
-    return render_to_response('home.html', {},
+    return render_to_response('advsearch.html', {},
                               context_instance=RequestContext(request))
 
 def package(request, package_name):
