@@ -7,6 +7,7 @@
     <title>amancay 0.2.0</title>
     <link rel="icon" type="image/png" href="/static/icon.png"/>
     <link rel="stylesheet" type="text/css" href="/static/amancay.css"/>
+    <script type="text/javascript" src="/static/MochiKitP142.js"></script>
     {% block extrajs %} {% endblock %}
     <script type="text/javascript" language="javascript" charset="utf-8">
         function dismiss_notification() {
@@ -21,6 +22,20 @@
 <body>
 <div id="header">
     <h1 id="main_title"><a href="/"><img src="/static/spiral.png"/>Amancay!</a></h1>
+    
+    <div id="bugnumber_miniform">
+        <form method="GET" action="/bug" onSubmit="fade(document.getElementById('bninp'))">
+            <fieldset class="search_form">
+            <label for="package_search">Bug #</label>
+            <input class="search_field" type="text" id="bninp" 
+            name="id" value="" />
+            </fieldset>
+        </form>
+    </div>
+    
+    {% if user.is_authenticated %}
+        <div id="wu">Welcome, {{ user.username }}.</div>
+    {% endif %}
 </div>
 <div class="colmask leftmenu">
     <div class="colleft">
@@ -31,16 +46,16 @@
                 <a href="/">Home</a> • 
                 {% if user.is_authenticated %}
                     <a href="/accounts/settings">Settings</a> • 
-                    <a href="/accounts/logout">Logout</a> •
+                    <a href="/accounts/logout">Logout</a>
                 {% else %}
-                    <a href="/accounts/login">Login</a> •
+                    <a href="/accounts/login">Login</a>
                 {% endif %}
-                <a href="/accounts/settings">Help</a> •
-                {% endblock %}
+<!--                  • <a href="/accounts/settings">Help</a> •
+     -->            {% endblock %}
                 <!-- <br/> -->
-                <span style="font-size: smaller;">
+<!--                 <span style="font-size: smaller;">
                     <a href="/join">rel tasks</a>
-                </span>
+                </span> -->
             </div>
             {% block info_to_user %}
             {% if info_to_user %}
@@ -79,5 +94,4 @@
 </div>
 
 </body>
-<script type="text/javascript" src="/static/MochiKit/MochiKit.js"></script>
 </html>

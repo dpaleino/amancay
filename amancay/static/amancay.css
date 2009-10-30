@@ -19,13 +19,40 @@ body {
 *******************************************************************************/
 
 #header {
-	margin-top: 0;
+    margin-top: 0;
     background: #BF1238;
     border-bottom: 3px groove #BF1238;
     color:white;
     padding: 0.8em;
     padding-left: 1.0em;
 }
+#header div#wu {
+    text-align: right;
+    font-size: 80%;
+}
+#header div#bugnumber_miniform {
+    font-size: 60%;
+    width: 100px;
+    position: absolute;
+    top: 0.7em;
+    right: 1.5em;
+}
+#header div#bugnumber_miniform form {
+    width: 22em;
+}
+#header div#bugnumber_miniform form fieldset.search_form{
+    border: none;
+}
+
+#header div#bugnumber_miniform form input {
+    color: #781351;
+    background: #fefefe;
+    border: 1px solid #888888;
+    width: 8em;
+    height: 1.1em;
+    font-size: 110%;
+}
+
 #main_title {
     padding: 0;
     margin: 0;
@@ -48,8 +75,8 @@ body {
     margin-bottom: 0.5em;
 }
 #footer {
-    color: #fff;
-    background-color: black;
+    color: #fefefe;
+    background-color: #222;
     clear:both;
     float:left;
     width:100%;
@@ -118,30 +145,30 @@ table.bugs {
     width: 100%;
 }
 table.bugs td {
-	border-bottom: dotted 1px #CCCCCC;
-	vertical-align: middle;
-	height: 2em;
+    border-bottom: dotted 1px #CCCCCC;
+    vertical-align: middle;
+    height: 2em;
 }
 table.bugs a {
-	color: #333399;
-	text-decoration: none;
+    color: #333399;
+    text-decoration: none;
 }
 table.bugs a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 table.bugs td.package {
-	color: #333399;
+    color: #333399;
 }
 table.bugs td.starred {
     width: 18px;
 }
 table.bugs td.bug_number {
-	text-align:right;
-	width: 3.2em;
+    text-align:right;
+    width: 3.2em;
 }
 table.bugs td.subject {
-	color: #333399;
-	text-align:left;
+    color: #333399;
+    text-align:left;
 }
 table.bugs .extra {
     color: #999;
@@ -155,11 +182,11 @@ table.bugs tr:hover .extra {
     color: white;
 }
 table.bugs td.date {
-	color: #999999;
-	text-align: right;
+    color: #999999;
+    text-align: right;
 }
 table.bugs tr:hover {
-	background-color: rgb(135,202,214);
+    background-color: rgb(135,202,214);
 }
 /* Severities */
 span.critical {
@@ -190,141 +217,142 @@ span.wishlist {
 
 /* bug */
 .bug .bug_number {
-	float: left;
+    float: left;
+    margin-bottom: 1px;
 }
 .bug .bug_number a {
-	font-size: small;
-	text-decoration: none;
-	border-bottom: 1px dotted blue;
+    font-size: small;
+    text-decoration: none;
+    border-bottom: 1px dotted blue;
 }
 .bug .bug_modified {
-	font-size: smaller;
-	float: right;
+    font-size: smaller;
+    float: right;
 }
 .bug .bug_title {
-	clear: both;
-	font-size: x-large;
+    clear: both;
+    font-size: x-large;
 }
 .bug .bug_title .bug_severity {
-	font-size: xx-small;
+    font-size: xx-small;
 }
 .bug .bug_extra_information {
-	background-color: #eee;
-	color: #444;
-	border: 1px dashed #bbb;
-	border-left: 0.5em solid #ddd;
-	padding: 0.5em;
-	padding-left: 0.7em;
+    background-color: #eee;
+    color: #444;
+    border: 1px dashed #bbb;
+    border-left: 0.5em solid #ddd;
+    padding: 0.5em;
+    padding-left: 0.7em;
 }
 .bug .bug_log_item {
-	margin: 0.4em;
-	margin-bottom: 2em;
+    margin: 0.4em;
+    margin-bottom: 2em;
 }
 .bug .bug_log_body {
-	padding: 1em;
-	border: 1px solid #bbb;
-	border-top: 0;
+    padding: 1em;
+    border: 1px solid #bbb;
+    border-top: 0;
 }
 .bug .bug_log_header {
-	background: #eee;
-	padding: 1em;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	border: 1px solid #ddd;
+    background: #eee;
+    padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    border: 1px solid #ddd;
 }
 .bug .bug_log_item_reporter {
-	background: #ffe;
-	border: 2px dotted #bbb;
+    background: #ffe;
+    border: 2px dotted #bbb;
 }
 .bug .bug_log_item_reporter .bug_log_header {
-	background: white;
-	border: 0;
+    background: white;
+    border: 0;
 }
 .bug .bug_log_item_reporter .bug_log_body {
-	border: none;
+    border: none;
 }
 .bug .bug_log_subject {
-	font-size: larger;
-	font-weight: bold;
+    font-size: larger;
+    font-weight: bold;
 }
 .bug .bug_log_date,
 .bug .bug_log_from {
-	font-size: smaller;
+    font-size: smaller;
 }
 .bug .bug_log_item_reporter .bug_log_from {
     font-size: larger;
     font-weight: bold;
 }
 div.bug_actions {
-	text-align: right;
+    text-align: right;
 }
 #tags_available {
-	text-align: center;
-	padding: 0.5em;
-	margin: 0.6em;
-	border: 1px dashed #bbb;
+    text-align: center;
+    padding: 0.5em;
+    margin: 0.6em;
+    border: 1px dashed #bbb;
 }
 #tags_selected {
-	padding: 0.5em;
-	margin: 0.7em;
-	border: 3px dashed #bf1238;
+    padding: 0.5em;
+    margin: 0.7em;
+    border: 2px dotted #bf1238;
 }
 .tag_draggable a {
-	text-decoration: none;
-	font-size: small;
-	color: #d88;
+    text-decoration: none;
+    font-size: small;
+    color: #d88;
 }
 .tag_draggable a:hover {
-	color: red;
+    color: red;
 }
 
 /* Action forms */
 div.action_form {
-	display: none;
-	font-size: small;
+    display: none;
+    font-size: small;
 }
 
 fieldset.action_form {
-	margin-top: 0.5em;
-	margin-right: 2em;
-	padding: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 2em;
+    padding: 0.5em;
 }
  
 div.action_form ul {
-	margin-bottom: 0.3em;
-	margin-top: 0.3em;
-	padding: 0;
-	list-style: none;
+    margin-bottom: 0.3em;
+    margin-top: 0.3em;
+    padding: 0;
+    list-style: none;
 }
 div.action_form li {
-	padding-bottom: 0.4em;
-	padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    padding-top: 0.4em;
 }
 div.action_form label {
-	display: block;
-	float: left;
-	width: 8em;
-	margin-right: 1em;
-	text-align: right;
+    display: block;
+    float: left;
+    width: 8em;
+    margin-right: 1em;
+    text-align: right;
 }
 
 div.action_form input {
-	width: 80%;
+    width: 80%;
 }
 
 div.action_form textarea {
-	width: 80%;
+    width: 80%;
 }
 
 div.action_form input.submit {
-	float: right;
-	width: 8em;
+    float: right;
+    width: 8em;
 }
 
 /* Pager */
 div.pager{
-	font-size: small;
-	margin-bottom: 0.2em;
+    font-size: small;
+    margin-bottom: 0.2em;
 }
 
 span.total_bugs {
@@ -332,20 +360,20 @@ span.total_bugs {
 }
 
 span.page_numbers {
-	float: right;
+    float: right;
 }
 
 ul.page_numbers {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline;
 }
 ul.page_numbers li {
-	padding-right: 0.5em;
-	display: inline;
-	margin: 0;
-	white-space: nowrap;
+    padding-right: 0.5em;
+    display: inline;
+    margin: 0;
+    white-space: nowrap;
 }
 
 /* Registration */
@@ -353,12 +381,12 @@ ul.page_numbers li {
     display: block;
 }
 .account_form {
-	list-style: none; 
+    list-style: none; 
     width: 85%;
 }
 .account_form li {
-	padding-bottom: 0.4em;
-	padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    padding-top: 0.4em;
 }
 .account_form dd {
     padding-top: 0.3em;
@@ -369,11 +397,11 @@ ul.page_numbers li {
     font-size: large;
 }
 .account_comment {
-	width: 15em;
-	float: left;
-	margin-left: 2em;
-	margin-right: 2em;
-	margin-top: 2em;
+    width: 15em;
+    float: left;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 2em;
 }
 span.info img,
 span.error img {
@@ -385,7 +413,7 @@ span.info span {
     font-style: italic;
 }
 span.error {
-	color: #cc0a34;
+    color: #cc0a34;
     font-size: small;
     font-style: italic;
 }
@@ -414,44 +442,44 @@ span.error {
 }
 .button_box {
     display: block;
-	text-align: right;
+    text-align: right;
 }
 div.info {
-	padding: 1.5em;
-	margin: 0.8em;
-	background: #cc0a34;
-	color: white;
+    padding: 1.5em;
+    margin: 0.8em;
+    background: #cc0a34;
+    color: white;
 }
 div.info a {
-	color: black;
+    color: black;
 }
 #notification a {
-	color: white;
-	font-size: smaller;
-	border-bottom: 1px dotted white;
-	text-decoration: none;
+    color: white;
+    font-size: smaller;
+    border-bottom: 1px dotted white;
+    text-decoration: none;
 }
 .favorite_icon {
-	text-decoration: none;
-	border: 0 !important;
+    text-decoration: none;
+    border: 0 !important;
 }
 .favorite_icon img {
     border: 0;
     vertical-align: middle;
 }
 .action img {
-	border: 0;
-	vertical-align: middle;
+    border: 0;
+    vertical-align: middle;
 }
 .action {
-	text-decoration: none;
-	vertical-align: middle;
+    text-decoration: none;
+    vertical-align: middle;
 }
 #subscribe {
-	text-align: right;
+    text-align: right;
 }
 .toolbox_remove_link {
-	font-size: smaller;
-	color: #f66;
-	text-decoration: none;
+    font-size: smaller;
+    color: #f66;
+    text-decoration: none;
 }

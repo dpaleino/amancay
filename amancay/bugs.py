@@ -10,7 +10,7 @@ from django.template import RequestContext, Context, loader
 from amancay.models import Pending_Messages
 from amancay.btsqueries import SoapQueries
 
-def bug(request, bug_number):
+def bug(request, bug_number=None):
     """
     Renders a bug page.
 
@@ -18,15 +18,29 @@ def bug(request, bug_number):
     data sent will be processed by process_bug_post and the bug will be
     rendered after that to the user.
     """
+    # Process get
+    if request.method == 'GET' and not bug_number:
+        bug_number = request.GET['id'].strip()
+
     # Process post
     info = process_bug_post(request, bug_number)
-
-    bug_number = int(bug_number)
 
     # FIXME: we need API
     request.user.subscribed = False
     queries = SoapQueries()
-    bug_status = queries.get_bugs_status(bug_number)[0]
+    try:
+        b = re.sub('[a-zA-Z#]','', bug_number)
+        bug_number = int(b)
+        bug_status = queries.get_bugs_status(bug_number)[0]
+    except (IndexError, ValueError):
+            return render_to_response('search.html',
+                              {'bug_number': bug_number,
+                               'info_to_user': 'There is no bug with such number, please try again',
+                               'bug_originator': '',
+                               'bug_status': '',
+                               'bug_messages': '',
+                               'bug_is_fav': ''},
+                              context_instance=RequestContext(request))
     bug_originator = email.Utils.parseaddr(bug_status['originator'])
     bug_log = queries.get_bug_log(bug_number)
 
@@ -48,7 +62,7 @@ def bug(request, bug_number):
         from_value = from_re.findall(item['header'])
         subject_value = subject_re.findall(item['header'])
         date_value = date_re.findall(item['header'])
-        # Filter the values
+        # Filter the value
         if from_value:
             e_from = email.Utils.parseaddr(from_value[0])
             d_from = email.Header.decode_header(e_from[0])
