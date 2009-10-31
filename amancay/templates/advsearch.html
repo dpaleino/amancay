@@ -14,176 +14,247 @@
             {% endblock %}
         {% endif %}
     </div>
-</div>
-
-<div class="search_form" id="bugnumber_form">
-    <form method="GET" action="/bug" class="search_form">
-
-
-
-    <fieldset class="search_form">
-        <legend class="search_title">Search Bugs</legend>
-        <label for="package_search">Enter a bug number:</label>
-        <input class="search_field" type="text" name="id" value="" />
-        <input class="submit_search" type="submit" value="Search" />
-
-        </fieldset>
-
-
-    
 
 
 
 
+    <form method="get" action="/advsearch">
+        <p style="display:none">
+            <input type="hidden" name="_fo_combine_key_fo_searchkey_value_fo_searchvalue" value="1">
+            <input type="hidden" name="form_options" value="1">
+        </p>
+        <table class="forms" summary="">
+            <tr>
+                <td>
+                    <h3>Select bugs</h3>
+                </td>
+                <td>
+                    <span style="white-space:nowrap">
+                        <select name="_fo_searchkey">
+                            <option value="package" selected>in package</option>
+                            <option value="src">in source package</option>
+                            <option value="maint">in packages maintained by</option>
+                            <option value="submitter">submitted by</option>
+                            <option value="owner">owned by</option>
+                            <option value="status">status</option>
+                            <option value="correspondent">mail from</option>
+                            <option value="newest">newest bugs</option>
+                        </select>
+                        <input type="text" name="_fo_searchvalue" value="">
+                    </span><br>
+                    <tr>
+                    <td><h3>Include Bugs</h3></td>
+                <td>
+                <input type="hidden" name="include1" value="1">
+                <span style="white-space:nowrap">
+                    <select name="_fo_includekey">
+                        <option value="subject">subject containing</option>
+                        <option value="severity">severity</option>
+                        <option value="pending">pending state</option>
+                        <option value="originator">submitter containing</option>
+                        <option value="forwarded">forwarded containing</option>
+                        <option value="owner">owner containing</option>
+                        <option value="package">package</option>
+                    </select>
+                    <input type="text" name="_fo_includevalue" value="">
+                </span>
+            </td>
+        </tr>
+    <tr>
+        <td><h3>Exclude Bugs</h3></td>
+        <td>
+            <input type="hidden" name="exclude1" value="1">
+            <span style="white-space:nowrap">
+                <select name="_fo_includekey">
+                    <option value="subject">subject containing</option>
+                    <option value="tags">tagged</option>
+                    <option value="severity">severity</option>
+                    <option value="pending">pending state</option>
+                    <option value="originator">submitter containing</option>
+                    <option value="forwarded">forwarded containing</option>
+                    <option value="owner">owner containing</option>
+                    <option value="package">package</option>
+                </select>
+                <input type="text" name="_fo_includevalue" value="">
+            </span>
+        </td>
+    </tr>
+
+    <tr>
+        <td><h3>Minimum Severity</h3></td>
+        <td>
+            <input type="hidden" name="exclude1" value="1">
+            <span style="white-space:nowrap">
+                <select name="_fo_includekey">
+                    <option value="critical">critical</option>
+                    <option value="grave">grave</option>
+                    <option value="serious">serious</option>
+                    <option value="important">important</option>
+                    <option value="normal">normal</option>
+                    <option value="minor">minor</option>
+                    <option value="wishlist">wishlist</option>
+                    <option value="fixed" selected="">fixed</option>
+                </select>
+            </span>
+        </td>
+    </tr>
+
+    <tr>
+        <td><h3>Require tag</h3></td>
+        <td>
+            <input type="hidden" name="exclude1" value="1">
+            <span style="white-space:nowrap">
+                <select name="rt1">
+                    <option value="" selected=""></option>
+                    <option value="patch">patch</option>
+                    <option value="wontfix">wontfix</option>
+                    <option value="moreinfo">moreinfo</option>
+                    <option value="unreproducible">unreproducible</option>
+                    <option value="fixed">fixed</option>
+                    <option value="potato">potato</option>
+                    <option value="woody">woody</option>
+                    <option value="sid">sid</option>
+                    <option value="help">help</option>
+                    <option value="security">security</option>
+                    <option value="upstream">upstream</option>
+                    <option value="pending">pending</option>
+                    <option value="sarge">sarge</option>
+                    <option value="sarge-ignore">sarge-ignore</option>
+                    <option value="experimental">experimental</option>
+                    <option value="d-i">d-i</option>
+                    <option value="confirmed">confirmed</option>
+                    <option value="ipv6">ipv6</option>
+                    <option value="lfs">lfs</option>
+                    <option value="fixed-in-experimental">fixed-in-experimental</option>
+                    <option value="fixed-upstream">fixed-upstream</option>
+                    <option value="l10n">l10n</option>
+                    <option value="etch">etch</option>
+                    <option value="etch-ignore">etch-ignore</option>
+                    <option value="lenny">lenny</option>
+                    <option value="lenny-ignore">lenny-ignore</option>
+                </select>
+            </span>
+        </td>
+        <td>
+            <p>or</p>
+        </td>
+        <td>
+            <input type="hidden" name="exclude1" value="1">
+            <span style="white-space:nowrap">
+                <select name="rt2">
+                    <option value="" selected=""></option>
+                    <option value="patch">patch</option>
+                    <option value="wontfix">wontfix</option>
+                    <option value="moreinfo">moreinfo</option>
+                    <option value="unreproducible">unreproducible</option>
+                    <option value="fixed">fixed</option>
+                    <option value="potato">potato</option>
+                    <option value="woody">woody</option>
+                    <option value="sid">sid</option>
+                    <option value="help">help</option>
+                    <option value="security">security</option>
+                    <option value="upstream">upstream</option>
+                    <option value="pending">pending</option>
+                    <option value="sarge">sarge</option>
+                    <option value="sarge-ignore">sarge-ignore</option>
+                    <option value="experimental">experimental</option>
+                    <option value="d-i">d-i</option>
+                    <option value="confirmed">confirmed</option>
+                    <option value="ipv6">ipv6</option>
+                    <option value="lfs">lfs</option>
+                    <option value="fixed-in-experimental">fixed-in-experimental</option>
+                    <option value="fixed-upstream">fixed-upstream</option>
+                    <option value="l10n">l10n</option>
+                    <option value="etch">etch</option>
+                    <option value="etch-ignore">etch-ignore</option>
+                    <option value="lenny">lenny</option>
+                    <option value="lenny-ignore">lenny-ignore</option>
+                </select>
+            </span>
+        </td>
+        <td>
+            <p>or</p>
+        </td>
+        <td>
+            <input type="hidden" name="exclude1" value="1">
+            <span style="white-space:nowrap">
+                <select name="rt3">
+                    <option value="" selected=""></option>
+                    <option value="patch">patch</option>
+                    <option value="wontfix">wontfix</option>
+                    <option value="moreinfo">moreinfo</option>
+                    <option value="unreproducible">unreproducible</option>
+                    <option value="fixed">fixed</option>
+                    <option value="potato">potato</option>
+                    <option value="woody">woody</option>
+                    <option value="sid">sid</option>
+                    <option value="help">help</option>
+                    <option value="security">security</option>
+                    <option value="upstream">upstream</option>
+                    <option value="pending">pending</option>
+                    <option value="sarge">sarge</option>
+                    <option value="sarge-ignore">sarge-ignore</option>
+                    <option value="experimental">experimental</option>
+                    <option value="d-i">d-i</option>
+                    <option value="confirmed">confirmed</option>
+                    <option value="ipv6">ipv6</option>
+                    <option value="lfs">lfs</option>
+                    <option value="fixed-in-experimental">fixed-in-experimental</option>
+                    <option value="fixed-upstream">fixed-upstream</option>
+                    <option value="l10n">l10n</option>
+                    <option value="etch">etch</option>
+                    <option value="etch-ignore">etch-ignore</option>
+                    <option value="lenny">lenny</option>
+                    <option value="lenny-ignore">lenny-ignore</option>
+                </select>
+            </span>
+        </td>
+    </tr>
 
 
 
-
-
-
-
-
-<form method="get" action="http://bugs.debian.org/cgi-bin/pkgreport.cgi"><p style="display:none"><input type="hidden" name="_fo_combine_key_fo_searchkey_value_fo_searchvalue" value="1"><input type="hidden" name="form_options" value="1"></p>
-<table class="forms" summary="">
-<tr><td><h3>Select bugs</h3>
-</td>
-<td>
-<span style="white-space:nowrap"><select name="_fo_searchkey"><option value="package" selected>in package</option><option value="tag">tagged</option><option value="severity">severity</option><option value="src">in source package</option><option value="maint">in packages maintained by</option><option value="submitter">submitted by</option><option value="owner">owned by</option><option value="status">status</option><option value="correspondent">mail from</option><option value="newest">newest bugs</option></select><input type="text" name="_fo_searchvalue" value=""></span><br>
-
-<tr>
-    <td><h3>Include Bugs</h3></td>
-    <td>
-        <input type="hidden" name="include1" value="1">
-        <span style="white-space:nowrap">
-            <select name="_fo_includekey">
-                <option value="subject">subject containing</option>
-                <option value="severity">severity</option>
-                <option value="pending">pending state</option>
-                <option value="originator">submitter containing</option>
-                <option value="forwarded">forwarded containing</option>
-                <option value="owner">owner containing</option>
-                <option value="package">package</option>
-            </select>
-            <input type="text" name="_fo_includevalue" value="">
-        </span>
-    </td>
-</tr>
-<tr>
-    <td><h3>Exclude Bugs</h3></td>
-    <td>
-        <input type="hidden" name="exclude1" value="1">
-        <span style="white-space:nowrap">
-            <select name="_fo_includekey">
-                <option value="subject">subject containing</option>
-                <option value="tags">tagged</option>
-                <option value="severity">severity</option>
-                <option value="pending">pending state</option>
-                <option value="originator">submitter containing</option>
-                <option value="forwarded">forwarded containing</option>
-                <option value="owner">owner containing</option>
-                <option value="package">package</option>
-            </select>
-            <input type="text" name="_fo_includevalue" value="">
-        </span>
-    </td>
-</tr>
-
-<tr>
-    <td><h3>Minimum Severity</h3></td>
-    <td>
-        <input type="hidden" name="exclude1" value="1">
-        <span style="white-space:nowrap">
-            <select name="_fo_includekey">
-                <option value="critical">critical</option>
-                <option value="grave">grave</option>
-                <option value="serious">serious</option>
-                <option value="important">important</option>
-                <option value="normal">normal</option>
-                <option value="minor">minor</option>
-                <option value="wishlist">wishlist</option>
-                <option value="fixed" selected="">fixed</option>
-            </select>
-        </span>
-    </td>
-</tr>
-
-<tr>
-    <td><h3>Require tag</h3></td>
-    <td>
-        <input type="hidden" name="exclude1" value="1">
-        <span style="white-space:nowrap">
-            <select name="_fo_includekey">
-                <option value="" selected=""></option>
-                <option value="patch">patch</option>
-                <option value="wontfix">wontfix</option>
-                <option value="moreinfo">moreinfo</option>
-                <option value="unreproducible">unreproducible</option>
-                <option value="fixed">fixed</option>
-                <option value="potato">potato</option>
-                <option value="woody">woody</option>
-                <option value="sid">sid</option>
-                <option value="help">help</option>
-                <option value="security">security</option>
-                <option value="upstream">upstream</option>
-                <option value="pending">pending</option>
-                <option value="sarge">sarge</option>
-                <option value="sarge-ignore">sarge-ignore</option>
-                <option value="experimental">experimental</option>
-                <option value="d-i">d-i</option>
-                <option value="confirmed">confirmed</option>
-                <option value="ipv6">ipv6</option>
-                <option value="lfs">lfs</option>
-                <option value="fixed-in-experimental">fixed-in-experimental</option>
-                <option value="fixed-upstream">fixed-upstream</option>
-                <option value="l10n">l10n</option>
-                <option value="etch">etch</option>
-                <option value="etch-ignore">etch-ignore</option>
-                <option value="lenny">lenny</option>
-                <option value="lenny-ignore">lenny-ignore</option>
-            </select>
-        </span>
-    </td>
-</tr>
-    
-
-
-<tr><td><h3>Categorize using</h3></td>
-<td></td>
-</tr>
-<tr><td><h3>Order by</h3></td>
-<td>
-<select name="ordering"><option value="normal" selected>normal</option><option value="oldview">oldview</option><option value="raw">raw</option><option value="age">age</option></select>
-</td>
-<td></td>
-</tr>
-
-<tr><td><h3>Misc options</h3></td>
-<td>
-<input type="checkbox" name="repeatmerged">&nbsp;Repeat Merged<br><input type="checkbox" name="bug-rev">&nbsp;Reverse Bugs<br><input type="checkbox" name="pend-rev">&nbsp;Reverse Pending<br><input type="checkbox" name="sev-rev">&nbsp;Reverse Severity<br><select name="archive"><option value="0" selected>Unarchived</option><option value="1">Archived</option><option value="both">Archived and Unarchived</option></select>
-</td>
-</tr>
-<tr><td><h3>Submit</h3></td><td colspan="2">
-<input type="submit" name="submit" value="Submit">
-</td></tr>
-
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
+            <tr>
+                <td><h3>Categorize using</h3></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><h3>Order by</h3></td>
+                <td>
+                    <select name="ordering">
+                        <option value="normal" selected>normal</option>
+                        <option value="oldview">oldview</option>
+                        <option value="raw">raw</option>
+                        <option value="age">age</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><h3>Misc options</h3></td>
+                <td>
+                    <input type="checkbox" name="repeatmerged">&nbsp;Repeat Merged<br>
+                    <input type="checkbox" name="bug-rev">&nbsp;Reverse Bugs<br>
+                    <input type="checkbox" name="pend-rev">&nbsp;Reverse Pending<br>
+                    <input type="checkbox" name="sev-rev">&nbsp;Reverse Severity<br>
+                    <select name="archive">
+                        <option value="0" selected>Unarchived</option>
+                        <option value="1">Archived</option>
+                        <option value="both">Archived and Unarchived</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><h3>Submit</h3></td>
+                <td colspan="2">
+                    <input type="submit" name="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
     </form>
+
+
 </div>
+
 
 {% endblock %}
 

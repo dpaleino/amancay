@@ -11,12 +11,12 @@ from amancay.btsqueries import SoapQueries
 from amancay.tables import _set_fav_pkgs
 
 severities = {
-    'critical': 7, 
-    'grave': 6, 
-    'serious': 5, 
-    'important': 4, 
-    'normal': 3, 
-    'minor': 2, 
+    'critical': 7,
+    'grave': 6,
+    'serious': 5,
+    'important': 4,
+    'normal': 3,
+    'minor': 2,
     'wishlist': 1
 }
 
@@ -54,14 +54,14 @@ def search(request):
             page = paginator.page(paginator.num_pages)
 
         bug_list = queries.get_bugs_status(page.object_list)
-        
+
         def severitysort(a, b):
             """Sort by severity and then by modify date"""
             d = severities[b['severity']] - severities[a['severity']]
             if d:
                 return d
             return b['last_modified'] - a['last_modified']
-        bug_list.sort(severitysort) 
+        bug_list.sort(severitysort)
 
         _set_fav_pkgs(request, bug_list)
 
@@ -78,6 +78,73 @@ def search(request):
                                'page': page,
                                'title': 'Latest bugs in %s' % package},
                               context_instance=RequestContext(request))
+
+
+PER_PAGE = 20
+def advsearch(request):
+    """
+    View: render the bug table resulting from the current search.
+    """
+    package = request.GET.get('query')
+    rt1 = request.GET.get('rt1')
+    rt2 = request.GET.get('rt2')
+    rt3 = request.GET.get('rt3')
+
+    print rt1, rt2, rt3
+
+    bug_list = []
+    page = None
+    info = None
+
+    if package:
+        queries = SoapQueries()
+        bugs = queries.get_all_packages_bugs(package)
+        bugs.sort(reverse=True)
+
+        # We use the django Paginator to divide objects in pages but note that
+        # the actual results are passed to the template as a separate list.
+        # This is because we would be wasting bandwidth in requesting all the
+        # objects again and again, only to feed them to the paginator and use its
+        # object_list property.
+        paginator = Paginator(bugs, PER_PAGE)
+
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+
+        # If page request (9999) is out of range, deliver last page of results.
+        try:
+            page = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            page = paginator.page(paginator.num_pages)
+
+        bug_list = queries.get_bugs_status(page.object_list)
+
+        def severitysort(a, b):
+            """Sort by severity and then by modify date"""
+            d = severities[b['severity']] - severities[a['severity']]
+            if d:
+                return d
+            return b['last_modified'] - a['last_modified']
+        bug_list.sort(severitysort)
+
+        _set_fav_pkgs(request, bug_list)
+
+        if not bug_list:
+            info = 'No results found for your search, please try again'
+    else:
+        info = 'Enter a package name to search for (will connect to full text'\
+                ' search soon)'
+
+    return render_to_response('advsearch.html',
+                              {'bug_list': bug_list,
+                               'query': package,
+                               'info_to_user': info,
+                               'page': page,
+                               'title': 'Latest bugs in %s' % package},
+                              context_instance=RequestContext(request))
+
 
 def store_search(request, search_id, bug_list, append=False, last_page=0, total=0):
     """
@@ -98,7 +165,7 @@ def store_search(request, search_id, bug_list, append=False, last_page=0, total=
         searches[search_id]['total'] = total
 
     if append:
-        if not searches[search_id].has_key('bugs'):
+        if 'bugs' not in searches[search_id]:
             searches[search_id]['bugs'] = []
     else:
         searches[search_id]['bugs'] = []
@@ -112,7 +179,7 @@ def retrieve_search(request, search_id, amount, page=0):
     searches = request.session.get('searches')
 
     if searches is not None:
-        if searches.has_key(search_id):
+        if search_id in searches:
             if (time.time() - searches[search_id]['stamp']) < 900:
                 start = page * amount
                 searches[search_id]['last_page'] = 0
