@@ -483,3 +483,9 @@ div.info a {
     color: #f66;
     text-decoration: none;
 }
+
+form input {
+    color: #222;
+    background: white;
+    border: 1px solid #888888;
+}

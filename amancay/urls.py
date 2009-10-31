@@ -7,6 +7,7 @@ urlpatterns = patterns('',
 
     (r'^search',            'amancay.search.search',),
     (r'^advsearch',            'amancay.search.advsearch',),
+    (r'^checkpkgname',            'amancay.search.checkpkgname',),
 
     (r'^bugs/packages',     'amancay.tables.package_bugs',),
     (r'^bugs/received',     'amancay.tables.received_bugs',),

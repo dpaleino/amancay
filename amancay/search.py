@@ -10,6 +10,12 @@ from django.template import RequestContext
 from amancay.btsqueries import SoapQueries
 from amancay.tables import _set_fav_pkgs
 
+from django.http import HttpResponse
+from django.utils import simplejson
+
+import urllib2
+import re
+
 severities = {
     'critical': 7,
     'grave': 6,
@@ -144,6 +150,20 @@ def advsearch(request):
                                'page': page,
                                'title': 'Latest bugs in %s' % package},
                               context_instance=RequestContext(request))
+
+def checkpkgname(request):
+    """
+    View: check if a package exists.
+    """
+    pkgname = request.GET.get('pkgname')
+    try:
+        assert re.match("^[a-z0-9\-\+]+$", pkgname)
+        v = urllib2.urlopen("http://dde.debian.net/dde/q/udd/packages/all/" + pkgname + "?t=json").read()
+        u = simplejson.loads(v)
+    except Exception, e:
+        return HttpResponse(simplejson.dumps({'exists': 0}))
+    exists = 1 if u['r'] else 0
+    return HttpResponse(simplejson.dumps({'exists': exists}))
 
 
 def store_search(request, search_id, bug_list, append=False, last_page=0, total=0):
